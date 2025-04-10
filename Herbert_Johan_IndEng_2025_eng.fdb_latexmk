@@ -1,17 +1,17 @@
 # Fdb version 4
-["bibtex Herbert_Johan_IndEng_2025_eng"] 1744277468.07145 "Herbert_Johan_IndEng_2025_eng.aux" "Herbert_Johan_IndEng_2025_eng.bbl" "Herbert_Johan_IndEng_2025_eng" 1744277476.22879 0
-  "./Herbert_Johan_IndEng_2025_eng-blx.bib" 1744277474 342 726b95918e7f3aa64f512ccdc742f8e5 ""
+["bibtex Herbert_Johan_IndEng_2025_eng"] 1744282608.76813 "Herbert_Johan_IndEng_2025_eng.aux" "Herbert_Johan_IndEng_2025_eng.bbl" "Herbert_Johan_IndEng_2025_eng" 1744282786.83326 0
+  "./Herbert_Johan_IndEng_2025_eng-blx.bib" 1744282785 342 726b95918e7f3aa64f512ccdc742f8e5 ""
   "./literature.bib" 1744179601 15392 bef43dece1c8c7966383456ec5b9b9b8 ""
   "C:/Users/JohanHerbert/AppData/Local/Programs/MiKTeX/bibtex/bst/biblatex/biblatex.bst" 1711466047 65510 b1f696b0241395385f422f67543c37fd ""
-  "Herbert_Johan_IndEng_2025_eng.aux" 1744277474 58944 f4e3d47bd49f7a9c5f280bd941b80bbb "pdflatex"
+  "Herbert_Johan_IndEng_2025_eng.aux" 1744282784 58944 2c16cd44b8728fd7eddd1f7c89cc90d8 "pdflatex"
   (generated)
   "Herbert_Johan_IndEng_2025_eng.bbl"
   "Herbert_Johan_IndEng_2025_eng.blg"
   (rewritten before read)
-["pdflatex"] 1744277468.58372 "c:/Users/JohanHerbert/Documents/Thesisfolder/thesis/Herbert_Johan_IndEng_2025_eng.tex" "Herbert_Johan_IndEng_2025_eng.pdf" "Herbert_Johan_IndEng_2025_eng" 1744277476.22973 0
+["pdflatex"] 1744282778.52043 "c:/Users/JohanHerbert/Documents/Thesisfolder/thesis/Herbert_Johan_IndEng_2025_eng.tex" "Herbert_Johan_IndEng_2025_eng.pdf" "Herbert_Johan_IndEng_2025_eng" 1744282786.83412 0
   "1Introduction/Introduction.tex" 1744274804 11166 99eb6e49c3858bdabd0e7d0e30a2253a ""
   "1Introduction/pictures/CCPvisual .jpg" 1744093990 472307 7a2de43d32edd303ea644acb972b8b4b ""
-  "3Theory/Theory.tex" 1744277452 66476 7678ae624c99b3ed56a93a425f17d950 ""
+  "3Theory/Theory.tex" 1744282777 67003 4b9380a927342714ef6a6163e59957c4 ""
   "3Theory/pictures/2increasingAndNot.png" 1744093990 218088 89ca36b1c74821777d0bbfa46085b85a ""
   "3Theory/pictures/CDFandPDF1D.png" 1744093990 50600 50273fdf608766d59226b04f1d5e91e3 ""
   "3Theory/pictures/Copula.png" 1744093990 253034 e23c58e073b940a3f045beb91d12b807 ""
@@ -426,12 +426,12 @@
   "C:/Users/JohanHerbert/AppData/Local/Programs/MiKTeX/tex/latex/xpatch/xpatch.sty" 1585221260 8510 7803f78066c4f9d008405191a4b43073 ""
   "Figures/LogoUmU.png" 1744093990 6834 af069a0a9dbabfe18a04af6188d817ee ""
   "Figures/Titlepage.jpg" 1744093991 98241 b41041aafce62059a8308a8e56d7ec3a ""
-  "Herbert_Johan_IndEng_2025_eng.aux" 1744277474 58944 f4e3d47bd49f7a9c5f280bd941b80bbb "pdflatex"
-  "Herbert_Johan_IndEng_2025_eng.bbl" 1744277468 14654 29c631f7dd83d450bf9696d341239193 "bibtex Herbert_Johan_IndEng_2025_eng"
-  "Herbert_Johan_IndEng_2025_eng.out" 1744277471 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "Herbert_Johan_IndEng_2025_eng.run.xml" 1744277474 2862 9568bd9ebd901b7a5adde4a2f92a7b0b "pdflatex"
+  "Herbert_Johan_IndEng_2025_eng.aux" 1744282784 58944 2c16cd44b8728fd7eddd1f7c89cc90d8 "pdflatex"
+  "Herbert_Johan_IndEng_2025_eng.bbl" 1744282609 14654 29c631f7dd83d450bf9696d341239193 "bibtex Herbert_Johan_IndEng_2025_eng"
+  "Herbert_Johan_IndEng_2025_eng.out" 1744282781 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "Herbert_Johan_IndEng_2025_eng.run.xml" 1744282785 2862 9568bd9ebd901b7a5adde4a2f92a7b0b "pdflatex"
   "Herbert_Johan_IndEng_2025_eng.tex" 1744184478 12565 54cfe39491e883eb15211c748bc4b84a ""
-  "Herbert_Johan_IndEng_2025_eng.toc" 1744277474 4149 a3b5e361620c1ff378fb9f2d8d16ff4e "pdflatex"
+  "Herbert_Johan_IndEng_2025_eng.toc" 1744282785 4149 a3b5e361620c1ff378fb9f2d8d16ff4e "pdflatex"
   "c:/Users/JohanHerbert/Documents/Thesisfolder/thesis/Herbert_Johan_IndEng_2025_eng.tex" 1744184478 12565 54cfe39491e883eb15211c748bc4b84a ""
   (generated)
   "Herbert_Johan_IndEng_2025_eng-blx.bib"

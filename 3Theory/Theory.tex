@@ -585,7 +585,7 @@ Another important copula is the \emph{independence copula} or product copula cor
     \label{fig:FrechetBounds}
 \end{figure}
 
-We have now discussed what copula functions are and arrived at that copulas are \gls{CDF}s on the unit square. When fitting copulas to data using \gls{MLE} it is often useful to have the copula \gls{PDF}. Deriving the copula \gls{PDF} is not as straightforward as one might initially think. Therefore we will derive the copula \gls{PDF} in the general case. 
+We have now discussed what copula functions are and arrived at that copulas are \gls{CDF}s on the unit square. When fitting copulas to data using \gls{MLE} it is often useful to have the copula \gls{PDF}. Deriving the copula \gls{PDF} is not as straightforward as one might initially think. Therefore we will derive the copula \gls{PDF} in the general case. Let $C(u_1,u_2)$ be the cpula \gls{CDF} you want to derive the \gls{PDF} for. The copula \gls{PDF} is defined as the second derivative of the copula \gls{CDF} with respect to $u_1$ and $u_2$.
 \begin{align*}
     c(u_1,u_2) = \frac{\partial^2C(u_1,u_2))}{\partial u_1\partial u_2} = 
     \frac{\partial^2F(F_1^{-1}(u_1),F_2^{-1}(u_2)))}{\partial u_1\partial u_2}
@@ -599,8 +599,15 @@ In the above equations, $F_i$ is the i:th marginal distribution function, \gls{C
 
 Hence the copula \gls{PDF} can be written as 
 \begin{align*}
-    c(u_1,u_2) = f(F_1^{-1}(u_1),F_2^{-1}(u_2)) \frac{1}{f_1(F_1^{-1}(u_1))}\frac{1}{f_2(F_2^{-1}(u_2))}. 
+    c(u_1,u_2) &= f(F_1^{-1}(u_1),F_2^{-1}(u_2)) \frac{1}{f_1(F_1^{-1}(u_1))}\frac{1}{f_2(F_2^{-1}(u_2))}. 
 \end{align*}
+
+It can also be useful to write the copula in terms of data points that in the return space as this is typically where the data is observed
+\begin{align*}
+    c(x_1,x_2) &= f(x_1,x_2) \frac{1}{f_1(x_1)}\frac{1}{f_2(x_2)},
+\end{align*}
+where $x_i = F_i^{-1}(u_i)$ and $f_i$ is the marginal \gls{PDF} of the i:th marginal distribution.
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

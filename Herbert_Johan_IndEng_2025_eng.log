@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.3) (preloaded format=pdflatex 2025.4.8)  10 APR 2025 11:31
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.3) (preloaded format=pdflatex 2025.4.8)  10 APR 2025 12:59
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1934,40 +1934,40 @@ Package pdftex.def Info: 3Theory/pictures/FrechetBounds.png  used on input line 
 [23]
 
 [24]
-<3Theory/pictures/TrueCopulaExponential.png, id=605, 483.8075pt x 505.89pt>
+<3Theory/pictures/TrueCopulaExponential.png, id=610, 483.8075pt x 505.89pt>
 File: 3Theory/pictures/TrueCopulaExponential.png Graphic file (type png)
 <use 3Theory/pictures/TrueCopulaExponential.png>
-Package pdftex.def Info: 3Theory/pictures/TrueCopulaExponential.png  used on input line 695.
+Package pdftex.def Info: 3Theory/pictures/TrueCopulaExponential.png  used on input line 702.
 (pdftex.def)             Requested size: 176.40439pt x 184.45918pt.
-<3Theory/pictures/exponentialDependenceScatterProb.png, id=606, 591.20876pt x 618.31pt>
+<3Theory/pictures/exponentialDependenceScatterProb.png, id=611, 591.20876pt x 618.31pt>
 File: 3Theory/pictures/exponentialDependenceScatterProb.png Graphic file (type png)
 <use 3Theory/pictures/exponentialDependenceScatterProb.png>
-Package pdftex.def Info: 3Theory/pictures/exponentialDependenceScatterProb.png  used on input line 701.
+Package pdftex.def Info: 3Theory/pictures/exponentialDependenceScatterProb.png  used on input line 708.
 (pdftex.def)             Requested size: 176.40439pt x 184.48492pt.
-<3Theory/pictures/CorrelationEstimationExponential.png, id=607, 483.8075pt x 505.89pt>
+<3Theory/pictures/CorrelationEstimationExponential.png, id=612, 483.8075pt x 505.89pt>
 File: 3Theory/pictures/CorrelationEstimationExponential.png Graphic file (type png)
 <use 3Theory/pictures/CorrelationEstimationExponential.png>
-Package pdftex.def Info: 3Theory/pictures/CorrelationEstimationExponential.png  used on input line 707.
+Package pdftex.def Info: 3Theory/pictures/CorrelationEstimationExponential.png  used on input line 714.
 (pdftex.def)             Requested size: 176.40439pt x 184.45918pt.
-<3Theory/pictures/exponentialDependenceScatterRet.png, id=608, 591.20876pt x 618.31pt>
+<3Theory/pictures/exponentialDependenceScatterRet.png, id=613, 591.20876pt x 618.31pt>
 File: 3Theory/pictures/exponentialDependenceScatterRet.png Graphic file (type png)
 <use 3Theory/pictures/exponentialDependenceScatterRet.png>
-Package pdftex.def Info: 3Theory/pictures/exponentialDependenceScatterRet.png  used on input line 713.
+Package pdftex.def Info: 3Theory/pictures/exponentialDependenceScatterRet.png  used on input line 720.
 (pdftex.def)             Requested size: 176.40439pt x 184.48492pt.
 
 
 [25]
 
 [26 <./3Theory/pictures/TrueCopulaExponential.png> <./3Theory/pictures/exponentialDependenceScatterProb.png> <./3Theory/pictures/CorrelationEstimationExponential.png> <./3Theory/pictures/exponentialDependenceScatterRet.png>]
-<3Theory/pictures/ProbabilitySpaceClayton.png, id=626, 591.20876pt x 618.31pt>
+<3Theory/pictures/ProbabilitySpaceClayton.png, id=631, 591.20876pt x 618.31pt>
 File: 3Theory/pictures/ProbabilitySpaceClayton.png Graphic file (type png)
 <use 3Theory/pictures/ProbabilitySpaceClayton.png>
-Package pdftex.def Info: 3Theory/pictures/ProbabilitySpaceClayton.png  used on input line 739.
+Package pdftex.def Info: 3Theory/pictures/ProbabilitySpaceClayton.png  used on input line 746.
 (pdftex.def)             Requested size: 198.45662pt x 207.55261pt.
-<3Theory/pictures/ReturnSpaceDataClayton.png, id=627, 590.205pt x 618.31pt>
+<3Theory/pictures/ReturnSpaceDataClayton.png, id=632, 590.205pt x 618.31pt>
 File: 3Theory/pictures/ReturnSpaceDataClayton.png Graphic file (type png)
 <use 3Theory/pictures/ReturnSpaceDataClayton.png>
-Package pdftex.def Info: 3Theory/pictures/ReturnSpaceDataClayton.png  used on input line 746.
+Package pdftex.def Info: 3Theory/pictures/ReturnSpaceDataClayton.png  used on input line 753.
 (pdftex.def)             Requested size: 198.45662pt x 207.90169pt.
 
 
@@ -1989,22 +1989,22 @@ LaTeX Warning: Marginpar on page 29 moved.
 [31]
 
 [32]
-<3Theory/pictures/DatasetsNC.png, id=708, 538.01pt x 609.27625pt>
+<3Theory/pictures/DatasetsNC.png, id=713, 538.01pt x 609.27625pt>
 File: 3Theory/pictures/DatasetsNC.png Graphic file (type png)
 <use 3Theory/pictures/DatasetsNC.png>
-Package pdftex.def Info: 3Theory/pictures/DatasetsNC.png  used on input line 994.
+Package pdftex.def Info: 3Theory/pictures/DatasetsNC.png  used on input line 1001.
 (pdftex.def)             Requested size: 220.50887pt x 249.7212pt.
 
 
 [33]
 
 [34 <./3Theory/pictures/DatasetsNC.png>]
-Overfull \hbox (0.5918pt too wide) in paragraph at lines 1054--1054
+Overfull \hbox (0.5918pt too wide) in paragraph at lines 1061--1061
 [][][]\T1/lmr/m/n/10.95 Illustrate?, 
  []
 
 
-Overfull \hbox (0.5918pt too wide) in paragraph at lines 1054--1054
+Overfull \hbox (0.5918pt too wide) in paragraph at lines 1061--1061
 [][][]\T1/lmr/m/n/10.95 Illustrate?, 
  []
 
@@ -2033,7 +2033,7 @@ This document will not have a glossary.
 
 
 [41]
-runsystem(latexminted cleantemp  --timestamp 20250410113108 A369EA69B39B52E56E7B6D43FEDD182B)...disabled (restricted).
+runsystem(latexminted cleantemp  --timestamp 20250410125938 A369EA69B39B52E56E7B6D43FEDD182B)...disabled (restricted).
 
  (Herbert_Johan_IndEng_2025_eng.aux)
  ***********
@@ -2053,7 +2053,7 @@ Package logreq Info: Writing requests to 'Herbert_Johan_IndEng_2025_eng.run.xml'
 Here is how much of TeX's memory you used:
  65386 strings out of 473522
  1531417 string characters out of 5711222
- 2666761 words of memory out of 5000000
+ 2667761 words of memory out of 5000000
  87352 multiletter control sequences out of 15000+600000
  693618 words of font info for 122 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -2098,9 +2098,9 @@ pdfTeX warning (dest): name{glo:SPAN} has been referenced but does not exist, re
 pdfTeX warning (dest): name{glo:CSD} has been referenced but does not exist, replaced by a fixed one
 
 <C:/Users/JohanHerbert/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.pfb><C:/Users/JohanHerbert/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbxi10.pfb><C:/Users/JohanHerbert/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmcsc10.pfb><C:/Users/JohanHerbert/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmcsco10.pfb><C:/Users/JohanHerbert/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmex10.pfb><C:/Users/JohanHerbert/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi10.pfb><C:/Users/JohanHerbert/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi6.pfb><C:/Users/JohanHerbert/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi8.pfb><C:/Users/JohanHerbert/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmib10.pfb><C:/Users/JohanHerbert/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/JohanHerbert/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/JohanHerbert/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr6.pfb><C:/Users/JohanHerbert/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8.pfb><C:/Users/JohanHerbert/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr9.pfb><C:/Users/JohanHerbert/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri10.pfb><C:/Users/JohanHerbert/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri9.pfb><C:/Users/JohanHerbert/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmro8.pfb><C:/Users/JohanHerbert/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmssbx10.pfb><C:/Users/JohanHerbert/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Users/JohanHerbert/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy6.pfb><C:/Users/JohanHerbert/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy8.pfb><C:/Users/JohanHerbert/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt9.pfb><C:/Users/JohanHerbert/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on Herbert_Johan_IndEng_2025_eng.pdf (46 pages, 3304128 bytes).
+Output written on Herbert_Johan_IndEng_2025_eng.pdf (46 pages, 3305594 bytes).
 PDF statistics:
- 1141 PDF objects out of 1200 (max. 8388607)
+ 1146 PDF objects out of 1200 (max. 8388607)
  268 named destinations out of 1000 (max. 500000)
  496 words of extra memory for PDF output out of 10000 (max. 10000000)
 
