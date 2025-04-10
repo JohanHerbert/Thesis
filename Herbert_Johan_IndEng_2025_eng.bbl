@@ -1,0 +1,472 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\datalist[entry]{nyt/global//global/global/global}
+  \entry{Alexander2008}{book}{}{}
+    \name{author}{1}{}{%
+      {{hash=AC}{%
+         family={Alexander},
+         familyi={A\bibinitperiod},
+         given={Carol},
+         giveni={C\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {John Wiley \& Sons Ltd}%
+    }
+    \strng{namehash}{AC1}
+    \strng{fullhash}{AC1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2008}
+    \field{labeldatesource}{}
+    \field{sortinit}{A}
+    \field{sortinithash}{A}
+    \field{isbn}{978-0-470-99801-4}
+    \field{series}{Market Risk Analysis}
+    \field{title}{Market Risk Analysis - Practical Financial Econometrics}
+    \field{volume}{Vol. 2}
+    \field{year}{2008}
+  \endentry
+
+  \entry{Bjork2019Edition3}{book}{}{}
+    \name{author}{1}{}{%
+      {{hash=BT}{%
+         family={Bjork},
+         familyi={B\bibinitperiod},
+         given={Tomas},
+         giveni={T\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Oxford University Press}%
+    }
+    \strng{namehash}{BT1}
+    \strng{fullhash}{BT1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2009}
+    \field{labeldatesource}{}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{abstract}{%
+    The third edition of this popular introduction to the classical
+  underpinnings of the mathematics behind finance continues to combine sound
+  mathematical principles with economic applications. Concentrating on the
+  probabilistic theory of continuous arbitrage pricing of financial
+  derivatives, including stochastic optimal control theory and Merton's fund
+  separation theory, the book is designed for graduate students and combines
+  necessary mathematical background with a solid economic focus. It includes a
+  solved example for every new technique presented, contains numerous
+  exercises, and suggests further reading in each chapter. In this
+  substantially extended new edition Bjork has added separate and complete
+  chapters on the martingale approach to optimal investment problems, optimal
+  stopping theory with applications to American options, and positive interest
+  models and their connection to potential theory and stochastic discount
+  factors. More advanced areas of study are clearly marked to help students and
+  teachers use the book as it suits their needs.%
+    }
+    \field{isbn}{ARRAY(0x5f5f2288)}
+    \field{number}{9780199574742}
+    \field{series}{OUP Catalogue}
+    \field{title}{{Arbitrage Theory in Continuous Time}}
+    \verb{url}
+    \verb https://ideas.repec.org/b/oxp/obooks/9780199574742.html
+    \endverb
+    \field{year}{2009}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{BrigoMercurio2006}{book}{}{}
+    \name{author}{2}{}{%
+      {{hash=BD}{%
+         family={Brigo},
+         familyi={B\bibinitperiod},
+         given={Damiano},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=MF}{%
+         family={Mercurio},
+         familyi={M\bibinitperiod},
+         given={Fabio},
+         giveni={F\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer}%
+    }
+    \strng{namehash}{BDMF1}
+    \strng{fullhash}{BDMF1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2006}
+    \field{labeldatesource}{}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{edition}{2. Ed.}
+    \field{isbn}{978-3-540-22149-4}
+    \field{series}{Springer Finance}
+    \field{title}{Interest Rate Models - Theory and Practice}
+    \field{year}{2006}
+  \endentry
+
+  \entry{Umberto2004copulaMethods}{book}{}{}
+    \name{author}{3}{}{%
+      {{hash=CU}{%
+         family={Cherubini},
+         familyi={C\bibinitperiod},
+         given={Umberto.},
+         giveni={U\bibinitperiod},
+      }}%
+      {{hash=LE}{%
+         family={Luciano},
+         familyi={L\bibinitperiod},
+         given={Elisa.},
+         giveni={E\bibinitperiod},
+      }}%
+      {{hash=VW}{%
+         family={Vecchiato},
+         familyi={V\bibinitperiod},
+         given={Walter.},
+         giveni={W\bibinitperiod},
+      }}%
+    }
+    \list{language}{1}{%
+      {eng}%
+    }
+    \list{publisher}{1}{%
+      {John Wiley \& Sons}%
+    }
+    \keyw{Finance -- Mathematical models}
+    \strng{namehash}{CU+1}
+    \strng{fullhash}{CULEVW1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2004}
+    \field{labeldatesource}{}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \field{booktitle}{Copula methods in finance}
+    \field{isbn}{0470863447}
+    \field{series}{Wiley finance series}
+    \field{title}{Copula methods in finance}
+    \list{location}{1}{%
+      {Hoboken, NJ}%
+    }
+    \field{year}{2004}
+  \endentry
+
+  \entry{Danielsson2011}{book}{}{}
+    \name{author}{1}{}{%
+      {{hash=DJ}{%
+         family={Danielsson},
+         familyi={D\bibinitperiod},
+         given={Jon},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{DJ1}
+    \strng{fullhash}{DJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2011}
+    \field{labeldatesource}{}
+    \field{sortinit}{D}
+    \field{sortinithash}{D}
+    \field{title}{Financial risk forecasting: the theory and practice of
+  forecasting market risk with implementation in R and Matlab}
+    \field{month}{03}
+    \field{year}{2011}
+  \endentry
+
+  \entry{DevoreBerk2012}{book}{}{}
+    \name{author}{2}{}{%
+      {{hash=DJL}{%
+         family={Devore},
+         familyi={D\bibinitperiod},
+         given={Jay\bibnamedelima L.},
+         giveni={J\bibinitperiod\bibinitdelim L\bibinitperiod},
+      }}%
+      {{hash=BKN}{%
+         family={Berk},
+         familyi={B\bibinitperiod},
+         given={Kenneth\bibnamedelima N.},
+         giveni={K\bibinitperiod\bibinitdelim N\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer}%
+    }
+    \strng{namehash}{DJLBKN1}
+    \strng{fullhash}{DJLBKN1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2012}
+    \field{labeldatesource}{}
+    \field{sortinit}{D}
+    \field{sortinithash}{D}
+    \field{edition}{2nd}
+    \field{series}{Springer Texts in Statistics}
+    \field{title}{Modern Mathematical Statistics with Applications}
+    \verb{url}
+    \verb https://search.ebscohost.com/login.aspx?direct=true&db=nlebk&AN=25406
+    \verb 18&site=ehost-live
+    \endverb
+    \list{location}{1}{%
+      {New York, NY}%
+    }
+    \field{year}{2012}
+  \endentry
+
+  \entry{evans2004probability}{book}{}{}
+    \name{author}{2}{}{%
+      {{hash=EM}{%
+         family={Evans},
+         familyi={E\bibinitperiod},
+         given={M.J.},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=RJ}{%
+         family={Rosenthal},
+         familyi={R\bibinitperiod},
+         given={J.S.},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {W. H. Freeman}%
+    }
+    \strng{namehash}{EMRJ1}
+    \strng{fullhash}{EMRJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2004}
+    \field{labeldatesource}{}
+    \field{sortinit}{E}
+    \field{sortinithash}{E}
+    \field{isbn}{9780716747420}
+    \field{title}{Probability and Statistics: The Science of Uncertainty}
+    \verb{url}
+    \verb https://books.google.se/books?id=hkWK8kFzXWIC
+    \endverb
+    \field{year}{2004}
+  \endentry
+
+  \entry{glasserman2004monte}{book}{}{}
+    \name{author}{1}{}{%
+      {{hash=GP}{%
+         family={Glasserman},
+         familyi={G\bibinitperiod},
+         given={Paul},
+         giveni={P\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer}%
+    }
+    \keyw{economics mathematics}
+    \strng{namehash}{GP1}
+    \strng{fullhash}{GP1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2004}
+    \field{labeldatesource}{}
+    \field{sortinit}{G}
+    \field{sortinithash}{G}
+    \field{abstract}{%
+    "This book develops the use of Monte Carlo methods in finance, and it also
+  uses simulation as a vehicle for presenting models and ideas from financial
+  engineering. It divides roughly into three parts. The first part develops the
+  fundamentals of Monte Carlo methods, the foundations of derivatives pricing,
+  and the implementation of several of the most important models used in
+  financial engineering. The next part describes techniques for improving
+  simulation accuracy and efficiency. The final third of the book addresses
+  special topics: estimating price sensitivities, valuing American options, and
+  measuring market risk and credit risk in financial portfolios." "The most
+  important prerequisite is familiarity with the mathematical tools used to
+  specify and analyze continuous time models in finance, in particular the key
+  ideas of stochastic calculus. Prior exposure to the basic principles of
+  option pricing is useful but not essential." "The book is aimed at graduate
+  students in financial engineering, researchers in Monte Carlo simulation, and
+  practitioners implementing models in industry."--Jacket.%
+    }
+    \field{isbn}{0387004513 9780387004518 1441918221 9781441918222}
+    \field{title}{Monte Carlo methods in financial engineering}
+    \verb{url}
+    \verb http://www.amazon.com/Financial-Engineering-Stochastic-Modelling-Prob
+    \verb ability/dp/0387004513/ref=pd_sim_b_68?ie=UTF8&refRID=1AN8JXSDGMEV2RPH
+    \verb FC2A
+    \endverb
+    \list{location}{1}{%
+      {New York}%
+    }
+    \field{year}{2004}
+  \endentry
+
+  \entry{Nelsen2006}{book}{}{}
+    \name{author}{1}{}{%
+      {{hash=NRB}{%
+         family={Nelsen},
+         familyi={N\bibinitperiod},
+         given={Roger\bibnamedelima B.},
+         giveni={R\bibinitperiod\bibinitdelim B\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer}%
+    }
+    \keyw{Copula}
+    \strng{namehash}{NRB1}
+    \strng{fullhash}{NRB1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2006}
+    \field{labeldatesource}{}
+    \field{sortinit}{N}
+    \field{sortinithash}{N}
+    \field{isbn}{0387286594 9780387286594}
+    \field{title}{An introduction to copulas.}
+    \verb{url}
+    \verb http://www.worldcat.org/search?qt=worldcat_org_all&q=0387286594
+    \endverb
+    \list{location}{1}{%
+      {New York}%
+    }
+    \field{year}{2006}
+  \endentry
+
+  \entry{Raychaudhuri2008}{inproceedings}{}{}
+    \name{author}{1}{}{%
+      {{hash=RS}{%
+         family={Raychaudhuri},
+         familyi={R\bibinitperiod},
+         given={Samik},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \keyw{Computational modeling;Analytical models;Input variables;Mathematical
+  model;Sampling methods;Statistical analysis;Performance
+  analysis;Wikipedia;Decision making;Statistical distributions}
+    \strng{namehash}{RS1}
+    \strng{fullhash}{RS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2008}
+    \field{labeldatesource}{}
+    \field{sortinit}{R}
+    \field{sortinithash}{R}
+    \field{booktitle}{2008 Winter Simulation Conference}
+    \verb{doi}
+    \verb 10.1109/WSC.2008.4736059
+    \endverb
+    \field{pages}{91\bibrangedash 100}
+    \field{title}{Introduction to Monte Carlo simulation}
+    \field{year}{2008}
+  \endentry
+
+  \entry{Schmidt2006}{article}{}{}
+    \name{author}{1}{}{%
+      {{hash=ST}{%
+         family={Schmidt},
+         familyi={S\bibinitperiod},
+         given={T},
+         giveni={T},
+      }}%
+    }
+    \keyw{Copula Extremes Gumbel}
+    \strng{namehash}{ST1}
+    \strng{fullhash}{ST1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2006}
+    \field{labeldatesource}{}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{title}{Coping with Copulas}
+    \field{year}{2006}
+  \endentry
+
+  \entry{wasserman2010statistics}{book}{}{}
+    \name{author}{1}{}{%
+      {{hash=WL}{%
+         family={Wasserman},
+         familyi={W\bibinitperiod},
+         given={Larry},
+         giveni={L\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer}%
+    }
+    \keyw{distribution statistics wasserman}
+    \strng{namehash}{WL1}
+    \strng{fullhash}{WL1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2010}
+    \field{labeldatesource}{}
+    \field{sortinit}{W}
+    \field{sortinithash}{W}
+    \field{isbn}{9781441923226 1441923225}
+    \field{title}{All of statistics : a concise course in statistical
+  inference}
+    \verb{url}
+    \verb http://www.amazon.de/All-Statistics-Statistical-Inference-Springer/dp
+    \verb /1441923225/ref=sr_1_2?ie=UTF8&qid=1356099149&sr=8-2
+    \endverb
+    \list{location}{1}{%
+      {New York}%
+    }
+    \field{year}{2010}
+  \endentry
+
+  \entry{ZengWang2022}{article}{}{}
+    \name{author}{2}{}{%
+      {{hash=ZZ}{%
+         family={Zeng},
+         familyi={Z\bibinitperiod},
+         given={Zhi},
+         giveni={Z\bibinitperiod},
+      }}%
+      {{hash=WT}{%
+         family={Wang},
+         familyi={W\bibinitperiod},
+         given={Ting},
+         giveni={T\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{ZZWT1}
+    \strng{fullhash}{ZZWT1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2022}
+    \field{labeldatesource}{}
+    \field{sortinit}{Z}
+    \field{sortinithash}{Z}
+    \verb{doi}
+    \verb 10.48550/arXiv.2205.15031
+    \endverb
+    \field{number}{0}
+    \field{title}{Neural Copula: A unified framework for estimating generic
+  high-dimensional Copula functions}
+    \field{volume}{0}
+    \field{journaltitle}{arXiv}
+    \field{year}{2022}
+  \endentry
+\enddatalist
+\endinput

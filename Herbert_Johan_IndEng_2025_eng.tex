@@ -1,0 +1,376 @@
+% @Author: Kevin Kamm
+% @Date:   2024-05-31 08:51:32
+% @Last Modified by:   Kevin Kamm
+% @Last Modified time: 2024-09-10 09:46:48
+\documentclass[%
+a4paper,							
+11pt,								
+bibliography=totoc,						
+abstracton=true					
+]
+{scrartcl}
+\usepackage[pagewise]{lineno}
+% \linenumbers % Comment out for final version
+\usepackage[a4paper,left=3.0cm,right=2.5cm, top=2.5cm, bottom=3.0cm]{geometry}
+\usepackage[headsepline=.4pt,footsepline=.4pt,automark,autooneside=false]{scrlayer-scrpage}
+\pagestyle{scrheadings} 
+\automark[subsection]{section} 
+\automark*[subsubsection]{subsection}
+\ihead{\scriptsize\rightmark}\chead{ }
+\cfoot{\pagemark}
+\usepackage{subcaption}
+
+\usepackage[swedish,english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern} %latin modern
+\usepackage{setspace} % 1.5-line spacing
+\usepackage{csquotes} % provides \enquote
+\usepackage{epigraph} % provides \epigraph
+\setlength\epigraphwidth{.6\textwidth}
+\setlength\epigraphrule{0pt}
+\setlength{\parskip}{1em}
+\setlength{\parindent}{0pt}
+\interfootnotelinepenalty=10000 % avoid footnote page breaks
+\usepackage{abstract}
+
+\usepackage{calc}
+\usepackage{xspace} % provides \xspace
+
+% Math symbols & environments
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm,thmtools}
+\usepackage{mathtools}
+\usepackage{bbm}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}[theorem]{Assumption}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+
+% Figures & color
+\usepackage{graphicx} 
+\usepackage{float}
+\usepackage[section]{placeins} % float barrier after sections
+\usepackage{pdflscape} % provides \includepdf
+\usepackage[format=plain]{caption}
+\usepackage{xcolor}
+\usepackage{fancyvrb}
+\usepackage{tikz}
+\usetikzlibrary{calc,positioning,arrows.meta}
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+
+% Code Highlighting & Todo Notes
+\usepackage{minted}
+\usepackage{todonotes} % provides \todo
+
+% Tables & Lists
+\usepackage{paralist} % provides compact environments
+\usepackage{tabularx} % provides tabularx
+\usepackage{booktabs} % provides \toprule
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{diagbox} % provides \diagbox
+
+
+\usepackage[
+	backend=bibtex,
+	style=authoryear-comp,
+	maxbibnames=9,
+	maxcitenames=2,
+	dashed=false,
+	natbib=true,
+	sortcites=true,
+	block=space
+]{biblatex}
+\renewcommand*{\mkbibnamefamily}[1]{\textsc{#1}}
+\renewcommand*{\mkbibnamegiven}[1]{\textsc{#1}}
+\renewcommand*{\finalnamedelim}{\ \bibstring{and}\ }
+\renewcommand*{\bibfont}{\footnotesize}
+\addbibresource{literature.bib} 
+
+\usepackage{hyperref}
+\usepackage{cleveref} % provides \Cref
+\hypersetup{
+    colorlinks,
+    linkcolor={red},
+    citecolor={blue},
+    urlcolor={blue}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Macros
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\1}{\mathbbm{1}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\D}{\mathrm{Dom \;}}
+\DeclareMathOperator*{\argmin}{argmin}
+
+
+%% Verbatim examples
+\SaveVerb{python}=(Intel-)Python 3.10=
+\newcommand{\python}{\protect\UseVerb{python}\xspace}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Glossary
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{glossaries}
+\newacronym{PDF}{PDF}{Probability Density Function}
+\newacronym{CDF}{CDF}{Cumulative Distribution Function}
+\newacronym{NN}{NN}{Neural Network}
+\newacronym{NC}{NC}{Neural Copula}
+\newacronym{PIT}{PIT}{Probability Integral Transform}
+\newacronym{GBM}{GBM}{Geometric Brownian Motion}
+\newacronym{MLE}{MLE}{Maximum Likelihood Estimation}
+\newacronym{CSD}{CSD}{Central Securities Depository}
+\newacronym{SPAN}{SPAN}{Standard Portfolio Analysis of Risk}
+\newacronym{VaR}{VaR}{Value at Risk}
+\newacronym{MC}{MC}{Monte Carlo}
+\newacronym{SDE}{SDE}{Stochastic Differential Equation}
+\newacronym{ITM}{ITM}{Inverse Transform Method}
+
+
+\makeglossaries
+\newglossarystyle{mylist}{%
+  \setglossarystyle{list}% base this style on the list style
+  \renewcommand*{\glossentry}[2]{%
+    \item[\glsentryitem{##1}\glstarget{##1}{\glossentryname{##1}}]%
+\glossentrydesc{##1}\glspostdescription\space}%
+}
+\setglossarystyle{mylist}
+\renewcommand*{\glstextformat}[1]{\color{black}#1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Color comment boxes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+
+% Define a custom command for general instructions
+\newtcolorbox{generalinstructions}{
+    colback=orange!90, % More saturated orange background
+    colframe=black, % Stronger orange border
+    boxrule=1.2pt, % Slightly thicker border for sharpness
+    arc=2pt, % Less rounded corners for a sharper look
+    width=\linewidth, % Full width box
+    before skip=10pt, % Space before the box
+    after skip=10pt, % Space after the box
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Begin Document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\onehalfspacing
+\pagestyle{plain}
+\pagenumbering{roman}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Title Page
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{titlepage}
+    \begin{center}
+    \begin{tikzpicture}[overlay,remember picture,align=center,anchor=north]
+        \path let \p1 = (current page.north) in coordinate (pageNorth) at (0,\y1);
+        \path let \p1 = ($(current page.north)!0.5!(current page.south)$) in coordinate (pageCenter) at (0,\y1);
+        \node[align=center,anchor=north, yshift=-1cm] (LogoUmU) at (pageNorth) {\includegraphics{Figures/LogoUmU.png}};
+        \node[align=center,anchor=north, below = of LogoUmU.south] (BackgroundUmu) {\includegraphics[width=.9\paperwidth]{Figures/Titlepage.jpg}};
+        \node[anchor=south west,align=left] at (BackgroundUmu.south west) {\color{white}
+            \begin{tabular}{lll}
+                Supervisors & Kevin Kamm & Umeå University\\
+                            & Victor Jonsson & Vermiculus Financial Technology\\
+                Examiner & Christian Ewald & Umeå University
+            \end{tabular}
+        };
+    \end{tikzpicture}
+    \end{center}
+\vspace*{5cm}
+\begin{center}
+    {%  
+        \color{white}
+        \noindent
+        \Huge
+        \bfseries 
+        \sffamily
+        Johans Thesis
+    }\\[1em]
+    {%
+        \color{white}
+        \noindent
+        \Large
+        \bfseries 
+        \sffamily
+        Subtitle of Thesis
+    }%
+\end{center}
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+%\footnotetext[1]{Department of Mathematics and Statistics, Umeå University, Sweden}
+\footnotetext[2]{johe6227@student.umu.se}
+%\footnotetext[3]{E-mail: name.surname@umu.se}
+
+\begin{center}
+    \color{white}
+    \large
+    Johan Herbert%
+    %\footnotemark[1]{}%\textsuperscript{,}%
+    \footnotemark[2]{}
+    \hspace{2em}
+    % Name Surname%
+    % \footnotemark[1]{}\textsuperscript{,}%
+    % \footnotemark[3]{}
+    \hspace{2em}
+\end{center}
+\begin{center}
+    \color{white}
+    \large
+    Examination Date: \today
+\end{center}
+\vfill
+\begin{center}
+    Master thesis, 30 ECTS\\
+    M.Sc in Industrial Engineering and Management, 300 ECTS\\
+    Spring term 2025
+\end{center}
+
+
+\renewcommand{\thefootnote}{\arabic{footnote}}
+
+
+\thispagestyle{empty}
+\end{titlepage}
+\pagenumbering{Roman}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Abstracts
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+    This is the english abstract.
+\end{abstract}
+
+\newpage
+\renewcommand{\abstractname}{Sammanfattning}
+\begin{abstract}
+    Det är svenska sammanfattning.
+\end{abstract}
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Acknowledgements
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\section*{Acknowledgements}
+%\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Glossaries & Table of Contents
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \printglossary
+\clearpage
+\newpage
+{\hypersetup{linkcolor=black}
+\tableofcontents
+}
+\newpage
+\pagenumbering{arabic}
+\pagestyle{scrheadings}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Introduction
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{Introduction}\label{sec:Introduction}
+\input{1Introduction/Introduction}
+
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %% Background
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \section{Background}\label{sec:Background}
+% \input{2Background/Background}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Theory
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Theory}\label{sec:theory}
+\input{3Theory/Theory}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Methodology 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Methodology}\label{sec:Method}
+\input{4Method/Method}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Results and Discussion 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Results and Discussion}\label{sec:Results}
+\input{5ResultsDiscussion/ResultsAndDiscussion}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Conclusion
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusion}\label{sec:Conclusion}
+\input{6Conclusion/Conclusion}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Appendix
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\appendix
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Bibliography
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \nocite{*}
+\printbibliography
+% \newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Code
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \section{Code}\label{sec:Code}
+% In this section, we will provide the code for this thesis written in \python.
+% First, in \Cref{sec:Code_HelloWorld} we provide the code used in \Cref{sec:?}. This,
+% is followed in \Cref{sec:?} by \dots 
+% \subsection{Hello World}\label{sec:Code_HelloWorld}
+% \begin{minted}{python3}
+%     print('Hello World')
+% \end{minted}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Further Experiments
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \section{Further Experiments}\label{sec:FurtherExperiments}
+% If you have done extensive testing but do not want to include all of them in the main body of the thesis, then you can place them in the appendix and refer to them in the main body.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Declarations
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \section*{Confidentiality}
+% The authors have no relevant confidentiality agreements to disclose.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Declarations
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \section*{Declarations}
+% The authors have no relevant financial or non-financial interests to disclose.
+\end{document}
+

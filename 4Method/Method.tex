@@ -1,0 +1,143 @@
+This section explains and motivates the method used for the experiment tested in this thesis. First, we provide a summary of the method used, as this will help to give the overall procedure without getting stuck in the details. Then, a detailed description of each different part will be given. 
+
+
+\begin{generalinstructions}
+    \begin{compactenum}
+        \item Method overview
+        \item Test of marginal model (does it deviate for some different distributions)
+        \item Choice of method for copula
+        \item Portfolio testing (Actual experiment)
+    \end{compactenum}
+\end{generalinstructions}
+
+
+
+\subsection{Method overview}
+\todo{Connect to research question and hypothesis}
+This section describes the method used for the experiment. The method is divided into three main parts. 
+
+First, a test of the marginal model is performed to see how well the marginal distributions are fitted. This is to see if the marginal distribution fitted by the marginal model works as intended. Theoretically there should not be any difference between the fitted marginal distribution and the true distribution of the data  given a sufficient number of samples. This is important as the copula is invariant to strictly increasing transformations, meaning that the fitted copula should be able to replicate the joint distribution of the data regardless of the marginal distributions used. In the main experiment we will know that the log returns are normally distributed. In reality this is not always the case, and therefore we want to test how well the fitted marginal distribution works.
+
+The second part of the method is to test how the neural copula should be trained. This is done by testing different training schemes for the \gls{NC}. The goal of this part is to find a method that works universally for the neural copula meaning that the trained copula model produces a valid copula function that fits the data well. This is done by testing different training schemes and comparing the fitted copulas to one another. This is all to find a method that works well for the \gls{NC} meaning that the fitted copula is valid. 
+
+The third part of the method is the main experiment of this thesis and the overall procedure is as follows. \todo{illustrate workflow}+ To begin with, different portfolios with different types of dependency structures will be generated. This will be done by sampling data in probability space from different copulas and transforming it to return space using the \gls{ITM} to obtain dependent normally distributed returns. This ensures that the marginal distributions of the created portfolios have normal marginal distributions, removing the need for fitting them in this experiment. This allows for an evaluation of the pure performance of the copula, without conflating it with potential errors from fitting marginal distributions. The generated normally distributed random numbers are then used as the random shocks from the Weiner process when simulating the \gls{GBM} using the Euler-Maruyama scheme to replicate stock price time series. This creates a realistic setting tha for when using copulas would be suitable.  
+
+The generated price time series are then divided into two different parts. These different parts represent the historical and the future returns of the portfolios. The historical part is used for fitting the different copulas, while the future part can be considered the true distribution of future returns. As described when introducing \gls{MC} methods the key assumption is that of the statistical distribution of the data and that the distribution remains the same in the future. Hence the historical data is used to fit the copulas to the historical data, using \gls{MLE}, from which random numbers, replicating the joint distribution, can be generated. If the copula adequately captures the dependence the generated data should be similar to the future data. This is the main goal of this thesis, to evaluate how well different copulas can replicate the joint distribution of the data.
+
+To evaluate the various copulas' ability to accurately capture the dependence between random variables, it is therefore sensible to compare the generated data to the testing data. The reason for using simulated data in this experiment is to ensure that the joint distribution is constant over time as this is a key assumption when using monte carlo methods. If the data generated from the fitted copula is similar to the testing data, it shows that the dependence is appropriately modeled by the copula. If not, it shows that the copula is not well suited to model the dependence. Hence this is a good way to evaluate the copulas' performance in an isolated manner. 
+
+To emphasize the key assumption when using copulas to simulate data for Monte Carlo purposes. The assumption is that the joint distribution observed in the past continues to be the distribution from which the data is generated into the future. 
+
+Method for comparison...\todo{continue}
+
+
+
+
+\subsection{Marginal model test}
+Separate test of if the neural copula marginals work as well as the "real" marginals
+\todo{ToDo}
+
+
+\subsection{Neural Copula training scheme test}
+Methods for initiating weights / training neural networks that work best
+
+Neural copula what ive tested (state best and tell what ive tested)
+
+How have i changed the neural copula approach 
+
+\begin{generalinstructions}
+    Talk about normalizing procedures and the problems that are caused by risk applications. 
+\end{generalinstructions}
+
+\todo{ToDo}
+
+
+
+\subsection{Portfolio testing}
+
+\subsubsection{Data Generation}
+To evaluate the performance of different copulas when fitting them to data. Given that this thesis focuses on the use of copulas for modeling financial returns, we want to create test portfolios consisting of pairs of stocks. These portfolios should ideally cover a wide range of dependence structures to test the different copulas' versatility and robustness in varying conditions. 
+
+This thesis focuses on the role of the copula purely therefore, the aim is not to conflate the results from the copula's performance with that of the marginal fitting procedure. Therefore, we want each marginal distribution of the generated portfolios to be the same known distribution. The marginal distributions used should not matter, given that the copula is invariant to strictly increasing transformations as stated in  \Cref{the:TranslationInvariance}. In this study, it is advantageous to remove the need for fitting the different marginal distributions, by just using the normal distribution. If having different marginal distributions the number of combinations to test during model fitting becomes large.  \todo{Add reference saying that marginal dist fitting is studied.}
+
+To generate portfolios with different dependence structures and the same marginal distributions, copulas will be used. This will be done by first sampling data from analytical copulas with different parameter values. This will result in data points in probability space that contain the pure dependence between the different variables. These data points will then be plugged into the inverse \gls{CDF} of a Standard normal distribution. This performs the \gls{PIT} in reverse, creating data points with standard normal marginal distributions with the dependence described by the copula. 
+
+After having generated these pairs of dependent standard, normally distributed random numbers, they are used as the random shocks when simulating the bivariate \gls{GBM} using the Euler-Maruyama scheme.\todo{as defined in...} This results in the test portfolios replicating stock prices over time, creating a realistic setting for when using copulas is appropriate. 
+
+The above procedure is used with the following copulas and parameter values. 
+\todo{Decide on portfolios, and time horizon, and mean and volatility}
+
+The data generated is divided into a fitting and a testing part. The fitting part will be used in the model fitting and can be thought of as historically observed data. The testing part will be used in the model evaluation and can be thought of as data that will appear in the future, which we want to replicate as well as possible by fitting a copula to the historical data. 
+
+\subsubsection{Model Fitting}
+The fitting data from each of the previously generated portfolios is used for fitting the different copulas. To do this, the data needs to be converted so that the copulas can work with it. Hence, the log returns are calculated as defined in \Cref{def:logReturns}. These are then standardized and centered to have a zero mean and unit variance. \todo{maybe not necessary to scale...}
+
+\textbf{Gaussian Copula}
+To fit the Gaussian copula, the correlation matrix of the log returns data is calculated.  
+
+\textbf{Student's $t$ copula} 
+The Student's $t$ copula is fitted by first estimating the correlation matrix from the log returns. The degree of freedom used for the copula is then fitted using \gls{MLE}. This can be done using the copula \gls{PDF} by calculating the sum of log likelihoods over the data transformed to probability space using the \gls{PIT}. The log likelihood is then maximized with respect to the degrees of freedom. 
+
+\textbf{Clayton copula}
+The Clayton copula is fitted by \gls{MLE} by maximizing the sum of log likelihoods from the copula \gls{PDF} over the transformed data with respect to the parameter $\alpha$. 
+
+\textbf{Neural copula}
+The \gls{NC} is fitted to the data by the method described in ... \todo{Talk about the neural copula fitting}
+
+
+\subsubsection{Model Sampling}
+The main use for copulas is arguably to sample random numbers that can be used to generate dependent realizations of a pair of random variables, regardless of their marginal distributions. Hence, it should make sense to evaluate the copulas based on how well generated random numbers from a fitted copula replicate the true dependence structure of the data.  
+
+\textbf{Gaussian Copula}
+To generate samples from a Gaussian copula, one can generate data from a multivariate standard Gaussian distribution with a correlation matrix. Each dimension of the generated data can then be plugged into its marginal distributions (being standard normal) \gls{CDF}. This performs the \gls{PIT} on the data, ensuring that the resulting data lies in the unit square. 
+
+\textbf{Student's $t$ copula} 
+To generate data from a Student's $t$ copula works in the same way as for the Gaussian copula. That is, one sample from a multivariate Student's $t$ distribution with some correlation matrix, and then perform the \gls{PIT} on the data by plugging each dimension of the sampled data into the marginal distribution, which is a univariate Student's $t$ distribution with the same degrees of freedom. 
+
+\textbf{Clayton copula}
+Sampling from a Clayton copula requires the use of conditional sampling. 
+\todo{detail this}
+
+\textbf{Neural copula}
+\todo{TBC}
+
+
+The sampled data points from the copulas are inserted into the inverse Gaussian distribution and then scaled to match the observed standard deviation of the fitting data. This should generate data similar to the data in the testing part if the copula adequately captures the dependence in the data.
+
+\subsubsection{Model evaluation}
+Evaluation
+
+
+
+
+\subsection{Experiment workflow}
+\begin{generalinstructions}
+    \begin{compactenum}
+        \item Data generation
+        \begin{compactenum}
+            \item Generate returns
+            \item Put into GBM as random shocks 
+            \item Calculate log returns 
+            \item Split into different parts (train - test)
+            \item Normalize and center data
+        \end{compactenum}
+        \item Model fitting (for each copula)
+        \begin{compactenum}
+            \item Fit marginal on training data if necessary (only for neural) 
+            \item Perform PIT on training
+            \item Fit copula functions on transformed training
+        \end{compactenum}
+        \item Model evaluation
+        
+        \textbf{Alternative 1}
+        \begin{compactenum}
+            \item Sample new returns based on fitted model
+            \item Compare on distribution level to the testing data
+        \end{compactenum}
+        \textbf{Alternative 2}
+        \begin{compactenum}
+            \item Compare fitted copula to empirical copula of test data
+        \end{compactenum}
+    \end{compactenum}
+\end{generalinstructions}
+
