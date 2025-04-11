@@ -1,3 +1,4 @@
+# LaTeX intermediate files
 *.aux
 *.log
 *.out
@@ -13,3 +14,9 @@
 *.nav
 *.snm
 *.vrb
+*.run.xml
+*.blx.bib
+*.pdf
+*.glo
+*.ist
+*.synctex(busy)
