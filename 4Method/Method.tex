@@ -61,10 +61,6 @@ To validate that the marginal model works as intended, a test is performed to se
 
 
 
-
-
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% Neural copula testing 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -72,6 +68,18 @@ To validate that the marginal model works as intended, a test is performed to se
 In this section the procedure for finding a method that reliably obtains valid copula functions in training. Wether or not a copula function is valid is determined by wether or not it satisfies the conditions of being a copula defined in \Cref{def:copula}. In practice for the neural copula this means that all but the first of the loss terms, defined in \Cref{sec:NeuralCopulaLoss}, should approach zero when training is done. Several different training schemes will be tested with the goal of finding a method that works well for the neural copula meaning that the fitted copula is valid.
 
 Several datasets will be used for testing the neural copula fitting procedure. This is to ensure that the method works well, regardless of the data, consistently resulting in valid copulas. The method for this workflow is as follows for each dataset. First different datasets will be generated \todo{How} and a grid of different parameter values will be created. The grid will contain different values for the parameters of the neural copula such as the solver used, learning rates, number of epochs, batch size, network architecture, number of data points in the additional uniform datasets. This creates a large number of different combinations of choices to test which will hopefully result in a method for finding a training method that works well universally.  
+
+The datasets that will be used for testing the neural copula fitting procedure are:\\ 
+independence copula\\
+frechet-hoeffding upper bound\\
+frechet-hoeffding lower bound\\
+$X$ and $e^X$ \\
+$X$ and $X^2$\\
+Students-$t$ \\
+clayton copula\\
+Gaussian
+
+
 
 For each of the combinations in the grid the an ensemble of runs will be performed to mitigate the impact of what random seeds are used for initializing the weights of the network. The ensemble will consist of 10 runs for each combination in the grid. The best run from the ensemble will be kept for each combination in the grid. 
 
@@ -179,9 +187,6 @@ The sampled data points from the copulas are inserted into the inverse Gaussian 
 Evaluation
 
 
-
-
-\subsection{Experiment workflow}
 \begin{generalinstructions}
     \begin{compactenum}
         \item Data generation

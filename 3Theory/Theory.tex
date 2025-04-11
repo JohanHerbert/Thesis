@@ -130,43 +130,12 @@ To better understand how the different types of returns work, \Cref{ex:returnSym
 \end{example}
 
 
-\begin{generalinstructions}
-    \textbf{To write about here}\\
-    Argue for stocks being modeled using statistical distributions. Perhaps using GBM or a figure showing some stock returns.\\
-    Talk about how many applications use dependence between assets and why it is important. Also why it ties together with distributions.\\
-    How correlation is used, and when it breaks(using example)
-    \begin{compactitem}         
-        \item Value at risk
-        \item Basket options          
-    \end{compactitem}
-    Talk about the use of Monte-Carlo methods for financial applications. \\
-\end{generalinstructions}
-
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%% Monte Carlo methods
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Monte Carlo methods} 
-
-\begin{generalinstructions}
-    \textbf{I would say}\\
-    Monte Carlo methods is a blanket term for computational methods that utilize random numbers to model uncertain events. Given an assumption about the underlying distribution of a random process. The random process is simulated multiple times and used as the input in a deterministic function, the result of which is averaged. 
-\end{generalinstructions}
-
-Many times in different scientific fields, relationships between different variables can be described using deterministic relationships between input variables and output variables. In some situations, these deterministic relationships have random input parameters. In these cases, Monte Carlo methods can be useful. 
-
-Monte Carlo simulation is a method for simulating events that, due to some source of randomness, are uncertain. In Monte Carlo methods, a statistical distribution is identified for each source of randomness. The method is then to sample random numbers from these distributions to use as input in the deterministic relationship. This gives the outcome for multiple possible scenarios. The final step is to perform some statistical analysis of the generated output values from the functions. This can, for example, be used to calculate the mean, standard deviation, or percentile \Citet[pp.~91-92]{Raychaudhuri2008}.\todo{Connect to mathematical finance.}
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% GBM
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Geometric Brownian motion}
-\gls{GBM} is a stochastic process that is used to model the evolution of stock prices. The \gls{GBM} is defined by the stochastic differential equation (SDE)
+The symmetrical property of log returns is desirable because it means that the log returns can be modeled using a normal distribution. This is a convenient because the normal distribution has many nice properties and is easy to work with. Log returns are often used in financial modeling, perhaps most notably in the Black-Scholes model, for option pricing, where stock prices are assumed to follow a \gls{GBM} which price is log normally distributed. This is a consequence of the log returns being normally distributed. The \gls{GBM} is a stochastic process that is used to model the evolution of stock prices. The \gls{GBM} is defined by the stochastic differential equation (SDE)
 \begin{align*}
     dS_t &= \mu S_t dt + \sigma S_t dW_t \\
     S_0 &= s_0, 
@@ -176,8 +145,6 @@ where $S_t$ is the stock price at time $t$, $\mu$ is the drift, $\sigma$ is the 
     S_t = s_0 \;\mathrm{exp}\left( \left( \mu - \frac{\sigma^2}{2} \right)t + \sigma W_t \right),
 \end{align*}
 \Citet[p.~69]{Bjork2019Edition3}.
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% Euler Maruyama
@@ -209,6 +176,20 @@ We can simulate a pair of dependent stock trajectroies by simulating a system of
 where $W_t^1$ and $W_t^2$ are standard one dimensional Wiener processes with correlation $\rho$ \Citet[p.~104]{glasserman2004monte}. One can also simulate a system of \gls{GBM}s with a dependence different than correlation. This can be done by using a copula to generate the dependent Weiner processes. \todo{Need reference for this?}
 
 
+In financial applications one is often interested in what impact changes in asset prices have on the value of a financial instrument and risk metrics. To do this a widely used method is to simulate the future price of the underlying asset and then calculate how the value of the instrument or metric changes based on the simulated prices. This allows for the calculation of risk metrics such as \gls{VaR} and \gls{ES} as well as the pricing of financial instruments such as options. The method is often referred to as Monte Carlo simulation.  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Monte Carlo methods
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Monte Carlo methods} 
+\begin{generalinstructions}
+    \textbf{I would say}\\
+    Monte Carlo methods is a blanket term for computational methods that utilize random numbers to model uncertain events. Given an assumption about the underlying distribution of a random process. The random process is simulated multiple times and used as the input in a deterministic function, the result of which is averaged. 
+\end{generalinstructions}
+
+Many times in different scientific fields, relationships between different variables can be described using deterministic relationships between input variables and output variables. In some situations, these deterministic relationships have random input parameters. In these cases, Monte Carlo methods can be useful. 
+
+Monte Carlo simulation is a method for simulating events that, due to some source of randomness, are uncertain. In Monte Carlo methods, a statistical distribution is identified for each source of randomness. The method is then to sample random numbers from these distributions to use as input in the deterministic relationship. This gives the outcome for multiple possible scenarios. The final step is to perform some statistical analysis of the generated output values from the functions. This can, for example, be used to calculate the mean, standard deviation, or percentile \Citet[pp.~91-92]{Raychaudhuri2008}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -476,12 +457,10 @@ We can now define the \gls{MLE} as done by \Citet[p.~122]{wasserman2010statistic
 Maximizing the likelihood function is equivalent to maximizing the log likelihood function, meaning that the parameter estimate is the same \Citet[p.~123]{wasserman2010statistics}. 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Copula theory
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Copula Theory}
-
-\begin{generalinstructions}
-    Write about why and when copulas are useful, Maybe show the solution to the problem described in the example earlier.
-\end{generalinstructions}
-
 Now that we have a fundamental understanding of some probability theory we can introduce copulas. To do so we will need to define what it means for a function to be grounded, in \Cref{def:grounded}, and what it means to have margins, in \Cref{def:margins}, \citet[p.~9]{Nelsen2006}.
 
 \begin{definition}\label{def:grounded}\textbf{Grounded} \\
@@ -918,8 +897,16 @@ $\hat{\rho} = \mathrm{sin}\big(\frac{\pi}{2}\tau \big) $
 %%%% neural networks
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Neural Networks}
-References to standard literature about NNs
-\todo{ToDo}
+A full introduction of \gls{NN}s is outside the scope of this thesis. Despite other simpler topics being thoroughly explained, in those cases that has been to explain what something else is or to motivate some method. This section will only give a brief introduction to \gls{NN}s and how they can be used for unsupervised learning. For a more in-depth introduction to \gls{NN}s, see \todo{reference}.
+
+
+
+\begin{generalinstructions}
+    References to standard literature about NNs, training...
+
+    Explain how NNs can be used in unsupervised learning by defining a loss function in a clever way
+\end{generalinstructions}
+
 
 
 
