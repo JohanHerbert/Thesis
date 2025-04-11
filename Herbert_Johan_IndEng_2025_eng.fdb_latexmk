@@ -1,17 +1,17 @@
 # Fdb version 4
-["bibtex Herbert_Johan_IndEng_2025_eng"] 1744282608.76813 "Herbert_Johan_IndEng_2025_eng.aux" "Herbert_Johan_IndEng_2025_eng.bbl" "Herbert_Johan_IndEng_2025_eng" 1744282786.83326 0
-  "./Herbert_Johan_IndEng_2025_eng-blx.bib" 1744282785 342 726b95918e7f3aa64f512ccdc742f8e5 ""
+["bibtex Herbert_Johan_IndEng_2025_eng"] 1744370299.25223 "Herbert_Johan_IndEng_2025_eng.aux" "Herbert_Johan_IndEng_2025_eng.bbl" "Herbert_Johan_IndEng_2025_eng" 1744370307.76614 0
+  "./Herbert_Johan_IndEng_2025_eng-blx.bib" 1744370306 342 726b95918e7f3aa64f512ccdc742f8e5 ""
   "./literature.bib" 1744179601 15392 bef43dece1c8c7966383456ec5b9b9b8 ""
   "C:/Users/JohanHerbert/AppData/Local/Programs/MiKTeX/bibtex/bst/biblatex/biblatex.bst" 1711466047 65510 b1f696b0241395385f422f67543c37fd ""
-  "Herbert_Johan_IndEng_2025_eng.aux" 1744282784 58944 2c16cd44b8728fd7eddd1f7c89cc90d8 "pdflatex"
+  "Herbert_Johan_IndEng_2025_eng.aux" 1744370306 59712 b78b1fdbdba020ce4961005c352b613a "pdflatex"
   (generated)
   "Herbert_Johan_IndEng_2025_eng.bbl"
   "Herbert_Johan_IndEng_2025_eng.blg"
   (rewritten before read)
-["pdflatex"] 1744282778.52043 "c:/Users/JohanHerbert/Documents/Thesisfolder/thesis/Herbert_Johan_IndEng_2025_eng.tex" "Herbert_Johan_IndEng_2025_eng.pdf" "Herbert_Johan_IndEng_2025_eng" 1744282786.83412 0
+["pdflatex"] 1744370299.6256 "c:/Users/JohanHerbert/Documents/Thesisfolder/thesis/Herbert_Johan_IndEng_2025_eng.tex" "Herbert_Johan_IndEng_2025_eng.pdf" "Herbert_Johan_IndEng_2025_eng" 1744370307.76718 0
   "1Introduction/Introduction.tex" 1744274804 11166 99eb6e49c3858bdabd0e7d0e30a2253a ""
   "1Introduction/pictures/CCPvisual .jpg" 1744093990 472307 7a2de43d32edd303ea644acb972b8b4b ""
-  "3Theory/Theory.tex" 1744282777 67003 4b9380a927342714ef6a6163e59957c4 ""
+  "3Theory/Theory.tex" 1744357708 67297 a76f039e656ada2d50d7d6505a0acbe8 ""
   "3Theory/pictures/2increasingAndNot.png" 1744093990 218088 89ca36b1c74821777d0bbfa46085b85a ""
   "3Theory/pictures/CDFandPDF1D.png" 1744093990 50600 50273fdf608766d59226b04f1d5e91e3 ""
   "3Theory/pictures/Copula.png" 1744093990 253034 e23c58e073b940a3f045beb91d12b807 ""
@@ -32,7 +32,7 @@
   "3Theory/pictures/UncorrelatedUniformScatter.png" 1744093990 213384 dbe25c010791530f8af38536cec4fa32 ""
   "3Theory/pictures/exponentialDependenceScatterProb.png" 1744093990 24458 968a1c74f8566bca0d4d9f0d76d0bb7e ""
   "3Theory/pictures/exponentialDependenceScatterRet.png" 1744093990 35811 4c78acf4ec1037204e401bbcc14e902e ""
-  "4Method/Method.tex" 1744198551 12427 9b6dbfc05f91b9b89a0a6614a9b53d9e ""
+  "4Method/Method.tex" 1744370290 20109 aefd85cecef74b00f6284b526684fdc7 ""
   "5ResultsDiscussion/ResultsAndDiscussion.tex" 1744093990 53 a4ff0d1c49b3565b0ead82b940c8ad76 ""
   "6Conclusion/Conclusion.tex" 1744093990 29 63dc27e8d32cf6bdeb61c55fa313dfa8 ""
   "C:/Users/JohanHerbert/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1744095474 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
@@ -426,13 +426,13 @@
   "C:/Users/JohanHerbert/AppData/Local/Programs/MiKTeX/tex/latex/xpatch/xpatch.sty" 1585221260 8510 7803f78066c4f9d008405191a4b43073 ""
   "Figures/LogoUmU.png" 1744093990 6834 af069a0a9dbabfe18a04af6188d817ee ""
   "Figures/Titlepage.jpg" 1744093991 98241 b41041aafce62059a8308a8e56d7ec3a ""
-  "Herbert_Johan_IndEng_2025_eng.aux" 1744282784 58944 2c16cd44b8728fd7eddd1f7c89cc90d8 "pdflatex"
-  "Herbert_Johan_IndEng_2025_eng.bbl" 1744282609 14654 29c631f7dd83d450bf9696d341239193 "bibtex Herbert_Johan_IndEng_2025_eng"
-  "Herbert_Johan_IndEng_2025_eng.out" 1744282781 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "Herbert_Johan_IndEng_2025_eng.run.xml" 1744282785 2862 9568bd9ebd901b7a5adde4a2f92a7b0b "pdflatex"
-  "Herbert_Johan_IndEng_2025_eng.tex" 1744184478 12565 54cfe39491e883eb15211c748bc4b84a ""
-  "Herbert_Johan_IndEng_2025_eng.toc" 1744282785 4149 a3b5e361620c1ff378fb9f2d8d16ff4e "pdflatex"
-  "c:/Users/JohanHerbert/Documents/Thesisfolder/thesis/Herbert_Johan_IndEng_2025_eng.tex" 1744184478 12565 54cfe39491e883eb15211c748bc4b84a ""
+  "Herbert_Johan_IndEng_2025_eng.aux" 1744370306 59712 b78b1fdbdba020ce4961005c352b613a "pdflatex"
+  "Herbert_Johan_IndEng_2025_eng.bbl" 1744370299 14654 29c631f7dd83d450bf9696d341239193 "bibtex Herbert_Johan_IndEng_2025_eng"
+  "Herbert_Johan_IndEng_2025_eng.out" 1744370302 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "Herbert_Johan_IndEng_2025_eng.run.xml" 1744370306 2862 9568bd9ebd901b7a5adde4a2f92a7b0b "pdflatex"
+  "Herbert_Johan_IndEng_2025_eng.tex" 1744301926 12608 043ce58ba7897bc9b894ab7fa4594348 ""
+  "Herbert_Johan_IndEng_2025_eng.toc" 1744370306 4149 da340cac2399ddf7c102895eb8ef3831 "pdflatex"
+  "c:/Users/JohanHerbert/Documents/Thesisfolder/thesis/Herbert_Johan_IndEng_2025_eng.tex" 1744301926 12608 043ce58ba7897bc9b894ab7fa4594348 ""
   (generated)
   "Herbert_Johan_IndEng_2025_eng-blx.bib"
   "Herbert_Johan_IndEng_2025_eng.aux"

@@ -11,7 +11,9 @@ This section explains and motivates the method used for the experiment tested in
 \end{generalinstructions}
 
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Method overview
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Method overview}
 \todo{Connect to research question and hypothesis}
 This section describes the method used for the experiment. The method is divided into three main parts. 
@@ -33,27 +35,96 @@ Method for comparison...\todo{continue}
 
 
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Marginal model test
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Marginal model test}
-Separate test of if the neural copula marginals work as well as the "real" marginals
-\todo{ToDo}
+To validate that the marginal model works as intended, a test is performed to see how well the fitted marginal distribution matches the true distribution of the data. This is done by generating data from a known distribution and then fitting a marginal model to it. The fitted marginal model is then compared to the true distribution of the data by transforming the data to probability space using the \gls{PIT} using both the fitted distribution and the true distribution. To evaluate how similar the points in probability space are to each other the \gls{MAE} is calculated. Additionally a QQ-plot is created to visualize how well the fitted distribution matches how well the data follows the true distribution. During this experiment it is important to keep in mind that the generated data is subject to random noise, therefore it is not necessarily the case that the true distribution is the same as the observed distribution even tough they should be the same. It is however a good benchmark to see how well the fitted distribution matches the true distribution, which would be a reasonable choice of distribution to use if the neural network was not used. The distributions used for the test are listed in \Cref{tab:distributions} where the distribution, the parameter values, and a short description is displayed for each of the tested distributions.
 
 
+\begin{table}[h]
+    \centering
+    \caption{Distributions and parameters used for the marginal model test.}
+    \begin{tabular}{@{}ccl@{}}
+        Distribution & Parameters & Description \\
+        \toprule
+        Gaussian & $\mu=0, \sigma=1$ & Standard normal distribution \\ 
+        Student's $t$ & $\nu=5$ & Student's t-distribution with 5 degrees of freedom \\ 
+        Uniform & $a=0, b=1$ & Uniform distribution on [0, 1] \\ 
+        Exponential & $\lambda=1$ & Exponential distribution with rate 1 \\ 
+        Laplace & $\mu=0, b=1$ & Laplace distribution with mean 0 and scale 1 \\ 
+        Log-normal & $\mu=0, \sigma^2=1$ & Log-normal distribution with mean 0 and variance 1 \\ 
+    \end{tabular}
+    \label{tab:distributions}
+\end{table}
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Neural copula testing 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Neural Copula training scheme test}
-Methods for initiating weights / training neural networks that work best
+In this section the procedure for finding a method that reliably obtains valid copula functions in training. Wether or not a copula function is valid is determined by wether or not it satisfies the conditions of being a copula defined in \Cref{def:copula}. In practice for the neural copula this means that all but the first of the loss terms, defined in \Cref{sec:NeuralCopulaLoss}, should approach zero when training is done. Several different training schemes will be tested with the goal of finding a method that works well for the neural copula meaning that the fitted copula is valid.
+
+Several datasets will be used for testing the neural copula fitting procedure. This is to ensure that the method works well, regardless of the data, consistently resulting in valid copulas. The method for this workflow is as follows for each dataset. First different datasets will be generated \todo{How} and a grid of different parameter values will be created. The grid will contain different values for the parameters of the neural copula such as the solver used, learning rates, number of epochs, batch size, network architecture, number of data points in the additional uniform datasets. This creates a large number of different combinations of choices to test which will hopefully result in a method for finding a training method that works well universally.  
+
+For each of the combinations in the grid the an ensemble of runs will be performed to mitigate the impact of what random seeds are used for initializing the weights of the network. The ensemble will consist of 10 runs for each combination in the grid. The best run from the ensemble will be kept for each combination in the grid. 
+
+For each of the different runs in the ensemble both a several different schemes for training the neural copula will be tested. The first scheme is to train the copula on the dataset without any pretraining. The second scheme is to pretrain the copula on a dataset generated from the independence copula and then using the weights of the pretrained copula to initialize the weights of the neural copula when training on the dataset. There are three different variations of this pretraining scheme. The first is to train the copula on the independence copula using the full loss function defined in \Cref{sec:NeuralCopulaLoss}. The second is to train the copula on the independence copula using the loss function without the L1 term. The third is to train the copula on the independence copula using only the MSE as loss function. The rationale behind pretraining this is that this should produce a network mimicking the independence copula which can be thought of as a middle ground between the upper and lower Frechet-Hoeffding bounds. This is potentially a good starting point for the weights when fitting the copula to other data.  
+
+After pretraining, the neural copula is trained on the dataset using the weights from pretraining as a starting point. The starting weights in each of the pretraining schemes are saved so that after evaluation they can be used as a starting point for training the copula on a dataset. This will be needed in the final experiment of this thesis, described in \Cref{sec:PortfolioTesting}, where the best training scheme and initial weights will be used for the \gls{NC}. 
+
+After training the best overall method over each of the datasets will be used evaluated by validating that the losses relating to the copula function constraints are almost zero. This indicates that the fitted copula is valid. Of the methods that do not violate the copula definition the method that has the best fit overall will be declared the best one and hence be used in the final experiment, described in \Cref{sec:PortfolioTesting}.  
+
+\begin{generalinstructions}
+Given generated datasets and a specified grid\\
+\textbf{For each dataset}
+\begin{compactitem}
+    \item Fit marginal models
+    \item \textbf{For grid alternative}
+    \begin{compactitem}
+        \item \textbf{For run in ensemble}
+        \begin{compactitem}
+            \item \textbf{Normal Training save weights} 
+            \begin{compactitem}
+                \item Train copula on dataset
+            \end{compactitem}
+            \item \textbf{Using Pretraining}\\
+            \textbf{Pretraining on independence copula save weights}
+            \begin{compactitem}             
+                \item Full loss function
+                \item Training without L1 term in loss function
+                \item Training with MSE loss function
+            \end{compactitem}
+            \textbf{Posttraining on dataset starting at pretraining end weights}
+            \begin{compactitem}             
+                \item Training on dataset for each pretraining scheme
+            \end{compactitem}
+        \end{compactitem}
+        \item \textbf{Choose best run in ensemble keep weights for that run (to use if the method is used)}
+    \end{compactitem}
+\end{compactitem}
+\textbf{Evaluate the average performance of methods over the datasets}
+\end{generalinstructions}
+
+
 
 Neural copula what ive tested (state best and tell what ive tested)
 
 How have i changed the neural copula approach 
-
-\begin{generalinstructions}
-    Talk about normalizing procedures and the problems that are caused by risk applications. 
-\end{generalinstructions}
-
 \todo{ToDo}
 
 
-
-\subsection{Portfolio testing}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Portfolio testing
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Portfolio testing}\label{sec:PortfolioTesting}
+This section details the steps in the test of the copulas on the different portfolios. 
 
 \subsubsection{Data Generation}
 To evaluate the performance of different copulas when fitting them to data. Given that this thesis focuses on the use of copulas for modeling financial returns, we want to create test portfolios consisting of pairs of stocks. These portfolios should ideally cover a wide range of dependence structures to test the different copulas' versatility and robustness in varying conditions. 
