@@ -991,7 +991,7 @@ The copula model $\hat{C}$ is defined as
 \end{align*}
 \todo{Should i change $u$ and $x$ to bold since vectors? }
 
-\subsubsection{Copula loss function}
+\subsubsection{Copula loss function}\label{sec:NeuralCopulaLoss}
 Before defining the copula loss function, we need to define the different data sets used to compute the loss. Additionally, we need to define the copula \gls{CDF} and its corresponding copula \gls{PDF}. 
 
 First, we define the datasets. Let $D_{\mathrm{obs}}$ be the observed data points $x \in \Omega_1\Omega_2  = \mathbb{I}^2$. Let $D_{u}$ be uniformly distributed data on $\mathbb{I}^2$. Let $D_{\bar{u}}$ be uniformly distributed points on the upper boundary of the unit square $\mathbb{I}^2$. Let $D_{\underline{u}}$ be a set of points uniformly distributed on the lower boundary of the unit square $\mathbb{I}$. In \Cref{fig:datasetsNC} the datasets used to train the \gls{NC} are visualized. Before explaining the picture, we ephasise that the data used here is in the $x$-space and not in the transformed space $u$ as one might think. The reason for this is the case is that it will be easier to write the copula \gls{PDF} in terms of $x$ than of $u$ as explained below. The blue data points are uniformly distributed over the upper boundaries of the region where one variable is one. The grey points are uniformly distributed on the lower boundaries of the region where one of the variables is zero. The red data points are the observed data. The black data points are uniformly distributed over the interval. 
@@ -1058,8 +1058,16 @@ As for the marginal model, the total loss is given by a linear combination of th
 where $\lambda_i$ is the weight assigned to each part loss term. 
 
 
-\todo{Illustrate?, Fitting?}
 
+\textbf{Fitting}
+\begin{generalinstructions}
+    Mention that in neural copula article the data is normalized to 0,1. Talk about implications in risk management.
+\end{generalinstructions}
+
+
+
+\textbf{Sampling}
+\todo{Mention chebyshev nodes, could be good to use splines gfor inverted marginals.}
 
 
 \subsection{Goodness of fit measures}
