@@ -357,6 +357,152 @@
     \field{year}{2004}
   \endentry
 
+  \entry{hallin2021}{misc}{}{}
+    \name{author}{3}{}{%
+      {{hash=HM}{%
+         family={Hallin},
+         familyi={H\bibinitperiod},
+         given={Marc},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=MG}{%
+         family={Mordant},
+         familyi={M\bibinitperiod},
+         given={Gilles},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=SJ}{%
+         family={Segers},
+         familyi={S\bibinitperiod},
+         given={Johan},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{HM+1}
+    \strng{fullhash}{HMMGSJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2021}
+    \field{labeldatesource}{}
+    \field{sortinit}{H}
+    \field{sortinithash}{H}
+    \verb{eprint}
+    \verb 2003.06684
+    \endverb
+    \field{title}{Multivariate goodness-of-Fit tests based on Wasserstein
+  distance}
+    \verb{url}
+    \verb https://arxiv.org/abs/2003.06684
+    \endverb
+    \field{eprinttype}{arXiv}
+    \field{eprintclass}{stat.ME}
+    \field{year}{2021}
+  \endentry
+
+  \entry{Jentzen2023}{book}{}{}
+    \name{author}{3}{}{%
+      {{hash=JA}{%
+         family={Jentzen},
+         familyi={J\bibinitperiod},
+         given={Arnulf},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=KB}{%
+         family={Kuckuck},
+         familyi={K\bibinitperiod},
+         given={Benno},
+         giveni={B\bibinitperiod},
+      }}%
+      {{hash=vWP}{%
+         prefix={von},
+         prefixi={v\bibinitperiod},
+         family={Wurstemberger},
+         familyi={W\bibinitperiod},
+         given={Philippe},
+         giveni={P\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{JA+1}
+    \strng{fullhash}{JAKBWPv1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2023}
+    \field{labeldatesource}{}
+    \field{sortinit}{J}
+    \field{sortinithash}{J}
+    \verb{doi}
+    \verb 10.48550/arXiv.2310.20360
+    \endverb
+    \field{title}{Mathematical Introduction to Deep Learning: Methods,
+  Implementations, and Theory}
+    \field{month}{10}
+    \field{year}{2023}
+  \endentry
+
+  \entry{KarlssonFaronius1746454}{thesis}{}{}
+    \name{author}{1}{}{%
+      {{hash=KFH}{%
+         family={Karlsson\bibnamedelima Faronius},
+         familyi={K\bibinitperiod\bibinitdelim F\bibinitperiod},
+         given={H{\aa}kan},
+         giveni={H\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{KFH1}
+    \strng{fullhash}{KFH1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2023}
+    \field{labeldatesource}{}
+    \field{sortinit}{K}
+    \field{sortinithash}{K}
+    \field{number}{2023:2}
+    \field{pages}{142}
+    \field{series}{U.U.D.M. project report}
+    \field{title}{Solving Partial Differential Equations With Neural Networks}
+    \list{institution}{1}{%
+      {Uppsala University, Department of Mathematics}%
+    }
+    \field{type}{mathesis}
+    \field{year}{2023}
+  \endentry
+
+  \entry{KellyConall2024CaSf}{book}{}{}
+    \name{author}{1}{}{%
+      {{hash=KC}{%
+         family={Kelly},
+         familyi={K\bibinitperiod},
+         given={C\'{o}nall},
+         giveni={C\bibinitperiod},
+      }}%
+    }
+    \list{language}{1}{%
+      {eng}%
+    }
+    \list{publisher}{1}{%
+      {Springer}%
+    }
+    \keyw{Derivative securities -- Mathematical models; Python (Computer
+  program language)}
+    \strng{namehash}{KC1}
+    \strng{fullhash}{KC1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2024}
+    \field{labeldatesource}{}
+    \field{sortinit}{K}
+    \field{sortinithash}{K}
+    \field{edition}{First}
+    \field{isbn}{9783031605741}
+    \field{series}{Springer Undergraduate Texts in Mathematics and Technology}
+    \field{title}{Computation and Simulation for Finance: An Introduction with
+  Python}
+    \list{location}{1}{%
+      {Cham, Switzerland}%
+    }
+    \field{year}{2024}
+  \endentry
+
   \entry{Nelsen2006}{book}{}{}
     \name{author}{1}{}{%
       {{hash=NRB}{%
@@ -418,29 +564,34 @@
     \field{year}{2008}
   \endentry
 
-  \entry{SAS2014}{manual}{}{}
-    \name{author}{1}{}{%
-      {{hash=S}{%
-         family={{SAS Institute Inc.}},
-         familyi={S\bibinitperiod},
+  \entry{RobertCasella2004}{book}{}{}
+    \name{author}{2}{}{%
+      {{hash=RC}{%
+         family={Robert},
+         familyi={R\bibinitperiod},
+         given={C.P.},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=CG}{%
+         family={Casella},
+         familyi={C\bibinitperiod},
+         given={G.},
+         giveni={G\bibinitperiod},
       }}%
     }
     \list{publisher}{1}{%
-      {SAS Institute Inc.}%
+      {Springer Verlag}%
     }
-    \strng{namehash}{S1}
-    \strng{fullhash}{S1}
+    \strng{namehash}{RCCG1}
+    \strng{fullhash}{RCCG1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
-    \field{labelyear}{2014}
+    \field{labelyear}{2004}
     \field{labeldatesource}{}
-    \field{sortinit}{S}
-    \field{sortinithash}{S}
-    \field{title}{SAS/ETS\textsuperscript{\textregistered} 13.2 User's Guide}
-    \list{location}{1}{%
-      {Cary, NC}%
-    }
-    \field{year}{2014}
+    \field{sortinit}{R}
+    \field{sortinithash}{R}
+    \field{title}{Monte {Carlo} statistical methods}
+    \field{year}{2004}
   \endentry
 
   \entry{Schmidt2006}{article}{}{}

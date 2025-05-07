@@ -1,4 +1,146 @@
+This section presents the results of the tests conducted on the simulated data. The tests include the marginal model test, the neural copula test, and the portfolio test, defined in \Cref{sec:Method}.
+
 \subsection{Marginal Model Test}
+The losses of the models in the marginal model test after training is shown in \Cref{tab:MarginalFinalLosses}. The table shows the total loss and the losses for each of the four terms in the loss function. The total loss is the sum of the four terms. The loss terms L2, L3, and L4 are the losses governed by constraints whereas L1 is the term maximizing the likelihood of the observed data. 
+
+We can see that constraint losses are very close to zero for all distributions, indicating that the models satisfy the constraints. In \Cref{fig:MarginalResults}, we show the trained \gls{CDF} in a plot together with its corresponding \gls{PDF} and the observed data in a histogram. Additionally a QQ plot is shown for the transformed data when the fitted model is used and when the true distribution is used. This is done for all distributions. Visually it seems like the fitted models are able to capture the true distributions well. The most difficult distribution to fit seems to be the uniform distribution which has a somewhat unstable \gls{PDF}, this is also reflected in the total loss being the greatest. Overall, all distributions seem to be fitted well, and the QQ plots indicate that the transformed data is very similar regardless of whether using the fitted model or the true distribution. The conclusion is that the marginal model seem to be able to adequately fit a wide range of distributions. 
+
+\begin{table}[h]
+    \centering
+    \caption{Losses for the trained marginal models after training for each distribution.}
+    \begin{tabular}{llllll}
+        Distribution & Total Loss & L1 & L2 & L3 & L4 \\
+        \midrule
+        Gaussian & -0.610431 & -0.6109432 & 0.0 & 0.00030577183 & 0.000206 \\
+        Student-t & -1.700450 & -1.7008212 & 0.0 & 0.00023537874 & 0.000135 \\
+        Uniform & 0.002953 & 0.0013246911 & 0.0 & 0.0008457899 & 0.000782 \\
+        Exponential & -1.148577 & -1.1511308 & 0.0 & 0.0011827946 & 0.001371 \\
+        Laplace & -1.196009 & -1.1963692 & 0.0 & 0.00022995472 & 0.000130 \\
+        LogNormal & -2.257325 & -2.2578392 & 0.0 & 0.0002965927 & 0.000218 \\
+    \end{tabular}
+    \label{tab:MarginalFinalLosses}
+\end{table}
+
+
+\begin{figure}
+    \centering
+    % --- (a) Normal ---
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \subcaption*{(a) Normal}
+        \begin{minipage}{0.48\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/NormalHistogram.png}
+            %\subcaption*{Histogram}
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.48\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/NormalQQ.png}
+            %\subcaption*{QQ plot}
+        \end{minipage}
+    \end{minipage}
+    \hfill
+    % --- (b) Student's t ---
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \subcaption*{(b) Student's t}
+        \begin{minipage}{0.48\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/StudentsHistogram.png}
+            %\subcaption*{Histogram}
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.48\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/StudentsQQ.png}
+            %\subcaption*{QQ plot}
+        \end{minipage}
+    \end{minipage}
+
+    \vspace{1em}
+
+    % --- (c) Uniform ---
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \subcaption*{(c) Uniform}
+        \begin{minipage}{0.48\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/UniformHistogram.png}
+            %\subcaption*{Histogram}
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.48\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/UniformQQ.png}
+            %\subcaption*{QQ plot}
+        \end{minipage}
+    \end{minipage}
+    \hfill
+    % --- (d) Exponential ---
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \subcaption*{(d) Exponential}
+        \begin{minipage}{0.48\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/ExponentialHistogram.png}
+            %\subcaption*{Histogram}
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.48\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/ExponentialQQ.png}
+            %\subcaption*{QQ plot}
+        \end{minipage}
+    \end{minipage}
+
+    \vspace{1em}
+
+    % --- (e) Laplace ---
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \subcaption*{(e) Laplace}
+        \begin{minipage}{0.48\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/LaplaceHistogram.png}
+            %\subcaption*{Histogram}
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.48\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/LaplaceQQ.png}
+            %\subcaption*{QQ plot}
+        \end{minipage}
+    \end{minipage}
+    \hfill
+    % --- (f) Lognormal ---
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \subcaption*{(f) Lognormal}
+        \begin{minipage}{0.48\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/LognormalHistogram.png}
+            %\subcaption*{Histogram}
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.48\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/LognormalQQ.png}
+            %\subcaption*{QQ plot}
+        \end{minipage}
+    \end{minipage}
+
+    \caption{Marginal distribution visualizations. Each subfigure (a--f) shows a histogram with the trained model and a QQ plot for a distribution.}
+    \label{fig:MarginalResults}
+\end{figure}
+
+
+
+
+
+
+
+
 
 \subsection{Neural Copula Test}
 

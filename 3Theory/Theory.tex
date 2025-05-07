@@ -149,7 +149,7 @@ where $S_t$ is the stock price at time $t$, $\mu$ is the drift, $\sigma$ is the 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% Euler Maruyama
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Euler-Maruyama Scheme}
+\subsubsection{Euler-Maruyama Scheme}\label{sec:EulerMaruyama}
 To approximately simulate \gls{SDE}s the Euler-Maruyama scheme can be used. The Euler-Maruyama scheme is a numerical method for solving \gls{SDE}s. 
 
 For an \gls{SDE} of the form
@@ -173,8 +173,7 @@ We can simulate a pair of dependent stock trajectroies by simulating a system of
 \begin{align*}
     dS_t^d = \mu S_t^d dt + \sigma S_t^d dW_t^d, \; d=1,2, 
 \end{align*}
-where $W_t^1$ and $W_t^2$ are standard one dimensional Wiener processes with correlation $\rho$ \Citet[p.~104]{glasserman2004monte}. One can also simulate a system of \gls{GBM}s with a dependence different than correlation. This can be done by using a copula to generate the dependent Weiner processes. \todo{Need reference for this?}
-
+where $W_t^1$ and $W_t^2$ are standard one dimensional Wiener processes with correlation $\rho$ \Citet[p.~104]{glasserman2004monte}. One can also simulate a system of \gls{GBM}s with a dependence different than correlation. This can be done by using a copula to generate the dependent Weiner processes.
 
 In financial applications one is often interested in what impact changes in asset prices have on the value of a financial instrument and risk metrics. To do this a widely used method is to simulate the future price of the underlying asset and then calculate how the value of the instrument or metric changes based on the simulated prices. This allows for the calculation of risk metrics such as \gls{VaR} and \gls{ES} as well as the pricing of financial instruments such as options. The method is often referred to as Monte Carlo simulation.  
 
@@ -182,15 +181,14 @@ In financial applications one is often interested in what impact changes in asse
 %%%% Monte Carlo methods
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Monte Carlo methods} \label{sec:MonteCarlo}
-\begin{generalinstructions}
-    \textbf{I would say}\\
-    Monte Carlo methods is a blanket term for computational methods that utilize random numbers to model uncertain events. Given an assumption about the underlying distribution of a random process. The random process is simulated multiple times and used as the input in a deterministic function, the result of which is averaged. 
-\end{generalinstructions}
-
+% \begin{generalinstructions}
+%     \textbf{I would say}\\
+%     Monte Carlo methods is a blanket term for computational methods that utilize random numbers to model uncertain events. Given an assumption about the underlying distribution of a random process. The random process is simulated multiple times and used as the input in a deterministic function, the result of which is averaged. 
+% \end{generalinstructions}
 Many times in different scientific fields, relationships between different variables can be described using deterministic relationships between input variables and output variables. In some situations, these deterministic relationships have random input parameters. In these cases, Monte Carlo methods can be useful. 
 
-Monte Carlo simulation is a method for simulating events that, due to some source of randomness, are uncertain. In Monte Carlo methods, a statistical distribution is identified for each source of randomness. The method is then to sample random numbers from these distributions to use as input in the deterministic relationship. This gives the outcome for multiple possible scenarios. The final step is to perform some statistical analysis of the generated output values from the functions. This can, for example, be used to calculate the mean, standard deviation, or percentile \Citet[pp.~91-92]{Raychaudhuri2008}.
-\todo{Connect to Mathematical finance}
+Monte Carlo simulation is a method for simulating events that, due to some source of randomness, are uncertain. In Monte Carlo methods, a statistical distribution is identified for each source of randomness. The method is then to sample random numbers from these distributions to use as input in the deterministic relationship. This gives the outcome for multiple possible scenarios. The final step is to perform some statistical analysis of the generated output values from the functions. This can, for example, be used to calculate the mean, standard deviation, or percentile \Citet[pp.~91-92]{Raychaudhuri2008}. Monte Carlo methods are widely used in finance, for example to price options where they are often used to simulate the future price of an asset, given a model for the asset price. By performing a large number of simulations, one can obtain a distribution of possible future prices from which the price can be estimated \Citet[p.~105]{KellyConall2024CaSf}. 
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%% Probability theory
@@ -211,7 +209,7 @@ First, we need to define what statistical distributions are, beginning with \gls
     \end{compactenum}
 \end{definition}
 
-One can think of the \gls{CDF} at each point on its domain $\bar{R}$ as the probability of a realization being below that point. Tied to the \gls{CDF} is the \gls{PDF}, which is defined in \cref{def:PDF1d}.
+One can think of the \gls{CDF} at each point on its domain $\bar{R}$ as the probability of a realization being below that point. Tied to the \gls{CDF} is the \gls{PDF}, which is defined in \Cref{def:PDF1d}.
 
 \begin{definition}\label{def:PDF1d} \textbf{PDF one dimension} \citet[pp.~160-161]{DevoreBerk2012}\\
     Let $X$ be a continuous random variable. Then a \emph{probability distribution} or \gls{PDF} of $X$ is a function $f(x)$ such that for any two numbers $a$ and $b$ with $a \leq  b$,
@@ -316,10 +314,7 @@ This maps the domain of a continuous one-dimensional random variable through its
 
 The probability integral transform is illustrated in \Cref{fig:PIT}. We can think of the \gls{PIT} as a method of mapping all observed data points on $\D X$  to probability space. In the figure, this can be seen as the dotted lines representing data points being mapped. 
 
-
-
-
-Deeply connected to the \gls{PIT} is the inverse transform method, which is a method of generating random numbers from a given distribution. The method is based on the \gls{PIT} and works as defined by \Citet[p.~54]{glasserman2004monte}.
+Deeply connected to the \gls{PIT} is the \gls{ITM}, which is a method of generating random numbers from a given distribution. The method is based on the \gls{PIT} and works as defined by \Citet[p.~54]{glasserman2004monte}.
 \begin{definition}\label{def:InverseTransformMethod}
     \textbf{Inverse transform method} \\
     The \emph{inverse transform method} is a method of generating random numbers from a given distribution.
@@ -662,8 +657,10 @@ The following examples are to illustrate how correlation can fail to capture the
     \begin{align*}
         P(U_1\leq u1, U_2\leq u2) = P(U_1\leq u1, U_1\leq u2) = \min(u_1,u_2).
     \end{align*}
-    This is the upper copula given by the upper Fréchet-Hoeffding bound, which is the copula corresponding to the correlation being one. Hence, correlation underestimates  the true dependence between the random variables. Showing how copulas can capture dependence when correlation fails. 
+    This is the upper copula given by the upper Fréchet-Hoeffding bound, which is the copula corresponding to maximum dependence. Hence, correlation underestimates the true dependence between the random variables given that maximum dependence under the correlation framework is one. This underestimation of the correlation is because of the assumption of a normal or students $t$ distribution which is violated with the lognormal variable in the example. This shows how copulas can capture dependence when correlation fails. 
 
+    In \Cref{fig:ExamplePlots} some illustrations of the example are shown. The the true copula \gls{CDF} is shown in \Cref{fig:TrueCopulaExponential} this can be compared to the estimated copula using correlation in \Cref{fig:CorrelationEstimationExponential}. \Cref{fig:exponentialDependenceScatterProb} shows the scatter plot of the data in the probability space illustating what maximum dependence looks like in probability space. \cref{fig:exponentialDependenceScatterRet} shows the scatter plot of the data in the return space. This illustrates why correlation is insufficient as a dependency measure when the underlying dependence is non-linear. 
+    
     \begin{generalinstructions}
         Would be nice to tie this to something in finance. Such as the relationship between stocks returns and derivative prices.
 
@@ -674,32 +671,36 @@ The following examples are to illustrate how correlation can fail to capture the
 \end{example}
     
 \begin{figure}
-    \label{fig:ExamplePlots}
     \centering
-    \begin{minipage}{0.4\textwidth}
+    \begin{minipage}{0.25\textwidth}
         \centering
         \includegraphics[width=\textwidth]{3Theory/pictures/TrueCopulaExponential.png}
-        \subcaption{}
+        \subcaption{True copula \gls{CDF} for the example.}
+        \label{fig:TrueCopulaExponential}
     \end{minipage}
     \hfill
-    \begin{minipage}{0.4\textwidth}
+    \begin{minipage}{0.25\textwidth}
         \centering
         \includegraphics[width=\textwidth]{3Theory/pictures/exponentialDependenceScatterProb.png}
-        \subcaption{}
+        \subcaption{Data in the probability space.}
+        \label{fig:exponentialDependenceScatterProb}
     \end{minipage}
     \vfill
-    \begin{minipage}{0.4\textwidth}
+    \begin{minipage}{0.25\textwidth}
         \centering
         \includegraphics[width=\textwidth]{3Theory/pictures/CorrelationEstimationExponential.png}
-        \subcaption{}
+        \subcaption{Estimated copula \gls{CDF} using correlation.}
+        \label{fig:CorrelationEstimationExponential}
     \end{minipage}
     \hfill
-    \begin{minipage}{0.4\textwidth}
+    \begin{minipage}{0.25\textwidth}
         \centering
         \includegraphics[width=\textwidth]{3Theory/pictures/exponentialDependenceScatterRet.png}
-        \subcaption{}
+        \subcaption{Data in return space showing correlation estimate.}
+        \label{fig:exponentialDependenceScatterRet}
     \end{minipage}
-    \caption{.}
+    \caption{Figures illustrating why correlation breaks as a measure of dependence.}
+    \label{fig:ExamplePlots}
 \end{figure}
 
 Up to now we have not yet provided an example of the usefulness of copulas. The next section will show an example of how copulas are useful in practice.
@@ -770,12 +771,22 @@ for $u_2$. That is
 \begin{align*}
     u_2 = C^{-1}_{2|1}(z_2|z_1).
 \end{align*}
-The pair $(u_1,u_2)$ is now a sample from the copula. The method can be repeated to generate more samples from the copula.
+The pair $(u_1,u_2)$ is now a sample from the copula. The method can be repeated to generate more samples from the copula. The requirement for the copula to be able to use this method is that the copula has a strictly increasing conditional copula. If not, the solution to the equation might not be unique which will cause problems in the solving step. 
 
 \todo{$C^{-1}$ is the quasi inverse since copula can be flat} 
 
-\todo{Acceptance rejection sampling  }
+\subsubsection{Acceptance rejection sampling}\label{sec:AcceptanceRejection} 
+Acceptance rejection sampling is a method of sampling from any distribution as long as the density function is known \Citet[p.~47]{RobertCasella2004}. The method works by generating a sample from a proposal distribution and then accepting or rejecting the sample based on a threshold. The sampling method is defined below as done by \Citet[p.~50]{RobertCasella2004}.
 
+\begin{definition}
+    \textbf{Acceptance rejection sampling}\\
+    Let $X \sim f(x)$ and let $g(x)$ be a density function such that $M g(x) \geq f(x)$ for some constant $M \geq 1$. To sample $X \sim f$, we can generate   
+    \begin{align*}
+        Y \sim g \; \mathrm{and} \; U|Y = y \sim \mathrm{Unif}(0,Mg(y)),      
+    \end{align*}
+    until $0 \leq u \leq f(y)$.
+\end{definition}
+$M$ is a constant that scales $g$ so that it is always larger than $f$. In general, the standard uniform distribution can always be used as $g$ but it is often more efficient to use a distribution that is similar to the target distribution. If the proposal distribution is the uniform distribution $M$ is the maximum value of $f$.  
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% Other Copulas
@@ -821,10 +832,10 @@ as stated in \citet[p.267]{Alexander2008}.
 
 
 \textbf{Fitting}(alternative source: \Citet[pp.~281-283]{Alexander2008})
-To fit the Gaussian copula to data we need to compute the correlation matrix $\Sigma$. This is done by first estimating the sample covariance matrix and then normalizing it to obtain the correlation matrix \Citet[p.~523]{SAS2014}. 
+To fit the Gaussian copula to data we need to compute the correlation matrix $\Sigma$. This is done by first estimating the sample covariance matrix and then normalizing it to obtain the correlation matrix\footnote{See \url{https://support.sas.com/documentation/onlinedoc/ets/132/copula.pdf}. \textit{SAS/ETS\textsuperscript{\textregistered} 13.2 User's Guide}, SAS Institute Inc., Cary, NC, 2014. Accessed: 2024-04-24.}.%\Citet[p.~523]{SAS2014}. 
 
 \textbf{Sampling}(alternative source: \Citet[p.~19]{Schmidt2006})
-To sample from a Gaussian copula we can first generate a sample from the multivariate normal distribution with the desired correlation matrix $\Sigma$. This is done by multiplying a standard normal random vector with the Cholesky decomposition of the correlation matrix. The Cholesky decomposition can be thought of as a matrix square root of the correlation matrix. The resulting sample of correlated random numbers is then transformed to uniform random numbers using the \gls{PIT}. This is done by applying the univariate normal \gls{CDF} to each of the elements in the sample. The resulting sample is then a sample from the Gaussian copula \Citet[p.~523]{SAS2014}.
+To sample from a Gaussian copula we can first generate a sample from the multivariate normal distribution with the desired correlation matrix $\Sigma$. This is done by multiplying a standard normal random vector with the Cholesky decomposition of the correlation matrix. The Cholesky decomposition can be thought of as a matrix square root of the correlation matrix. The resulting sample of correlated random numbers is then transformed to uniform random numbers using the \gls{PIT}. This is done by applying the univariate normal \gls{CDF} to each of the elements in the sample. The resulting sample is then a sample from the Gaussian copula\footnote{See \url{https://support.sas.com/documentation/onlinedoc/ets/132/copula.pdf}. \textit{SAS/ETS\textsuperscript{\textregistered} 13.2 User's Guide}, SAS Institute Inc., Cary, NC, 2014. Accessed: 2024-04-24.}.%\Citet[p.~523]{SAS2014}.
 
 
 
@@ -856,7 +867,7 @@ To fit the Student's $t$ copula to data we need to compute the correlation matri
 \todo{They often say to use either spearman or kendal here. does it matter? }
 
 \textbf{Sampling} (alternative source: \Citet[p.~19]{Schmidt2006})
-Sampling from a Student's $t$ copula is similar to sampling from a Gaussian copula. First, we generate a sample from the multivariate Student's $t$ distribution with the desired correlation matrix $\Sigma$ and degrees of freedom $\nu$. This can be done by generating a sample $Z$ from a normal distribution with correlation matrix $\Sigma$ as described for the Gaussian copula. These normal random numbers can then be transformed into Student's $t$ distributed sample $X$ by the calculation $X = Z\sqrt{\frac{\nu}{s}} $, where s is a sample from a $\chi^2$ distribution with $\nu$ degrees of freedom. The resulting sample of correlated Student's $t$ random numbers is then transformed to uniform random numbers using the \gls{PIT}. This is done by applying the univariate Student's $t$ \gls{CDF} with $\nu$ degrees of freedom to each of the elements in the sample. The resulting sample is then a sample from the Student's $t$ copula \Citet[p.~524]{SAS2014}. 
+Sampling from a Student's $t$ copula is similar to sampling from a Gaussian copula. First, we generate a sample from the multivariate Student's $t$ distribution with the desired correlation matrix $\Sigma$ and degrees of freedom $\nu$. This can be done by generating a sample $Z$ from a normal distribution with correlation matrix $\Sigma$ as described for the Gaussian copula. These normal random numbers can then be transformed into Student's $t$ distributed sample $X$ by the calculation $X = Z\sqrt{\frac{\nu}{s}} $, where s is a sample from a $\chi^2$ distribution with $\nu$ degrees of freedom. The resulting sample of correlated Student's $t$ random numbers is then transformed to uniform random numbers using the \gls{PIT}. This is done by applying the univariate Student's $t$ \gls{CDF} with $\nu$ degrees of freedom to each of the elements in the sample. The resulting sample is then a sample from the Student's $t$ copula\footnote{See \url{https://support.sas.com/documentation/onlinedoc/ets/132/copula.pdf}. \textit{SAS/ETS\textsuperscript{\textregistered} 13.2 User's Guide}, SAS Institute Inc., Cary, NC, 2014. Accessed: 2024-04-24.}.%\Citet[p.~524]{SAS2014}. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% Clayton Copula
@@ -899,66 +910,73 @@ To sample from a Clayton copula we can use conditional sampling as described in 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% Correlation measures
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Correlation measures}
-\textbf{Keep this part until I decide if I will go deeper into this.}
-(in Market risk analysis p.280 and p.256)
-Denote the correlation measure as $\hat{\rho}$
+% \subsubsection{Correlation measures}
+% \textbf{Keep this part until I decide if I will go deeper into this.}
+% (in Market risk analysis p.280 and p.256)
+% Denote the correlation measure as $\hat{\rho}$
 
-\textbf{Pearson correlation}
-for Pearson correlation
-$\hat{\rho} = \rho_p$
+% \textbf{Pearson correlation}
+% for Pearson correlation
+% $\hat{\rho} = \rho_p$
 
-\textbf{Spearman correlation}
-For Spearman rho $\rho_s$:
-\begin{align*}
-    \rho_s = 1-\frac{6D}{n(n^2-1)},\; \mathrm{where} \; D=\sum_ {i=1}^nd_i^2.
-\end{align*}
+% \textbf{Spearman correlation}
+% For Spearman rho $\rho_s$:
+% \begin{align*}
+%     \rho_s = 1-\frac{6D}{n(n^2-1)},\; \mathrm{where} \; D=\sum_ {i=1}^nd_i^2.
+% \end{align*}
 
-$\hat{\rho} =2\mathrm{sin} \big ( \frac{\pi}{6}\rho_p \big)$
+% $\hat{\rho} =2\mathrm{sin} \big ( \frac{\pi}{6}\rho_p \big)$
 
-\textbf{Kendals Tau}
-For Kendals Tau $\tau$:
-\begin{align*}
-    \tau = \frac{N_c-N_d}{\frac{1}{2}n(n-1)}
-\end{align*}
-where $N_c$ and $N_d$ are the numbers of concordant and discordant pairs respectively.
-$\hat{\rho} = \mathrm{sin}\big(\frac{\pi}{2}\tau \big) $
-\todo{Maybe remove}
+% \textbf{Kendals Tau}
+% For Kendals Tau $\tau$:
+% \begin{align*}
+%     \tau = \frac{N_c-N_d}{\frac{1}{2}n(n-1)}
+% \end{align*}
+% where $N_c$ and $N_d$ are the numbers of concordant and discordant pairs respectively.
+% $\hat{\rho} = \mathrm{sin}\big(\frac{\pi}{2}\tau \big) $
+% \todo{Maybe remove}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% neural networks
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Neural Networks}
-A full introduction of \gls{NN}s is outside the scope of this thesis. Despite other simpler topics being thoroughly explained, in those cases that has been to explain what something else is or to motivate some method. This section will only give a brief introduction to \gls{NN}s and how they can be used for unsupervised learning. In particular a short description of how to solve differential equations using \gls{NN}s as this will be used in the neural copula. For a more in-depth introduction to \gls{NN}s, see \todo{reference}.
+A full introduction of \gls{NN}s is beyond the scope of this thesis and the interested reader is referred to \Citet[]{Jentzen2023}. Some suggested topics are artificial neural networks, gradient descent, and back propagation. Despite other simpler topics being thoroughly explained, in those cases that has been to explain what something else is or to motivate some method. This section will only give a brief introduction to \gls{NN}s and how they can be used for learning functions by just penalizing unwanted behavior. In particular a short description of how to solve differential equations using \gls{NN}s as this will be used to train the neural copula.
 
+A theoretical introduction to solving differential equations using \gls{NN}s can be found in \Citet[pp.~81-84]{KarlssonFaronius1746454} or \Citet[pp.~509-516]{Jentzen2023}. What is however more illustrative of the method of solving differential equations using \gls{NN}s is to show how the method works in practice. This is done in \Cref{ex:NeuralNetworkDifferentialEquation}, showing how to solve a simple differential equation using \gls{NN}s. The example is taken from a video seminar on how to solve Partial Differential Equations using \gls{NN}s by Leah Bar\footnote{See \url{https://www.youtube.com/watch?v=f44sFOR296I} . Leah Bar, \textit{Deep Learning Approach to Partial Differential Equations | Leah Bar, OriginAI (PyData TLV June22)}, 2022. Accessed: 2024-02-10.}. 
 
-
-\begin{generalinstructions}
-    References to standard literature about NNs, training...
-
-    Explain how NNs can be used to solve DE:s by defining a loss function in a clever way
-\end{generalinstructions}
-
-
-
+\begin{example}\label{ex:NeuralNetworkDifferentialEquation}
+    \textbf{Solving differential equations with neural networks}\\
+    Suppose we want to solve the following differential equation (Newtons law of cooling)
+    \begin{align*}
+        \frac{dT}{dt} = k(M-T), \quad \; T(0) = T_0 = 100, M = -10, k = 0.25.
+    \end{align*}
+    where $T$ is the temperature, $t$ is time, $M$ is the ambient temperature, and $k$ is a constant. This is a simple first order differential equation. The solution to the equation is given by
+    \begin{align*}
+        T(t) = M + (T_0-M)e^{-kt}.
+    \end{align*}
+    To solve the equation using a \gls{NN} we can use the following procedure. First, we create a \gls{NN} having input $t$ and output $T$. Second, the \gls{NN} is trained to minimize the loss function specified as 
+    \begin{align*}
+        \mathrm{loss} = \frac{1}{n} \sum_{i=1}^{n} \left\| \frac{dT(t_i)}{dt} - k(M-T(t_i))\right\|_2^2 + \lambda \left\|T(0) - T_0\right\|,
+    \end{align*}
+    for $n$ data points $t_i$ sampled from the domain of time. 
+    This loss function consists of two parts. The first part is the loss function that penalizes the \gls{NN} for not solving the differential equation. The second part is a penalty term that penalizes the \gls{NN} for not satisfying the initial condition. The loss can easily be calculated using automatic differentiation of the neural network. 
+\end{example}
+The method described in the above example can be used to train a \gls{NN} to follow certain rules stated in terms of the derivatives of the \gls{NN}. This will be used in the next section to train a \gls{NN} to approximate a copula function.  
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% Neural Copula
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Neural Copula (Own model formulation )} \todo{Reference to paper}
-A \gls{NC} is a method proposed to use a \gls{NN} to approximate a copula function. 
+\subsection{Neural Copula (Own model formulation )}
+A \gls{NC} is a method proposed by \Citet[]{ZengWang2022} to use \gls{NN}s to approximate a copula function. 
 
 
 \subsubsection{Overall procedure}
-The overall procedure when using a \gls{NC} is to fit one \gls{NN} approximating each marginal distribution. These functions and their derivatives are then used to calculate the copula function value and the copula \gls{PDF} function values 
+The overall procedure when using a \gls{NC} is to fit one \gls{NN} to approximate the \gls{CDF} of each marginal distribution. These \gls{NN}s are then used to transform each dimension of the data to probability space using the \gls{PIT}. The obtained data points are then used for fitting another \gls{NN} approximating the copula function \Citet[p.~4]{ZengWang2022}. 
 
-transform the data in each data dimension to the $[0,1]$ domain via the \gls{PIT}. The resulting data points form data points that lie in probability space. These data points are then used for fitting a \gls{NN} approximating the copula function. 
-
-
-\subsubsection{Data }
-First, define the observed data as $x^{\mathrm{obs}}\in \mathbb{R}^2 $. To fit the marginal distributions, the data must be normalized to lie in the interval $\mathbb{I}^2 = [0,1]^2$. We normalize the data $x$ by using min max normalization defined as
+\subsubsection{Data}
+First, we define the observed data as $x^{\mathrm{obs}}\in \mathbb{R}^2 $. To fit the marginal distributions, the data must be normalized to lie in the interval $\mathbb{I}^2 = [0,1]^2$. We normalize the data $x$ by using min max normalization defined as
 \begin{align*}
     x_{i,j} = \frac{x_{i,j}^{\mathrm{obs}} - \min_i(x_{j}^{\mathrm{obs}})}{  \max_i(x_{j}^{\mathrm{obs}})- \min_i(x_{j}^{\mathrm{obs}})}.
 \end{align*}
@@ -972,10 +990,10 @@ A marginal distribution is fitted for each dimension of the data using a \gls{NN
     \mathrm{Hidden\;layer:} \; & \mathbf{h}_m^{k+1} = \mathrm{tanh}(\mathbf{w}_m^{k} \mathbf{h}_m^{k} + \mathbf{b}_m^{k}), \; k \in \{0,1, \dots, l_m -1 \};\\
     \mathrm{Output\;layer:} \; & \hat{F}_j = \mathrm{sigmoid}(\mathbf{w}_m^{l_m} \mathbf{h}_m^{l_m} + \mathbf{b}_m^{l_m}) \in \left[0,1 \right],
 \end{align*}
-where $\hat{F}_j$ is the estimated marginal \gls{CDF}, $\Omega$ is the entire domain where the data can be, $l_m$ is the number of layers in the network, $\mathbf{w}_m^{k}$ are the weights in the $k$th layer,  $\mathbf{h}_m^{k}$ is the input data in the $k$th layer, and $\mathbf{b}_m^{k}$ is the biases in the $k$th layer. Note that the weights, biases, and input data are different for each dimension in the data (maybe obvious, but for notations' sake). 
+where $\hat{F}_j$ is the estimated marginal \gls{CDF}, $\Omega$ is the entire domain where the data can be, $l_m$ is the number of layers in the network, $\mathbf{w}_m^{k}$ are the weights in the $k$th layer,  $\mathbf{h}_m^{k}$ is the input data in the $k$th layer, and $\mathbf{b}_m^{k}$ is the biases in the $k$th layer \Citet[pp.~5-6]{ZengWang2022}. Note that the weights, biases, and input data are different for each dimension in the data (maybe obvious, but for notations' sake). 
 
 \subsubsection{Marginal loss function}\label{sec:NeuralMarginalLoss}
-This section defines the loss function for a marginal model $\hat{F}_j$. First, we define the datasets that will be used for calculating the loss function. Let $D_{obs}$ be the set of observed data points $x_j$ for the $ j$th dimension of the data. Also, let $D_u$ be a set of uniformly distributed data points on the domain $\Omega$ of the data. Let $\hat{f}_j$ denote the \gls{PDF} corresponding to $\hat{F}_j$.
+This section defines the loss function for a marginal model $\hat{F}_j$ as described in \Citet[pp.~7-8]{ZengWang2022}. First, we define the datasets that will be used for calculating the loss function. Let $D_{obs}$ be the set of observed and scaled data points $x_j$ for the $j$th dimension of the data \todo{dimension, how to write}. Also, let $D_u$ be a set of uniformly distributed data points on the domain $\Omega$ \todo{omega = I = [0,1]} of the data. Let $\hat{f}_j$ denote the \gls{PDF} corresponding to $\hat{F}_j$.
 
 The loss function consists of four parts that are designed to ensure that the network fits the data as well as possible whilst following the requirements of a \gls{CDF}. The first part of the loss function maximizes the log likelihood of the fitted \gls{CDF} to the observed data. Since the network minimizes the loss during training, we need the negative log likelihood as the loss. The first part of the loss is defined as 
 \begin{align*}
@@ -1001,19 +1019,23 @@ The total loss can be formulated as a linear combination of the loss components.
 \end{align*}
 where $\lambda_i$ is the weigh put on the $i$:th loss component. 
 
-\subsubsection{Copula model architecture} \citet[pp.~9--11]{ZengWang2022}
+\subsubsection{Copula model architecture} 
+When having transformed the data to probability space using the fitted marginal \gls{CDF}s a new dataset $u = (u_1,u_2) = (F_1(x_1), F_2(x_2))$ is obtained. 
+
 The copula model $\hat{C}$ is defined as 
 \begin{align*}
-    \mathrm{Input\;layer:} \; & \mathbf{h}_c^0 = x \in \Omega^2 = \mathbb{I}^2; \\
+    \mathrm{Input\;layer:} \; & \mathbf{h}_c^0 = u \in \Omega^2 = \mathbb{I}^2; \\
     \mathrm{Hidden\;layer:} \; & \mathbf{h}_c^{k+1} = \mathrm{tanh}(\mathbf{w}_c^{k} \mathbf{h}_c^{k} + \mathbf{b}_c^{k}), \; k \in \{0,1, \dots, l_c -1 \};\\
-    \mathrm{Output\;layer:} \; & \hat{C} = \mathrm{sigmoid}(\mathbf{w}_c^{l_c} \mathbf{h}_c^{l_c} + \mathbf{b}_c^{l_c}) \in \left[0,1 \right].
+    \mathrm{Output\;layer:} \; & \hat{C} = \mathrm{sigmoid}(\mathbf{w}_c^{l_c} \mathbf{h}_c^{l_c} + \mathbf{b}_c^{l_c}) \in \left[0,1 \right],
 \end{align*}
+as in\Citet[pp.~6-7]{ZengWang2022}.
+
 \todo{Should i change $u$ and $x$ to bold since vectors? }
 
 \subsubsection{Copula loss function}\label{sec:NeuralCopulaLoss}
 Before defining the copula loss function, we need to define the different data sets used to compute the loss. Additionally, we need to define the copula \gls{CDF} and its corresponding copula \gls{PDF}. 
 
-First, we define the datasets. Let $D_{\mathrm{obs}}$ be the observed data points $x \in \Omega_1\Omega_2  = \mathbb{I}^2$. Let $D_{u}$ be uniformly distributed data on $\mathbb{I}^2$. Let $D_{\bar{u}}$ be uniformly distributed points on the upper boundary of the unit square $\mathbb{I}^2$. Let $D_{\underline{u}}$ be a set of points uniformly distributed on the lower boundary of the unit square $\mathbb{I}$. In \Cref{fig:datasetsNC} the datasets used to train the \gls{NC} are visualized. Before explaining the picture, we ephasise that the data used here is in the $x$-space and not in the transformed space $u$ as one might think. The reason for this is the case is that it will be easier to write the copula \gls{PDF} in terms of $x$ than of $u$ as explained below. The blue data points are uniformly distributed over the upper boundaries of the region where one variable is one. The grey points are uniformly distributed on the lower boundaries of the region where one of the variables is zero. The red data points are the observed data. The black data points are uniformly distributed over the interval. 
+First, we define the datasets. Let $D_{\mathrm{obs}}$ be the observed data points $x \in \Omega_1\Omega_2  = \mathbb{I}^2$. Let $D_{u}$ be uniformly distributed data on $\mathbb{I}^2$. Let $D_{\bar{u}}$ be uniformly distributed points on the upper boundary of the unit square $\mathbb{I}^2$. Let $D_{\underline{u}}$ be a set of points uniformly distributed on the lower boundary of the unit square $\mathbb{I}$. In \Cref{fig:datasetsNC} the datasets used to train the \gls{NC} are visualized. The blue data points are uniformly distributed over the upper boundaries of the region where one variable is one. The grey points are uniformly distributed on the lower boundaries of the region where one of the variables is zero. The red data points are the observed data in probability space. The black data points are uniformly distributed over the interval. 
 
 \begin{figure}
     \centering
@@ -1021,48 +1043,35 @@ First, we define the datasets. Let $D_{\mathrm{obs}}$ be the observed data point
     \caption{The different datasets used for training the \gls{NC} visualized.}
     \label{fig:datasetsNC}
 \end{figure}
-\todo{See if red is right after rethinking}
 
-
-The copula model itself approximates a copula function which is a \gls{CDF} on the unit square $\mathbb{I}^2$. Normally the copula function is denoted in terms of its uniform marginals $u$ consisting of $u_1$ and $u_2$. The copula function can be written in terms of the data points $x$ consisting of $x_1$ and $x_2$. 
-
-
+The copula model itself approximates a copula function which is a \gls{CDF} on the unit square $\mathbb{I}^2$. The copula function is denoted in terms of its uniform marginals $u$ consisting of $u_1$ and $u_2$. 
 \begin{align*}
-    \hat{C}(u) = \hat{C}(u_1,u_2) = \hat{C}(\hat{F}_1(x_1),\hat{F}_2(x_2))= \hat{C}(x).
+    \hat{C}(u) = \hat{C}(u_1,u_2) 
 \end{align*}
 The corresponding copula \gls{PDF} can be written as  
-\todo{2nd half unnecessary?}
 \begin{align*}
-    \hat{c}(x) = \hat{c}(x_1,x_2) 
-    = \frac{\partial^2 \hat{C}(\hat{F}_1(x_1),\hat{F}_2(x_2))}{\partial \hat{F}_1(x_1) \partial \hat{F}_2(x_2)} \hat{f}_1(x_1),\hat{f}_2(x_2))\\
-    = \frac{\partial^2 \hat{C}(u_1,u_2)}{\partial u_1 \partial u_2} \hat{f}_1(\hat{F}_1^{-1}(u_1)) \hat{f}_2(\hat{F}_2^{-1}(u_2)) 
-    = \hat{c}(u).
+    \hat{c}(u) = \frac{\partial^2 \hat{C}(u_1,u_2)}{\partial u_1 \partial u_2}. 
 \end{align*}
-
-\todo{These equations need to be checked. I think they are wrong. }
-
-
-In the loss function, it is advantageous to have the copula \gls{CDF} and \gls{PDF} written in terms of $x$ rather than of $u$. This is because there is no mechanism for calculating the inverse of a \gls{NN}. The inverse is needed in order to write the copula \gls{PDF} in terms of $u$. However, as shown above, the copula \gls{PDF} can be written in terms of $x$ using the marginal \gls{CDF}s and \gls{PDF}s, removing the need for the inverse \gls{CDF}s.   
-
-Now we are ready to introduce the copula loss function, which consists of five parts. The first part, as in the marginal model, maximizes the log likelihood and is defined as
+ 
+Now we are ready to introduce the copula loss function as in \Citet[pp.~8-11]{ZengWang2022}, consisting of five parts. The first part, as in the marginal model, maximizes the log likelihood and is defined as
 \begin{align*}
-    L_1^c = \frac{-1}{|D_{obs}|} \sum_{i \in D_{obs}} \log(\hat{c}(x_i)).
+    L_1^c = \frac{-1}{|D_{obs}|} \sum_{i \in D_{obs}} \log(\hat{c}(u_i)).
 \end{align*}
 The second term ensures positivity of the copula \gls{PDF} and is defined by
 \begin{align*}
-    L_2^c = \int_{x_1\in\Omega}\int_{x_2\in\Omega} (-\hat{c}(x))^+dx_1dx_2 \approx \frac{-1}{|D_{u}|} \sum_{i \in D_{u}} (-\hat{c}(x_i))^+.
+    L_2^c = \int_{u_1\in\Omega}\int_{u_2\in\Omega} (-\hat{c}(u))^+du_1du_2 \approx \frac{-1}{|D_{u}|} \sum_{i \in D_{u}} (-\hat{c}(u_i))^+.
 \end{align*}
 The third part ensures that the copula PDF integrates to one and is defined as
 \begin{align*}
-    L_3^c = \left | 1- \int_{x_1\in\Omega}\int_{x_2\in\Omega} \hat{c}(x_j) dx_1 dx_2   \right | \approx \left | 1- \frac{1}{|D_{\mathrm{u}}|^2} \sum_{i \in D_{u}} \hat{c}(x_i)  \right |.
+    L_3^c = \left | 1- \int_{u_1\in\Omega}\int_{u_2\in\Omega} \hat{c}(u_j) du_1 du_2   \right | \approx \left | 1- \frac{1}{|D_{\mathrm{u}}|^2} \sum_{i \in D_{u}} \hat{c}(u_i)  \right |.
 \end{align*}
 The fourth term is supposed to ensure that the copula function is grounded and that it has margins. It is defined as
 \begin{align*}
-    L_4^c = \sum_{i \in D_{\underline{u}}} \hat{C}(x_i) + \sum_{i \in D_{\bar{u}}} \left| \hat{C}(x_i) - \max(x_i) \right|.
+    L_4^c = \sum_{i \in D_{\underline{u}}} \hat{C}(u_i) + \sum_{i \in D_{\bar{u}}} \left| \hat{C}(u_i) - \max(u_i) \right|.
 \end{align*}
 The fifth term  ensures that the copula is $2$-increasing and is defined as
 \begin{align*}
-    L_5^c = \frac{1}{|D_{u}|} \sum_{i \in D_{u}} \left| \hat{C}(x_i) - \frac{1}{|D_{\mathrm{obs}}|}\sum_{j\in D_{\mathrm{obs}}} \mathrm{flag}(x_i,x_j) \right|,
+    L_5^c = \frac{1}{|D_{u}|} \sum_{i \in D_{u}} \left| \hat{C}(u_i) - \frac{1}{|D_{\mathrm{obs}}|}\sum_{j\in D_{\mathrm{obs}}} \mathrm{flag}(u_i,u_j) \right|,
 \end{align*}
 where $\mathrm{flag(x,y)}$ is defined as 
 \begin{align*}
@@ -1072,7 +1081,11 @@ where $\mathrm{flag(x,y)}$ is defined as
         0 \; \mathrm{otherwise}.
     \end{cases}
 \end{align*}
-So the flag function compares two points $x$ and $y$ and gives back one if all dimensions $x$ is greater than $y$ in all dimensions. What this does it that for each point in $D_u$ the copula \gls{CDF} is compared to the fraction of points in $D_{obs}$ that are smaller than the point in $D_u$. This the value of the copula and the fraction should be similar if the data is 2-increasing.   
+
+
+
+
+That is, the flag function compares two points $x$ and $y$ and gives back one if all dimensions $x$ is greater than $y$ in all dimensions. What this does in the loss function is that for each point in $D_u$ the copula \gls{CDF} is compared to the fraction of points in $D_{obs}$ that are smaller than the point in $D_u$. The value of the copula function and the fraction of points below should be similar if the data is 2-increasing.   
 
 As for the marginal model, the total loss is given by a linear combination of the loss terms defined as follows
 \begin{align*}
@@ -1083,7 +1096,7 @@ where $\lambda_i$ is the weight assigned to each part loss term.
 
 \subsubsection{Fittig and sampling procedure}\label{sec:NeuralCopulaFittingAndSampling}
 \textbf{Fitting}
-In the neural copula article the fitting procedure is as follows: 
+In the neural copula article the fitting procedure is as follows: by \Citet[p.~4]{ZengWang2022}
 First the data is normalized to lie in the interval between zero and one using min-max normalization. The normalized data is then used to fit the \gls{NC} to data by first fitting marginal distributions to each dimension of the data. This is done by training \gls{NN}s that minimize the marginal loss function defined in \Cref{sec:NeuralMarginalLoss} for each dimension. The copula is fitted by training another \gls{NN} that minimizes the copula loss function defined in \Cref{sec:NeuralCopulaLoss}. 
 
 \begin{generalinstructions}
@@ -1093,41 +1106,50 @@ First the data is normalized to lie in the interval between zero and one using m
 \end{generalinstructions}
 
 
-
 \textbf{Sampling}
-To sample from the \gls{NC} we first sample the copula model using conditional sampling as described in \Cref{sec:ConditionalSampling}. This yields data points in probability space. The method for sampling the \gls{NC} differs from the other copulas in that it uses the inverse marginal models rather than the inverse normal distribution to sample the marginals. Of course, the any other distribution could be used as well, as long as it can be sampled using \gls{ITM}. The sampled data is then transformed to the marginal distributions using the inverse of the fitted marginal distributions. This is done by applying the inverse \gls{CDF} to each of the sampled data points. The resulting data points are then a sample from the joint distribution. In both the conditional sampling and the inverse marginal the inverse is needed for the conditional copula and the marginal \gls{CDF} respectively. \todo{Change to acceptance rejection}
+To sample from the \gls{NC} we first sample the copula model using acceptance rejection sampling as described in \Cref{sec:AcceptanceRejection}. This can be done since the copula is essentially a distribution which we can find the density function of. Sampling the copula yields data points in probability space. 
+
+To get a sample from the joint distribution, in the space where the data was observed, we need to transform the sampled data points to the marginal distributions. Here there are different alternatives of how to sample. Either one can sample from the fitted marginal models or one can sample from any other probability distribution. In either case the sampled data in probability space is transformed using the inverse of the fitted marginal \gls{CDF}, using the \gls{ITM} described in \Cref{def:InverseTransformMethod}. The resulting data points should be a sample from the joint distribution if the copula and the marginals are fitted sufficiently well. 
 
 \begin{generalinstructions}
-    To do this the bisection algorithm is used to solve for the inverse for each point. To make the sampling from the marginal \gls{CDF} more efficient, polynomial fitting was tried. This did not work well as Runges phenomenon made the interpolating line very squiggly which is not desired. An alternative that has not been tested in this thesis is to interpolate a set of solved points using spline functions. This would be a good alternative since it would not suffer from the same problems as polynomial fitting.   
+     To make the sampling from the marginal \gls{CDF} more efficient, polynomial fitting was tried. This did not work well as Runges phenomenon made the interpolating line very squiggly which is not desired. An alternative that has not been tested in this thesis is to interpolate a set of solved points using spline functions. This would be a good alternative since it would not suffer from the same problems as polynomial fitting, now the bisection algorithm is used to solve for points on the inverse \gls{CDF}.   
 \end{generalinstructions}
 
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Goodness of fit measures
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Goodness of fit measures}\label{sec:GoodnessOfFit} \todo{Fix entire section and add references, make sure correct}
-This section describes how to measure how similar two probability measures are. This is done using the Wasserstein distance. This can be thought of as the distance we would need to move one distribution to match another. It is often described as moving a pile of dirt from one place to another where the pile represents the \gls{PDF}. The distance is the minimum cost of moving the dirt. The cost is defined as the distance moved times the amount of dirt moved. If thinking about the dirt in terms of individual grains of sand we can think of the cost as the average distance a grain of sand has to be moved for one pile to become identical to another pile. To solve this problem one needs to have the same amount of grains in each pile and therefore the two distributions need to be of the same size. The task of finding the combination of grains that minimizes the average distance of the dirt moved is highly complex and unfeasible for large datasets. We therefore need to define a method of approximating this. 
+This section describes how to measure how similar two datasets are. This is done using the Wasserstein distance. This can be thought of as the distance we would need to move one distribution to match another. It is often described as moving a pile of dirt from one place to another where the pile represents the \gls{PDF}. The distance is the minimum cost of moving the dirt. The cost is defined as the distance moved times the amount of dirt moved. If thinking about the dirt in terms of individual grains of sand we can think of the cost as the average distance a grain of sand has to be moved for one pile to become identical to another pile. To solve this problem one needs to have the same amount of grains in each pile and therefore the two distributions need to be of the same size. The task of finding the combination of grains that minimizes the average distance of the dirt moved is highly complex and unfeasible for large datasets. We therefore need to define a method of approximating this. 
 
-First the Wasserstein distance is defined. 
-Wasserstein distance is  (from wikipedia)
+% First the Wasserstein distance is defined. 
+% Wasserstein distance is  (from wikipedia)
+% \begin{align*}
+%     W_p(\mu,\nu) = \inf_{\gamma \in \Gamma(\mu,\nu)} \left( \mathbf{E}_{(x,y)\sim \gamma} d(x,y)^p \right)^{\frac{1}{p}},
+% \end{align*}
+% where $\Gamma$ is the set of all copulings, $\mu, \nu$ are probability measures and $d$ is a distance function. 
+
+
+% The minimum cost difference can be written as (from Optimal Transport and Wasserstein Distance)
+% \begin{align*}
+%     C = \inf_{\gamma \in \Gamma(\mu,\nu)} \left( \int_{\mathbb{R}^2} d(x,y)^p d\gamma(x,y) \right)^{\frac{1}{p}},
+% \end{align*}
+
+%If $d(x,y)$ is the euclidean distance we can write the Wasserstein distance as (from Optimal Transport and Wasserstein Distance)
+
+
+The Wasserstein distance is defined as in \Citet[p.~1032]{hallin2021}. Let $\mu$ and $\nu$ be two probability measures on $\mathbb{R}^2$ and let $d$ be some distance measure. The Wasserstein distance is defined as the infimum of the cost of moving the dirt from one distribution to another. The cost is defined as the average distance moved times the amount of dirt moved. The Wasserstein distance is then given by
 \begin{align*}
-    W_p(\mu,\nu) = \inf_{\gamma \in \Gamma(\mu,\nu)} \left( \mathbf{E}_{(x,y)\sim \gamma} d(x,y)^p \right)^{\frac{1}{p}},
-\end{align*}
-where $\Gamma$ is the set of all copulings, $\mu, \nu$ are probability measures and $d$ is a distance function. 
-
-
-The minimum cost difference can be written as (from Optimal Transport and Wasserstein Distance)
-\begin{align*}
-    C = \inf_{\gamma \in \Gamma(\mu,\nu)} \left( \int_{\mathbb{R}^2} d(x,y)^p d\gamma(x,y) \right)^{\frac{1}{p}},
+    W_p(\mu,\nu) = \inf_{\gamma \in \Gamma(\mu,\nu)} \left( \int_{\mathbb{R}^2} d(x,y)^p d\gamma(x,y) \right)^{\frac{1}{p}}.
 \end{align*}
 
-If $d(x,y)$ is the euclidean distance we can write the Wasserstein distance as (from Optimal Transport and Wasserstein Distance)
-\begin{align*}
-    W_p(\mu,\nu) = \inf_{\gamma \in \Gamma(\mu,\nu)} \left( \int_{\mathbb{R}^2} ||x-y||^p d\gamma(x,y) \right)^{\frac{1}{p}}.
-\end{align*}
 
 The Wasserstein distance can be calculated between two equally sized sets of data points by
 \begin{align*}
     W_p(\mu,\nu) =  \inf_{\pi} \left( \frac{1}{n} \sum_{i=1}^n \| X_i - Y_{\pi(i)}  \|^p \right)^{\frac{1}{p}},
 \end{align*} 
-which is the linear assignment of points between the two sets having the smallest distance between them. $\pi$ can be viewed as an operator that chooses the best assignment of points between the two sets. The distance is then the average distance between the points in the two sets. This problem has high cubic complexity and is therefore really inefficient when the number of points is large. This distance is illustrated in \Cref{fig:WassersteinDistance} where two datasets are displayed. The wasserstein distance is the minimum distance of points moved that makes the two distributions identical. The transportation that results in the smallest distance is shown in the figure as the lines between the points. 
+where $d$ is replaced by the euclidean distance. This is the linear assignment of points between the two sets having the smallest distance between them. $\pi$ can be viewed as an operator that chooses the best assignment of points between the two sets. The distance is then the average distance between the points in the two sets. This problem has high cubic complexity and is therefore really inefficient when the number of points is large. This distance is illustrated in \Cref{fig:WassersteinDistance} where two datasets are displayed. The Wasserstein distance is the minimum distance of points moved that makes the two distributions identical. The transportation that results in the smallest distance is shown in the figure as the lines between the points. 
 \begin{figure}
     \centering
     \includegraphics[width=0.5\linewidth]{3Theory/pictures/WassersteinIllustrated.png}
@@ -1147,44 +1169,43 @@ From this we obtain through a change of variables that the Wasserstein distance 
 
 This motivates how the difference between two \gls{CDF}s can be used as a distance measure. Note that the following can no longer be called the Wasserstein distance. In two dimensions we therefore define a distance measure between distributions as
 \begin{align*}
-    d(\mu,\nu) = \left(\iint_{\mathbb{R}^2} |F_\mu(x,y) - F_\nu(x,y)|^p dx dy \right) ^{\frac{1}{p}}.
+    \mathrm{dist}(\mu,\nu) = \left(\iint_{\mathbb{R}^2} |F_\mu(x,y) - F_\nu(x,y)|^p dx dy \right) ^{\frac{1}{p}}.
 \end{align*}
-$F_\mu$ and $F_\nu$ are the \gls{CDF}s of the two distributions. These distributions are estimated using a kernel density estimation with the gaussian kernel \todo{Reference, can't find good} over a grid of points. After normalizing the densities to create a distribution, this gives estimates of the \gls{PDF}s for each data set. If computing the cumulative sum of the approximate \gls{PDF}s in each dimension we get an approximated \gls{CDF} of the data. 
+$F_\mu$ and $F_\nu$ are the \gls{CDF}s of the two distributions. These distributions are estimated using a kernel density estimation with the gaussian kernel over a grid of points. After normalizing the densities to create a distribution, this gives estimates of the \gls{PDF}s for each data set. If computing the cumulative sum of the approximate \gls{PDF}s in each dimension we get an approximated \gls{CDF} of the data. We denote the estimated \gls{CDF}s by $\hat F_\mu$ and $\hat F_\nu$. 
 
 The distance is then approximated by numerical integration over the grid of points as
 \begin{align*}
-    d(\mu,\nu) = \left( \sum_{i=1}^n \sum_{j=1}^m |\hat F_\mu(x_i,y_j) - \hat F_\nu(x_i,y_j)|^p \Delta x_i \Delta y_j \right)^{\frac{1}{p}},
+    \mathrm{dist}(\mu,\nu) = \left( \sum_{i=1}^n \sum_{j=1}^m |\hat F_\mu(x_i,y_j) - \hat F_\nu(x_i,y_j)|^p \Delta x_i \Delta y_j \right)^{\frac{1}{p}},
 \end{align*}
-where $\Delta x_i$ and $\Delta y_j$ are the step sizes in the $x$ and $y$ dimensions respectively. The distance is then calculated as the average distance between the two distributions. The density estimates and the corresponding CDFs are illustrated in \Cref{fig:ApproxWasserstein}. The estimated \gls{PDF}s are shown in \Cref{fig:density1} and \Cref{fig:density2}. The estimated \gls{CDF}s are shown in \Cref{fig:dist1} and \Cref{fig:dist2}. The difference between the two distributions is shown in \Cref{fig:diffDist1and2} and the distance approximation is then calculated as the average distance between the two distributions. That is, the integral under the difference between the two distributions. 
-
+where $\Delta x_i$ and $\Delta y_j$ are the step sizes in the $x$ and $y$ dimensions respectively. The distance is then calculated as the average distance between the two distributions. The density estimates and the corresponding CDFs are illustrated in \Cref{fig:ApproxWasserstein}. The estimated \gls{PDF}s are shown in \Cref{fig:density1} and \Cref{fig:density2}. The estimated \gls{CDF}s are shown in \Cref{fig:dist1} and \Cref{fig:dist2}. The difference between the two distributions is shown in \Cref{fig:diffDist1and2} and the distance approximation is then calculated as the average distance between the two distributions. That is, the volume under the surface in \Cref{fig:diffDist1and2}. 
 
 \begin{figure}
     \centering
     \begin{subfigure}{0.45\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{3Theory/pictures/densityDist1.png}
-        \caption{}
+        \includegraphics[width=\textwidth]{3Theory/pictures/densityDist2.png}
+        \caption{Density estimation of the first distribution.}
         \label{fig:density1}
     \end{subfigure}
     \hfill
     \begin{subfigure}{0.45\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{3Theory/pictures/densityDist2.png}
-        \caption{}
+        \includegraphics[width=\textwidth]{3Theory/pictures/densityDist1.png}
+        \caption{Density estimation of the second distribution.}
         \label{fig:density2}
     \end{subfigure}
     \vfill
     \begin{subfigure}{0.45\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{3Theory/pictures/CDFDist1.png}
-        \caption{}
+        \includegraphics[width=\textwidth]{3Theory/pictures/CDFDist2.png}
+        \caption{Distribution function estimate of the first distribution.}
         \label{fig:dist1}
     \end{subfigure}
     \hfill
     \begin{subfigure}{0.45\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{3Theory/pictures/CDFDist2.png}
-        \caption{}
+        \includegraphics[width=\textwidth]{3Theory/pictures/CDFDist1.png}
+        \caption{Distribution function estimate of the second distribution.}
         \label{fig:dist2}
     \end{subfigure}
     
@@ -1192,10 +1213,10 @@ where $\Delta x_i$ and $\Delta y_j$ are the step sizes in the $x$ and $y$ dimens
     \begin{subfigure}{0.45\textwidth}
         \centering
         \includegraphics[width=\textwidth]{3Theory/pictures/diffDist1and2.png}
-        \caption{}
+        \caption{Difference between the two distributions.}
         \label{fig:diffDist1and2}
     \end{subfigure}
-    \caption{Density and CDF plots used in the Wasserstein distance calculation.}
+    \caption{Density and CDF plots used in the distance calculation.}
     \label{fig:ApproxWasserstein}
 \end{figure}
 
