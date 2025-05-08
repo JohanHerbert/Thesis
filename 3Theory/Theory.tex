@@ -877,11 +877,11 @@ Archimedian copulas have the general expression
 \begin{align*}
     C(u_1,u_2) = \Psi^{-1}(\Psi(u_1),\Psi(u_2)),
 \end{align*}
-for some generator function $\Psi$, as defined by \citet[p.~150]{Umberto2004copulaMethods}.
+for some generator function $\Psi$, as defined by \Citet[p.~150]{Umberto2004copulaMethods}.
 
 The Clayton copula, which is one instance of an Archimedean copula, uses the generator function
 \begin{align*}
-    \Psi(u) &=u^{-\alpha}-1, \\
+    \Psi(u) &=u^{-\alpha}-1, 
 \end{align*}
 and its inverse
 \begin{align*}
@@ -893,12 +893,11 @@ This gives the bivariate Clayton copula \gls{CDF}
 \begin{align*}
     C(u_1,u_2) = (u_1^{-\alpha} + u_2^{-\alpha}-1)^{\frac{-1}{\alpha}}.
 \end{align*}
-
-The Clayton copula \gls{PDF} is 
+The Clayton copula \gls{PDF} is given by the expression
 \begin{align*}
     c(u_1,u_2) = (\alpha+1)(u_1^{-\alpha}+u_2^{-\alpha}-1)^{-2- \frac{1}{\alpha}}u_1^{-\alpha -1} u_2^{-\alpha -1},
 \end{align*}
-as stated by \citet[p.~272]{Alexander2008}. 
+as stated by \Citet[p.~272]{Alexander2008}. 
 
 \textbf{Fitting}\Citet[pp.~281-283]{Alexander2008}
 Fitting the Clayton copula to data is done by estimating the parameter $\alpha$. This is done by using \gls{MLE} with the copula \gls{PDF} as the terms in the sum of the log likelihood function. \gls{MLE} applied to copula fitting is described in \Citet[p.~2]{Choros2010}. 

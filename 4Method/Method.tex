@@ -129,14 +129,114 @@ To evaluate the performance of different copulas when fitted to data we need dat
 
 This thesis focuses on the role of the copula purely and therefore, the aim is not to conflate the results from the copula's performance with that of the marginal fitting procedure. Therefore, we want each marginal distribution of the generated portfolios to be the same known distribution, removing the need for fitting the marginal distributions. The marginal distributions used should not matter, given that the copula is invariant to strictly increasing transformations as stated in \Cref{the:TranslationInvariance}. In this study the marginal distributions used will be the normal distribution. If having different marginal distributions the number of combinations to test during model fitting becomes large.  \todo{Add reference saying that marginal dist fitting is studied.}
 
-To generate portfolios with different dependence structures and the same marginal distributions, copulas will be used. This will be done by first sampling data from analytical copulas with different parameter values. This will result in data points in probability space that contain the pure dependence between the different variables. These data points will then be plugged into the inverse \gls{CDF} of a Standard normal distribution. This performs the \gls{PIT} in reverse, creating data points with standard normal marginal distributions with the dependence described by the copula. 
+To generate portfolios with different dependence structures and the same marginal distributions, copulas will be used. This will be done by first sampling data from analytical copulas with different parameter values. The result will be data points in probability space that contain the pure dependence between the different variables. These data points will then be plugged into the inverse \gls{CDF} of a Standard normal distribution. This performs the \gls{PIT} in reverse, creating data points with standard normal marginal distributions with the dependence described by the copula. 
 
 After having generated these pairs of dependent standard, normally distributed random numbers, they are used as the random shocks when simulating the bivariate \gls{GBM} using the Euler-Maruyama scheme defined in \Cref{sec:EulerMaruyama}. This results in test portfolios representing stock prices over time, creating a realistic setting for when using copulas is appropriate. 
 
-The above procedure for generating data is used with the following copulas and parameter values. 
-\todo{Decide on portfolios, and time horizon, and mean and volatility}
+The above procedure for generating data is used for the copulas specified in \Cref{tab:DatasetsUsed}. In the table we can see the different copulas and the parameter values for them. The stock trajectories are simulated for 10000 time periods representing days. Both stocks have a drift term of 0.03 and the volatility is set to 0.2 and 0.3 for stock one and two respectively. 
+\begin{table}[h!]
+    \centering
+    \caption{Portfolios used to evaluate the different copulas.}
+    \begin{tabular}{ll}
+    \textbf{Copula} & \textbf{Parameters} \\
+    \hline
+    Gaussian & Correlation: 0 \\
+    Gaussian & Correlation: 0.7\\
+    Students $t$ & Correlation: -0.8, Degrees of Freedom: 3\\
+    Clayton & Alpha: 4 \\
+    \end{tabular}
+    \label{tab:DatasetsUsed}
+\end{table}
 
-The data generated is divided into a fitting and a testing part. The fitting part will be used in the model fitting and can be thought of as historically observed data. The testing part will be used in the model evaluation and can be thought of as data that will appear in the future, which we want to replicate as well as possible by sampling from a copula fitted to the historical data. \todo{add pictures of portfolios}
+\todo{and time horizon, and mean and volatility}
+
+
+The resulting portfolios can be observed in \Cref{fig:DatasetsUsed} where the left pictures show the price time series of the different portfolios and the right pictures show the log returns of the portfolios. In the left pictures we can see how the portfolios are divided over time. In the right pictures we can see the log returns of the portfolios. The blue points show the log returns of the fitting data and the red points show the log returns of the testing data. The fitting part will be used in the model fitting and can be thought of as historically observed data. The testing part will be used in the model evaluation and can be thought of as data that will appear in the future, which we want to replicate as well as possible by sampling from a copula fitted to the historical data. 
+
+\begin{figure}
+    \centering
+    % --- (a) Independence ---
+    \begin{minipage}{0.9\textwidth}
+        \centering
+        \begin{minipage}{0.54\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{4Method/pictures/PricesGaussian_0.png}
+            %\subcaption*{Histogram}
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.34\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{4Method/pictures/ReturnsGaussian_0.png}
+            %\subcaption*{QQ plot}
+        \end{minipage}
+        \subcaption*{(a) Independent}
+    \end{minipage}
+    \hfill
+    % --- (b) Student's t ---
+    \begin{minipage}{0.9\textwidth}
+        \centering
+        \begin{minipage}{0.54\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{4Method/pictures/PricesStudents_-08_3.png}
+            %\subcaption*{Histogram}
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.34\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{4Method/pictures/ReturnsStudents_-08_3.png}
+            %\subcaption*{QQ plot}
+        \end{minipage}
+        \subcaption*{(b) Student's $t$ -0.8 3}
+    \end{minipage}
+    \vfill
+    % --- (c) gaussian 0.7 ---
+    \begin{minipage}{0.9\textwidth}
+        \centering
+        \begin{minipage}{0.54\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{4Method/pictures/PricesGaussian_07.png}
+            %\subcaption*{Histogram}
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.34\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{4Method/pictures/ReturnsGaussian_07.png}
+            %\subcaption*{QQ plot}
+        \end{minipage}
+        \subcaption*{(c) Gaussian 0.7}
+    \end{minipage}
+    \hfill
+    % --- (d) Clayton ---
+    \begin{minipage}{0.9\textwidth}
+        \centering
+        \begin{minipage}{0.54\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{4Method/pictures/PricesClayton_4.png}
+            %\subcaption*{Histogram}
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.34\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{4Method/pictures/ReturnsClayton_4.png}
+            %\subcaption*{QQ plot}
+        \end{minipage}
+        \subcaption*{(d) Clayton 4}
+    \end{minipage}
+    \caption{Figure displaying the test portfolios price series and log returns for the portfolio test.}
+    \label{fig:DatasetsUsed}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
 
 \subsubsection{Model Fitting}
 The fitting data from each of the previously generated portfolios is used for fitting the different copulas. To do this, the data needs to be converted so that the copulas can work with it. Hence, the log returns are calculated as defined in \Cref{def:logReturns}. These are then standardized and centered to have a zero mean and unit variance. \todo{maybe not necessary to scale...}
@@ -151,6 +251,18 @@ The sampled data points from the copulas, other than the \gls{NC} which uses the
 
 \subsubsection{Model evaluation}
 To evaluate the performance of each copula for each of the datasets the distance measure described in \Cref{sec:GoodnessOfFit} is used. An average of the distance measure is calculated over the different datasets for each copula. This will give a good indication of how well each copula performs overall. 
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 \begin{generalinstructions}
