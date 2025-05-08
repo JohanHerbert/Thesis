@@ -49,8 +49,7 @@ To quantify how similar the test and sampled datasets are to each other, the dis
 %%%% Marginal model test
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Marginal model test}
-To validate that the marginal model works as intended, a test is performed to see how well the fitted marginal distribution matches the true distribution of the data. This is done by generating data from a known distribution and then fitting a marginal model to it. The fitted marginal model is then compared to the true distribution of the data by transforming the data to probability space using the \gls{PIT} using both the fitted distribution and the true distribution. To evaluate how similar the points in probability space are to each other the \gls{MAE} is calculated. Additionally a QQ-plot is created to visualize how well the fitted distribution matches how well the data follows the true distribution. During this experiment it is important to keep in mind that the generated data is subject to random noise, therefore it is not necessarily the case that the true distribution of the data is the exact same as the observed distribution even tough they should be. It is however a good benchmark to see how well the fitted distribution matches the true distribution, which would be a reasonable choice of distribution to use if the neural network was not used. The distributions used for the test are listed in \Cref{tab:distributions} where the distribution, the parameter values, and a short description is displayed for each of the tested distributions.
-
+To validate that the marginal model works as intended, a test is performed to see how well the fitted marginal distribution matches the true distribution of the data. This is done by generating data from a known distribution and then fitting a marginal model to it. The fitted marginal model is then compared to the true distribution of the data by transforming the data to probability space using the \gls{PIT} using both the fitted distribution and the true distribution. To evaluate how similar the points in probability space are to each other the \gls{MAE} is calculated. Additionally a QQ-plot is created to visualize how well the fitted distribution matches how well the data follows the true distribution. During this experiment it is important to keep in mind that the generated data is subject to random noise, therefore it is not necessarily the case that the true distribution of the data is the exact same as the observed distribution even tough they should be. It is however a good benchmark to see how well the fitted distribution matches the true distribution, which would be a reasonable choice of distribution to use if the neural network was not used. The distributions used for the test are listed in \Cref{tab:distributions} where the distribution, the parameter values, and a short description is displayed for each of the tested distributions. In this test the different terms of the loss function defined in \Cref{sec:NeuralCopulaLoss} are equally weighted. The number of data points used for each distribution is 10000.
 
 \begin{table}[h]
     \centering
@@ -76,14 +75,27 @@ To validate that the marginal model works as intended, a test is performed to se
 \subsection{Neural Copula training scheme test}
 In this section the procedure for finding the best hyper parameters for the model to create a valid copula function is described. Wether or not a copula function is valid is determined by wether or not it satisfies the conditions of being a copula defined in \Cref{def:copula}. In practice for the neural copula this means that all but the first of the loss terms, defined in \Cref{sec:NeuralCopulaLoss}, should approach zero when training is done. Several different combinations of hyper parameters will be tested with the goal of some that work well, meaning that the fitted copula is valid.
 
-Several datasets will be used for testing the neural copula fitting procedure. This is to ensure that the method works well, regardless of the data, consistently resulting in valid copulas. The method for this workflow is as follows for each dataset. First different datasets will be generated \todo{How} and a grid of different parameter values will be created. The grid will contain different values for the parameters of the neural copula such as the solver used, learning rates, number of epochs, batch size, network architecture, number of data points in the additional uniform datasets. This creates a large number of different combinations of choices to test which will hopefully result in a method for finding a training method that works well universally. Some constraints will be put on the grid to make the execution time reasonable. The test will be ran on a compute cluster but despite that the execution time will be long due to the large number of parameters. 
+Several datasets will be used for testing the neural copula fitting procedure. This is to ensure that the method works well, regardless of the data, consistently resulting in valid copulas. The method for this workflow is as follows for each dataset. First different datasets will be generated \todo{How} and a grid of different parameter values will be created. The grid will contain different values for the parameters of the neural copula such as the solver used, learning rates, number of epochs, batch size, network architecture and step size scheduler. This creates a large number of different combinations of choices to test which will hopefully result in a method for finding a training method that works well universally. The number of alternatives tested in the grid is somewhat limited to make the execution time reasonable. In total 288 combinations of network parameters are tested for the five datasets. The test will be ran on a compute cluster but despite that the execution time will be long due to the large number of combinations. 
 
-The datasets that will be used for testing the neural copula fitting procedure are:\\ 
-Independence copula Gaussian with 0 correlation\\
-Gaussian with +/-0.7 correlation\\
-Frechet-Hoeffding upper bound\\
-Frechet-Hoeffding lower bound\\
+The datasets that will be used for testing the neural copula fitting procedure are the independence copula, the Gaussian copula with a correlation of +/-0.7, and the Frechet-Hoeffding upper bound and lower bound. The hyper parameters that will be tested are displayed in \Cref{tab:se_hyperparams}. In the table we can see the hyper parameters Network layers and Network neurons that describe the architecture of the \gls{NN}. The parameters Learning rate, Scheduler and Solver describe the training procedure. The parameters Epochs and Batch size describe the training process. 
 
+\begin{table}[h!]
+    \centering
+    \caption{Hyperparameter grid choices the test of the neural copula fitting procedure.}
+    \begin{tabular}{ll}
+    \textbf{Hyperparameter} & \textbf{Options} \\
+    \hline
+    Network layers & 2, 3, 4 \\
+    Network neurons & 5, 10 \\
+    Learning rate & 0.1, 0.01 \\
+    Scheduler & step, exponential, None \\
+    Solver & ADAM, SGD \\
+    Epochs & 10000, 5000 \\
+    Batch size & 1024, 2048 \\
+    \end{tabular}
+    \label{tab:se_hyperparams}
+\end{table}
+    
 
 % For each of the combinations in the grid the an ensemble of runs will be performed to mitigate the impact of what random seeds are used for initializing the weights of the network. The ensemble will consist of 10 runs for each combination in the grid. The best run from the ensemble will be kept for each combination in the grid. 
 
@@ -91,19 +103,17 @@ Frechet-Hoeffding lower bound\\
 
 The different combinations of hyper parameters will be tested on each of the different datasets. After training the best overall method over the datasets, measured by the average loss, will be selected as the best one. If the losses relating to the copula function constraints close to zero. This indicates that the fitted copula is valid. The best model will be used in the final experiment, described in \Cref{sec:PortfolioTesting}.  
 
-\begin{generalinstructions}
-Given generated datasets and a specified grid\\
-\textbf{For each dataset}
-\begin{compactitem}
-    \item \textbf{For grid alternative}
-    \begin{compactitem}
-            \item Train copula on dataset
-        \end{compactitem}
-\end{compactitem}
-\textbf{Evaluate the average performance of methods over the datasets}
-\end{generalinstructions}
-
-\todo{State best and what tested}
+% \begin{generalinstructions}
+% Given generated datasets and a specified grid\\
+% \textbf{For each dataset}
+% \begin{compactitem}
+%     \item \textbf{For grid alternative}
+%     \begin{compactitem}
+%             \item Train copula on dataset
+%         \end{compactitem}
+% \end{compactitem}
+% \textbf{Evaluate the average performance of methods over the datasets}
+% \end{generalinstructions}
  
 \todo{How have i changed the neural copula approach, errors in the neural copula article.}
 
@@ -126,7 +136,7 @@ After having generated these pairs of dependent standard, normally distributed r
 The above procedure for generating data is used with the following copulas and parameter values. 
 \todo{Decide on portfolios, and time horizon, and mean and volatility}
 
-The data generated is divided into a fitting and a testing part. The fitting part will be used in the model fitting and can be thought of as historically observed data. The testing part will be used in the model evaluation and can be thought of as data that will appear in the future, which we want to replicate as well as possible by sampling from a copula fitted to the historical data. 
+The data generated is divided into a fitting and a testing part. The fitting part will be used in the model fitting and can be thought of as historically observed data. The testing part will be used in the model evaluation and can be thought of as data that will appear in the future, which we want to replicate as well as possible by sampling from a copula fitted to the historical data. \todo{add pictures of portfolios}
 
 \subsubsection{Model Fitting}
 The fitting data from each of the previously generated portfolios is used for fitting the different copulas. To do this, the data needs to be converted so that the copulas can work with it. Hence, the log returns are calculated as defined in \Cref{def:logReturns}. These are then standardized and centered to have a zero mean and unit variance. \todo{maybe not necessary to scale...}
