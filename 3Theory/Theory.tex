@@ -236,6 +236,7 @@ One can think of the \gls{CDF} at each point on its domain $\bar{R}$ as the prob
     \caption{Illustration of a \gls{PDF} (left) and \gls{CDF} (right) for a random variable $X$, being standard normally distributed, in one dimension.}
     \label{fig:PDFandCDF1D}
 \end{figure}
+\todo{Make Left Right pictures}
 
 When dealing with multiple assets the notion of a \gls{CDF} generalizes to a multivariate \gls{CDF}. To define a multivariate \gls{CDF} formally in two dimensions we will need to define the $H$-volume of a function in two dimensions and what the meaning of a function being 2-increasing is. This is done in the same manner as in \citet[p.~8]{Nelsen2006} in \Cref{def:H-volume} and \Cref{def:2-Increasing}.
 
@@ -259,7 +260,8 @@ The notion of a 2-increasing function is illustrated in \Cref{fig:2-Increasing}.
     \caption{Illustration of what it means for a function to be, and not to be, 2-increasing using the definition of the $H$-volume.}
     \label{fig:2-Increasing}
 \end{figure}
-%\todo{Maybe rotate?}
+\todo{Make Left Right pictures}
+
 
 
 \begin{definition}\label{def:JointCDF} \textbf{Joint CDF} \\
@@ -303,7 +305,7 @@ Analogously to the univariate setting, the joint \gls{PDF} and \gls{CDF} are ill
     \caption{Illustration of a \gls{PDF} (left) and \gls{CDF} (right) for a two dimensional random variable $X = (X_1,X_2)$, being standard normally distributed.}
     \label{fig:JointCDFandPDF}
 \end{figure}
-
+\todo{Make Left Right pictures}
 
 The \gls{PIT} refers to transforming a continuous random variable to a uniformly distributed random variable. 
 This maps the domain of a continuous one-dimensional random variable through its \gls{CDF} to the $[0,1]$ space, which may in the sequel be referred to as \emph{probability space}. This transformation will be central when defining copulas and is introduced in \Cref{the:PIT} as done in \citet[p.~27]{Danielsson2011}. 
@@ -391,6 +393,8 @@ In \Cref{fig:MarginalCDF} the notion of a marginal distribution is visualized. I
     \caption{Illustration of what the marginal \gls{CDF} looks like for a bivariate normal distribution.   }
     \label{fig:MarginalCDF}
 \end{figure}
+\todo{Make Left Right pictures}
+
 
 To conclude this subsection, we will show how the \gls{PIT} is utilized to transform data to the probability space and explain how it sets the stage for copulas. \Cref{fig:PITonData} illustrates how the \gls{PIT} is used to transform two-dimensional data into the two-dimensional probability space, by transforming through each of the marginal distributions separately. This is done for standard normally distributed data with and without correlation in (b) and (a) respectively, to highlight the differences in the distribution of points in the probability space when dependence is present and not in (d) and (c) respectively.
 
@@ -422,6 +426,8 @@ To conclude this subsection, we will show how the \gls{PIT} is utilized to trans
     \end{minipage}
     \caption{Illustration of how the \gls{PIT} is used to transform two-dimensional data into the $[0,1]$-domain by considering the marginal distribution of each dimension separately.}
 \end{figure}
+\todo{Subcaptions here}
+
 
 Before introducing copulas in the next section we can simply describe the setting for copulas as \gls{CDF} of the data after having transformed it into the probability space using the \gls{PIT}. Relating to \Cref{fig:PITonData} we the copula is the \gls{CDF} of the data in (c) or (d).
 
@@ -666,8 +672,6 @@ The following examples are to illustrate how correlation can fail to capture the
 
         This shows that estimating the correlation in a setting when the different marginals are not both normal can be misleading. This is a problem in finance where one often uses correlation to estimate the dependence between different assets. This is especially true when using correlation to estimate the dependence between stocks and derivatives.
     \end{generalinstructions}
-
-
 \end{example}
     
 \begin{figure}
@@ -702,6 +706,7 @@ The following examples are to illustrate how correlation can fail to capture the
     \caption{Figures illustrating why correlation breaks as a measure of dependence.}
     \label{fig:ExamplePlots}
 \end{figure}
+\todo{Fix}
 
 Up to now we have not yet provided an example of the usefulness of copulas. The next section will show an example of how copulas are useful in practice.
 
@@ -832,10 +837,10 @@ as stated in \citet[p.267]{Alexander2008}.
 
 
 \textbf{Fitting}(alternative source: \Citet[pp.~281-283]{Alexander2008})
-To fit the Gaussian copula to data we need to compute the correlation matrix $\Sigma$. This is done by first estimating the sample covariance matrix and then normalizing it to obtain the correlation matrix\footnote{See \url{https://support.sas.com/documentation/onlinedoc/ets/132/copula.pdf}. \textit{SAS/ETS\textsuperscript{\textregistered} 13.2 User's Guide}, SAS Institute Inc., Cary, NC, 2014. Accessed: 2024-04-24.}.%\Citet[p.~523]{SAS2014}. 
+To fit the Gaussian copula to data we need to compute the correlation matrix $\Sigma$. This is done by first estimating the sample covariance matrix and then normalizing it to obtain the correlation matrix\footnote{See \url{https://support.sas.com/documentation/onlinedoc/ets/132/copula.pdf}. \textit{SAS/ETS\textsuperscript{\textregistered} 13.2 User's Guide}, p.523, SAS Institute Inc., Cary, NC, 2014. Last Accessed: 2025-04-24.}.%\Citet[p.~523]{SAS2014}. 
 
 \textbf{Sampling}(alternative source: \Citet[p.~19]{Schmidt2006})
-To sample from a Gaussian copula we can first generate a sample from the multivariate normal distribution with the desired correlation matrix $\Sigma$. This is done by multiplying a standard normal random vector with the Cholesky decomposition of the correlation matrix. The Cholesky decomposition can be thought of as a matrix square root of the correlation matrix. The resulting sample of correlated random numbers is then transformed to uniform random numbers using the \gls{PIT}. This is done by applying the univariate normal \gls{CDF} to each of the elements in the sample. The resulting sample is then a sample from the Gaussian copula\footnote{See \url{https://support.sas.com/documentation/onlinedoc/ets/132/copula.pdf}. \textit{SAS/ETS\textsuperscript{\textregistered} 13.2 User's Guide}, SAS Institute Inc., Cary, NC, 2014. Accessed: 2024-04-24.}.%\Citet[p.~523]{SAS2014}.
+To sample from a Gaussian copula we can first generate a sample from the multivariate normal distribution with the desired correlation matrix $\Sigma$. This is done by multiplying a standard normal random vector with the Cholesky decomposition of the correlation matrix. The Cholesky decomposition can be thought of as a matrix square root of the correlation matrix. The resulting sample of correlated random numbers is then transformed to uniform random numbers using the \gls{PIT}. This is done by applying the univariate normal \gls{CDF} to each of the elements in the sample. The resulting sample is then a sample from the Gaussian copula\footnotemark[\value{footnote}]. %\footnote{\value{\footnote}} %\footnote{See \url{https://support.sas.com/documentation/onlinedoc/ets/132/copula.pdf}. \textit{SAS/ETS\textsuperscript{\textregistered} 13.2 User's Guide}, p.523, SAS Institute Inc., Cary, NC, 2014. Last Accessed: 2025-04-24.}.%\Citet[p.~523]{SAS2014}.
 
 
 
@@ -859,15 +864,13 @@ as defined by \citet[p.~116]{Umberto2004copulaMethods}. The corresponding copula
 \begin{align*}
     c_{\nu,\Sigma}(u_1,u_2) = \frac{\Gamma(\frac{\nu+2}{2})\Gamma(\frac{\nu}{2})\prod_{j=1}^2\left( 1+ \frac{t_\nu^{-1}(u_j)^2}{\nu}\right)^{\frac{\nu+2}{2}} } {\sqrt{\rho} \;\Gamma(\frac{\nu+1}{2})^{2}\left( 1+ \frac{t_\nu^{-1}(u_1)^2 + t_\nu^{-1}(u_2)^2 -2\rho t_\nu^{-1}(u_1) t_\nu^{-1}(u_2) }{\nu(1-\rho^2)}\right)},
 \end{align*}
-as stated by \citet[p.~117]{Umberto2004copulaMethods}.
-\todo{Say what gamma is}
+as stated by \Citet[p.~117]{Umberto2004copulaMethods}. In the above expression $\Gamma$ is the Euler gamma function.
 
 \textbf{Fitting} 
-To fit the Student's $t$ copula to data we need to compute the correlation matrix $\Sigma$ and the degrees of freedom $\nu$. It is common to first estimate the correlation matrix and then estimate the degrees of freedom using \gls{MLE} \Citet[p.~283]{Alexander2008}.  
-\todo{They often say to use either spearman or kendal here. does it matter? }
+To fit the Student's $t$ copula to data we need to compute the correlation matrix $\Sigma$ and the degrees of freedom $\nu$. It is common to first estimate the correlation matrix and then estimate the degrees of freedom using \gls{MLE} \Citet[p.~283]{Alexander2008}. In this thesis we will use the Pearson correlation to estimate the correlation matrix. 
 
 \textbf{Sampling} (alternative source: \Citet[p.~19]{Schmidt2006})
-Sampling from a Student's $t$ copula is similar to sampling from a Gaussian copula. First, we generate a sample from the multivariate Student's $t$ distribution with the desired correlation matrix $\Sigma$ and degrees of freedom $\nu$. This can be done by generating a sample $Z$ from a normal distribution with correlation matrix $\Sigma$ as described for the Gaussian copula. These normal random numbers can then be transformed into Student's $t$ distributed sample $X$ by the calculation $X = Z\sqrt{\frac{\nu}{s}} $, where s is a sample from a $\chi^2$ distribution with $\nu$ degrees of freedom. The resulting sample of correlated Student's $t$ random numbers is then transformed to uniform random numbers using the \gls{PIT}. This is done by applying the univariate Student's $t$ \gls{CDF} with $\nu$ degrees of freedom to each of the elements in the sample. The resulting sample is then a sample from the Student's $t$ copula\footnote{See \url{https://support.sas.com/documentation/onlinedoc/ets/132/copula.pdf}. \textit{SAS/ETS\textsuperscript{\textregistered} 13.2 User's Guide}, SAS Institute Inc., Cary, NC, 2014. Accessed: 2024-04-24.}.%\Citet[p.~524]{SAS2014}. 
+Sampling from a Student's $t$ copula is similar to sampling from a Gaussian copula. First, we generate a sample from the multivariate Student's $t$ distribution with the desired correlation matrix $\Sigma$ and degrees of freedom $\nu$. This can be done by generating a sample $Z$ from a normal distribution with correlation matrix $\Sigma$ as described for the Gaussian copula. These normal random numbers can then be transformed into Student's $t$ distributed sample $X$ by the calculation $X = Z\sqrt{\frac{\nu}{s}} $, where s is a sample from a $\chi^2$ distribution with $\nu$ degrees of freedom. The resulting sample of correlated Student's $t$ random numbers is then transformed to uniform random numbers using the \gls{PIT}. This is done by applying the univariate Student's $t$ \gls{CDF} with $\nu$ degrees of freedom to each of the elements in the sample. The resulting sample is then a sample from the Student's $t$ copula\footnote{See \url{https://support.sas.com/documentation/onlinedoc/ets/132/copula.pdf}. \textit{SAS/ETS\textsuperscript{\textregistered} 13.2 User's Guide}, p.524, SAS Institute Inc., Cary, NC, 2014. Last Accessed: 2025-04-24.}.%\Citet[p.~524]{SAS2014}. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% Clayton Copula
@@ -941,7 +944,7 @@ To sample from a Clayton copula we can use conditional sampling as described in 
 \subsection{Neural Networks}
 A full introduction of \gls{NN}s is beyond the scope of this thesis and the interested reader is referred to \Citet[]{Jentzen2023}. Some suggested topics are artificial neural networks, gradient descent, and back propagation. Despite other simpler topics being thoroughly explained, in those cases that has been to explain what something else is or to motivate some method. This section will only give a brief introduction to \gls{NN}s and how they can be used for learning functions by just penalizing unwanted behavior. In particular a short description of how to solve differential equations using \gls{NN}s as this will be used to train the neural copula.
 
-A theoretical introduction to solving differential equations using \gls{NN}s can be found in \Citet[pp.~81-84]{KarlssonFaronius1746454} or \Citet[pp.~509-516]{Jentzen2023}. What is however more illustrative of the method of solving differential equations using \gls{NN}s is to show how the method works in practice. This is done in \Cref{ex:NeuralNetworkDifferentialEquation}, showing how to solve a simple differential equation using \gls{NN}s. The example is taken from a video seminar on how to solve Partial Differential Equations using \gls{NN}s by Leah Bar\footnote{See \url{https://www.youtube.com/watch?v=f44sFOR296I} . Leah Bar, \textit{Deep Learning Approach to Partial Differential Equations | Leah Bar, OriginAI (PyData TLV June22)}, 2022. Accessed: 2024-02-10.}. 
+A theoretical introduction to solving differential equations using \gls{NN}s can be found in \Citet[pp.~81-84]{KarlssonFaronius1746454} or \Citet[pp.~509-516]{Jentzen2023}. What is however more illustrative of the method of solving differential equations using \gls{NN}s is to show how the method works in practice. This is done in \Cref{ex:NeuralNetworkDifferentialEquation}, showing how to solve a simple differential equation using \gls{NN}s. The example is taken from a video seminar on how to solve Partial Differential Equations using \gls{NN}s by Leah Bar\footnote{See \url{https://www.youtube.com/watch?v=f44sFOR296I} . Leah Bar, \textit{Deep Learning Approach to Partial Differential Equations | Leah Bar, OriginAI (PyData TLV June22)}, 2022. Last Accessed: 2025-05-07.}. 
 
 \begin{example}\label{ex:NeuralNetworkDifferentialEquation}
     \textbf{Solving differential equations with neural networks}\\

@@ -22,47 +22,51 @@ Reallocating 'singl_function' (item size: 4) to 100 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
 Database file #1: Herbert_Johan_IndEng_2025_eng-blx.bib
 Database file #2: literature.bib
+Warning--I didn't find a database entry for "bibid"
+Warning--I didn't find a database entry for "Sklar1959"
+Warning--I didn't find a database entry for "NeuralCopula"
 Biblatex version: 3.20
 Reallocating 'wiz_functions' (item size: 4) to 9000 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
-You've used 20 entries,
+You've used 21 entries,
             6402 wiz_defined-function locations,
-            1349 strings with 15034 characters,
-and the built_in function-call counts, 123328 in all, are:
-= -- 8972
-> -- 2168
-< -- 775
-+ -- 3210
-- -- 723
-* -- 8589
-:= -- 12480
+            1362 strings with 15245 characters,
+and the built_in function-call counts, 129765 in all, are:
+= -- 9419
+> -- 2288
+< -- 805
++ -- 3395
+- -- 770
+* -- 9071
+:= -- 13172
 add.period$ -- 0
-call.type$ -- 20
-change.case$ -- 456
-chr.to.int$ -- 61
-cite$ -- 38
-duplicate$ -- 13590
-empty$ -- 11076
-format.name$ -- 1134
-if$ -- 25704
+call.type$ -- 21
+change.case$ -- 467
+chr.to.int$ -- 67
+cite$ -- 40
+duplicate$ -- 14333
+empty$ -- 11648
+format.name$ -- 1201
+if$ -- 27005
 int.to.chr$ -- 0
-int.to.str$ -- 58
+int.to.str$ -- 60
 missing$ -- 0
-newline$ -- 650
-num.names$ -- 1083
-pop$ -- 6662
+newline$ -- 685
+num.names$ -- 1124
+pop$ -- 7011
 preamble$ -- 1
-purify$ -- 525
+purify$ -- 541
 quote$ -- 0
-skip$ -- 4026
+skip$ -- 4207
 stack$ -- 0
-substring$ -- 14696
-swap$ -- 3164
-text.length$ -- 557
-text.prefix$ -- 20
+substring$ -- 15438
+swap$ -- 3335
+text.length$ -- 586
+text.prefix$ -- 21
 top$ -- 1
-type$ -- 667
+type$ -- 701
 warning$ -- 0
-while$ -- 1591
+while$ -- 1687
 width$ -- 0
-write$ -- 631
+write$ -- 665
+(There were 3 warnings)

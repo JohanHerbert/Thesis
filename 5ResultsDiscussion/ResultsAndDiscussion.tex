@@ -27,7 +27,6 @@ We can see that constraint losses are very close to zero for all distributions, 
     % --- (a) Normal ---
     \begin{minipage}{0.45\textwidth}
         \centering
-        \subcaption*{(a) Normal}
         \begin{minipage}{0.48\textwidth}
             \centering
             \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/NormalHistogram.png}
@@ -39,12 +38,12 @@ We can see that constraint losses are very close to zero for all distributions, 
             \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/NormalQQ.png}
             %\subcaption*{QQ plot}
         \end{minipage}
+        \subcaption*{(a) Normal}
     \end{minipage}
     \hfill
     % --- (b) Student's t ---
     \begin{minipage}{0.45\textwidth}
         \centering
-        \subcaption*{(b) Student's t}
         \begin{minipage}{0.48\textwidth}
             \centering
             \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/StudentsHistogram.png}
@@ -56,6 +55,7 @@ We can see that constraint losses are very close to zero for all distributions, 
             \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/StudentsQQ.png}
             %\subcaption*{QQ plot}
         \end{minipage}
+        \subcaption*{(b) Student's t}
     \end{minipage}
 
     \vspace{1em}
@@ -63,7 +63,6 @@ We can see that constraint losses are very close to zero for all distributions, 
     % --- (c) Uniform ---
     \begin{minipage}{0.45\textwidth}
         \centering
-        \subcaption*{(c) Uniform}
         \begin{minipage}{0.48\textwidth}
             \centering
             \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/UniformHistogram.png}
@@ -75,12 +74,12 @@ We can see that constraint losses are very close to zero for all distributions, 
             \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/UniformQQ.png}
             %\subcaption*{QQ plot}
         \end{minipage}
+        \subcaption*{(c) Uniform}
     \end{minipage}
     \hfill
     % --- (d) Exponential ---
     \begin{minipage}{0.45\textwidth}
         \centering
-        \subcaption*{(d) Exponential}
         \begin{minipage}{0.48\textwidth}
             \centering
             \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/ExponentialHistogram.png}
@@ -92,6 +91,7 @@ We can see that constraint losses are very close to zero for all distributions, 
             \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/ExponentialQQ.png}
             %\subcaption*{QQ plot}
         \end{minipage}
+        \subcaption*{(d) Exponential}
     \end{minipage}
 
     \vspace{1em}
@@ -99,7 +99,6 @@ We can see that constraint losses are very close to zero for all distributions, 
     % --- (e) Laplace ---
     \begin{minipage}{0.45\textwidth}
         \centering
-        \subcaption*{(e) Laplace}
         \begin{minipage}{0.48\textwidth}
             \centering
             \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/LaplaceHistogram.png}
@@ -111,12 +110,12 @@ We can see that constraint losses are very close to zero for all distributions, 
             \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/LaplaceQQ.png}
             %\subcaption*{QQ plot}
         \end{minipage}
+        \subcaption*{(e) Laplace}
     \end{minipage}
     \hfill
     % --- (f) Lognormal ---
     \begin{minipage}{0.45\textwidth}
         \centering
-        \subcaption*{(f) Lognormal}
         \begin{minipage}{0.48\textwidth}
             \centering
             \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/LognormalHistogram.png}
@@ -128,6 +127,7 @@ We can see that constraint losses are very close to zero for all distributions, 
             \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/LognormalQQ.png}
             %\subcaption*{QQ plot}
         \end{minipage}
+        \subcaption*{(f) Lognormal}
     \end{minipage}
 
     \caption{Marginal distribution visualizations. Each subfigure (a--f) shows a histogram with the trained model and a QQ plot for a distribution.}
@@ -138,6 +138,62 @@ We can see that constraint losses are very close to zero for all distributions, 
 \subsection{Neural Copula Test}
 \todo{State best and what tested}
 
+\begin{table}[h!]
+    \centering
+    \caption{The best choice of hyper parameters found in the grid search.}
+    \begin{tabular}{ll}
+    \textbf{Hyperparameter} & \textbf{Options} \\
+    \hline
+    Network layers & ? \\
+    Network neurons & ? \\
+    Learning rate & ? \\
+    Scheduler & ? \\
+    Solver & ? \\
+    Epochs & ? \\
+    Batch size & ? \\
+    \end{tabular}
+    \label{tab:Best_hyperparams}
+\end{table}
+    
+\begin{table}[h!]
+    \centering
+    \caption{The best choice of weights found for the copula loss function linear combination defined in \Cref{sec:NeuralCopulaLoss}.}
+    \begin{tabular}{ll}
+    \textbf{Weight} & \textbf{Options} \\
+    \hline
+    $\lambda_1$ & ? \\
+    $\lambda_2$ & ? \\
+    $\lambda_3$ & ? \\
+    $\lambda_4$ & ? \\
+    $\lambda_5$ & ? \\
+    \end{tabular}
+    \label{tab:Best_weights}
+\end{table}
+    
+\todo{Figure of best fitted copula for the different distributions.}
 
 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Portfolio Test
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Portfolio Test}
+
+\todo{Figures of the generated data, and fitted copulas.}
+
+\begin{table}[h!]
+    \centering
+    \caption{Distance between the fitted copula and the true distribution for the different distributions. The distance is calculated as described in \Cref{sec:GoodnessOfFit}.}
+    \begin{tabular}{lllll}
+    \textbf{Dataset/Copula} & \textbf{Gaussian} & \textbf{Students} & \textbf{Clayton} & \textbf{Neural} \\
+    \hline
+    Gaussian, $\rho$: 0 & ? & ? & ? & ? \\
+    Gaussian, $\rho$: 0.7 & ? & ? & ? & ? \\
+    Students, $t$ $\rho$: -0.8, df: 3 & ? & ? & ? & ? \\
+    Clayton, $\alpha$: 4 & ? & ? & ? & ? \\
+    \end{tabular}
+    \label{tab:DistributionDistances}
+\end{table}
+
+\todo{Figure showing copula gradient}

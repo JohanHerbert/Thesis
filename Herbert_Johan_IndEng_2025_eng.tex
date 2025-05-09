@@ -116,6 +116,15 @@ abstracton=true
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% URL fix
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{url}
+\def\UrlBreaks{\do\/\do-\do\&\do.}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Macros
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -358,14 +367,10 @@ abstracton=true
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Code
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \section{Code}\label{sec:Code}
-% In this section, we will provide the code for this thesis written in \python.
-% First, in \Cref{sec:Code_HelloWorld} we provide the code used in \Cref{sec:?}. This,
-% is followed in \Cref{sec:?} by \dots 
-% \subsection{Hello World}\label{sec:Code_HelloWorld}
-% \begin{minted}{python3}
-%     print('Hello World')
-% \end{minted}
+\section{Code}\label{sec:Code}
+In this section, the code used in this thesis is provided. Given the amount of code, we have chosen to provide the Github link to the code repository. The code is available at \url{https://github.com/JohanHerbert/ThesisWork}. The main tests are \todo{Fill in this when code is cleaned up. Make Repo public}. 
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Further Experiments
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -374,12 +379,12 @@ abstracton=true
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Declarations
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \section*{Confidentiality}
-% The authors have no relevant confidentiality agreements to disclose.
+\section*{Confidentiality}
+The authors have no relevant confidentiality agreements to disclose.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Declarations
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \section*{Declarations}
-% The authors have no relevant financial or non-financial interests to disclose.
+\section*{Declarations}
+The authors have no relevant financial or non-financial interests to disclose.
 \end{document}
 
