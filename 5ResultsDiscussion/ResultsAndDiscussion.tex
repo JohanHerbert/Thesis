@@ -135,8 +135,12 @@ We can see that constraint losses are very close to zero for all distributions, 
 \end{figure}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Neural Copula Test   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Neural Copula Test}
-\todo{State best and what tested}
+The results of the grid search for the hyperparameters and weights are shown in \Cref{tab:Best_hyperparams} and \Cref{tab:Best_weights} respectively. Additionally, the losses for the different datasets using the best hyper parameters and weights are shown in \Cref{tab:LossesBestParameters}. 
+
 
 \begin{table}[h!]
     \centering
@@ -144,13 +148,13 @@ We can see that constraint losses are very close to zero for all distributions, 
     \begin{tabular}{ll}
     \textbf{Hyperparameter} & \textbf{Options} \\
     \hline
-    Network layers & ? \\
-    Network neurons & ? \\
-    Learning rate & ? \\
-    Scheduler & ? \\
-    Solver & ? \\
-    Epochs & ? \\
-    Batch size & ? \\
+    Network layers & 3 \\
+    Network neurons & 10 \\
+    Learning rate & 0.1 \\
+    Scheduler & exponential \\
+    Solver & Adam \\
+    Epochs & 10000 \\
+    Batch size & 2014 (Not valid, should remove this as dataset was smaller)\\
     \end{tabular}
     \label{tab:Best_hyperparams}
 \end{table}
@@ -161,15 +165,43 @@ We can see that constraint losses are very close to zero for all distributions, 
     \begin{tabular}{ll}
     \textbf{Weight} & \textbf{Options} \\
     \hline
-    $\lambda_1$ & ? \\
-    $\lambda_2$ & ? \\
-    $\lambda_3$ & ? \\
-    $\lambda_4$ & ? \\
-    $\lambda_5$ & ? \\
+    $\lambda_1$ & 1 \\
+    $\lambda_2$ & 2 \\
+    $\lambda_3$ & 0.5 \\
+    $\lambda_4$ & 1 \\
+    $\lambda_5$ & 1 \\
     \end{tabular}
     \label{tab:Best_weights}
 \end{table}
     
+
+    
+\begin{table}[h!]
+    \centering
+    \caption{Losses for the datasets using the best hyper parameters and weights.}
+    % \begin{tabular}{lllllll}
+    % \textbf{Dataset} & \textbf{L1}& \textbf{L2}& \textbf{L3}& \textbf{L4}& \textbf{L5}& \textbf{Total Loss} \\
+    % \hline
+    % Independence & ? & ? & ? &  ? & ? & ?  \\
+    % Gaussian, $\rho = 0.7$ & ? & ? & ? &  ? & ? & ? \\
+    % Gaussian, $\rho = -0.7$ & ? & ? & ? & ? & ? & ?  \\
+    % Upper Frechet Hoeffding bound & ? & ? & ? & ? & ? & ?  \\
+    % Lower Frechet Hoeffding bound & ? & ? & ? & ? & ? &   ?  \\
+    % \end{tabular}
+
+    \begin{tabular}{lllllll}
+        \textbf{Dataset} & \textbf{L1}& \textbf{L2}& \textbf{L3}& \textbf{L4}& \textbf{L5}& \textbf{Total Loss} \\
+        \midrule
+        Independent & 0.065705 & 0.025223 & 0.045032 & 0.077263 & 0.005574 & 0.218797 \\
+        PositiveDependence & 0.290332 & 0.033420 & 0.049284 & 0.239172 & 0.017931 & 0.630140 \\
+        NegativeDependence & -0.281669 & 0.025645 & 0.047584 & 0.082656 & 0.005116 & -0.120667 \\
+        FrechetUpper & -3.846874 & 0.095704 & 0.257008 & 0.122417 & 0.014359 & -3.357385 \\
+        FrechetLower & -3.611439 & 0.080854 & 0.000004 & 0.108494 & 0.003596 & -3.418491 \\
+        \end{tabular}
+    \label{tab:LossesBestParameters}
+\end{table}
+
+
 \todo{Figure of best fitted copula for the different distributions.}
 
 
@@ -180,7 +212,7 @@ We can see that constraint losses are very close to zero for all distributions, 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Portfolio Test}
 
-\todo{Figures of the generated data, and fitted copulas.}
+
 
 \begin{table}[h!]
     \centering
@@ -196,4 +228,16 @@ We can see that constraint losses are very close to zero for all distributions, 
     \label{tab:DistributionDistances}
 \end{table}
 
+\todo{Figures of the generated data, and fitted copulas.}
+
 \todo{Figure showing copula gradient}
+
+
+\begin{generalinstructions}
+    • Discuss the meaning of your results.\\
+    • Discuss the limitations of your results.\\
+    • Discuss the relations of your findings to previous knowledge.\\
+    • Propose future research direction.\\
+\end{generalinstructions}
+
+

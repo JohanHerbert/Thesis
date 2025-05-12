@@ -91,7 +91,7 @@ The datasets that will be used for testing the neural copula fitting procedure a
     Scheduler & step, exponential, None \\
     Solver & ADAM, SGD \\
     Epochs & 10000, 5000 \\
-    Batch size & 1024, 2048 \\
+    Batch size & 1024, 2048 (Remove batch size) \\
     \end{tabular}
     \label{tab:se_hyperparams}
 \end{table}
@@ -101,7 +101,7 @@ The datasets that will be used for testing the neural copula fitting procedure a
 
 The different combinations of hyper parameters will be tested on each of the different datasets. After training the best overall method over the datasets, measured by the average loss, will be selected as the best one. If the losses relating to the copula function constraints close to zero. This indicates that the fitted copula is valid. The best model will be used in the final experiment, described in \Cref{sec:PortfolioTesting}.  
 
-As a further test, different weights will be used for the different terms in the loss function during training. This is to see what how big the different terms in the loss function should be in relation to each other. The weights that will be tested for each term is 1, 3, 6. This will test will be conducted on the best performing method from the hyper parameter test. The evaluation of this test will be done by looking at the equally weighted loss to make the comparison fair. This test is performed for the independence copula. 
+As a further test, different weights will be used for the different terms in the loss function during training. This is to see what how big the different terms in the loss function should be in relation to each other. We fix the first term to be one, then 0.5, 1, and 2 is tested for the other terms. This test will be conducted using the best performing hyper parameters from the prior part of the test. The evaluation of this test will be done by looking at the equally weighted loss to make the comparison fair. This test is performed for each of the copulas used in the hyper parameter test. The idea of this test is to see if it can be beneficial to weight the different terms in the loss function differently in relation to each other to emphasize some terms in the loss function more. 
 
 % \begin{generalinstructions}
 % Given generated datasets and a specified grid\\
