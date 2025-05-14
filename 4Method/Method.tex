@@ -58,7 +58,7 @@ To validate that the marginal model works as intended, a test is performed to se
         Distribution & Parameters & Description \\
         \toprule
         Gaussian & $\mu=0, \sigma=1$ & Standard normal distribution \\ 
-        Student's $t$ & $\nu=5$ & Student's t-distribution with 5 degrees of freedom \\ 
+        Student's $t$ & $\nu=5$ & Student's $t$-distribution with 5 degrees of freedom \\ 
         Uniform & $a=0, b=1$ & Uniform distribution on [0, 1] \\ 
         Exponential & $\lambda=1$ & Exponential distribution with rate 1 \\ 
         Laplace & $\mu=0, b=1$ & Laplace distribution with mean 0 and scale 1 \\ 
@@ -75,9 +75,24 @@ To validate that the marginal model works as intended, a test is performed to se
 \subsection{Neural Copula training scheme test}
 In this section the procedure for finding the best hyper parameters for the model to create a valid copula function is described. Wether or not a copula function is valid is determined by wether or not it satisfies the conditions of being a copula defined in \Cref{def:copula}. In practice for the neural copula this means that all but the first of the loss terms, defined in \Cref{sec:NeuralCopulaLoss}, should approach zero when training is done. Several different combinations of hyper parameters will be tested with the goal of some that work well, meaning that the fitted copula is valid.
 
-Several datasets will be used for testing the neural copula fitting procedure. This is to ensure that the method works well, regardless of the data, consistently resulting in valid copulas. The method for this workflow is as follows for each dataset. First different datasets will be generated \todo{How} and a grid of different parameter values will be created. The grid will contain different values for the parameters of the neural copula such as the solver used, learning rates, number of epochs, batch size, network architecture and step size scheduler. This creates a large number of different combinations of choices to test which will hopefully result in a method for finding a training method that works well universally. The number of alternatives tested in the grid is somewhat limited to make the execution time reasonable. In total 288 combinations of network parameters are tested for the five datasets. The test will be ran on a compute cluster but despite that the execution time will be long due to the large number of combinations. 
+Several datasets will be used for testing the neural copula fitting procedure. This is to ensure that the method works well, regardless of the data, consistently resulting in valid copulas. The method for this workflow is as follows for each dataset. First different datasets will be generated and a grid of different parameter values will be created. The grid will contain different values for the parameters of the neural copula such as the solver used, learning rates, number of epochs, batch size, network architecture and step size scheduler. This creates a large number of different combinations of choices to test which will hopefully result in a method for finding a training method that works well universally. The number of alternatives tested in the grid is somewhat limited to make the execution time reasonable. In total 288\todo{Change} combinations of network parameters are tested for the five datasets. The test will be ran on a compute cluster but despite that the execution time will be long due to the large number of combinations. 
 
-The datasets that will be used for testing the neural copula fitting procedure are the independence copula, the Gaussian copula with a correlation of +/-0.7, and the Frechet-Hoeffding upper bound and lower bound. The hyper parameters that will be tested are displayed in \Cref{tab:se_hyperparams}. In the table we can see the hyper parameters Network layers and Network neurons that describe the architecture of the \gls{NN}. The parameters Learning rate, Scheduler and Solver describe the training procedure. The parameters Epochs and Batch size describe the training process. 
+The datasets that will be used for testing the neural copula fitting procedure are displayed in \Cref{tab:DatasetsTestedOn}. In the table the copula used to generate each dataset is stated along with parameter values. Additionally, the name of the dataset is stated for future reference. The hyper parameters that will be tested are displayed in \Cref{tab:se_hyperparams}. In the table we can see the hyper parameters Network layers and Network neurons that describe the architecture of the \gls{NN}. The parameters Learning rate, Scheduler and Solver describe the training procedure. The parameters Epochs and Batch size describe the training process. 
+
+\begin{table}[h!]
+    \centering
+    \caption{Datasets used to test the neural copula hyper parameters and loss function weights.}
+    \begin{tabular}{lll}
+    \textbf{Copula} & \textbf{Parameter} & \textbf{Name}  \\
+    \hline
+    Gaussian & $\rho:0$ & Independece \\
+    Gaussian & $\rho:0.7$ & Positive Dependece \\
+    Gaussian & $\rho:-0.7$ & Negative Dependece  \\
+    Gaussian & $\rho:0.999$ & Frechet Upper \\
+    Gaussian & $\rho:-0.999$ & Frechet Lower \\
+    \end{tabular}
+    \label{tab:DatasetsTestedOn}
+\end{table}
 
 \begin{table}[h!]
     \centering
@@ -94,7 +109,7 @@ The datasets that will be used for testing the neural copula fitting procedure a
     Batch size & 1024, 2048 (Remove batch size) \\
     \end{tabular}
     \label{tab:se_hyperparams}
-\end{table}
+\end{table}\todo{Explain some options more}
     
 
 % For each of the combinations in the grid the an ensemble of runs will be performed to mitigate the impact of what random seeds are used for initializing the weights of the network. The ensemble will consist of 10 runs for each combination in the grid. The best run from the ensemble will be kept for each combination in the grid. 
@@ -142,14 +157,11 @@ The above procedure for generating data is used for the copulas specified in \Cr
     \hline
     Gaussian & Correlation: 0 \\
     Gaussian & Correlation: 0.7\\
-    Students $t$ & Correlation: -0.8, Degrees of Freedom: 3\\
+    Students $t$ & $\rho$: -0.8, $\nu$: 3\\
     Clayton & Alpha: 4 \\
     \end{tabular}
     \label{tab:DatasetsUsed}
 \end{table}
-
-\todo{and time horizon, and mean and volatility}
-
 
 The resulting portfolios can be observed in \Cref{fig:DatasetsUsed} where the left pictures show the price time series of the different portfolios and the right pictures show the log returns of the portfolios. In the left pictures we can see how the portfolios are divided over time. In the right pictures we can see the log returns of the portfolios. The blue points show the log returns of the fitting data and the red points show the log returns of the testing data. The fitting part will be used in the model fitting and can be thought of as historically observed data. The testing part will be used in the model evaluation and can be thought of as data that will appear in the future, which we want to replicate as well as possible by sampling from a copula fitted to the historical data. 
 
@@ -225,17 +237,6 @@ The resulting portfolios can be observed in \Cref{fig:DatasetsUsed} where the le
     \caption{Figure displaying the test portfolios price series and log returns for the portfolio test.}
     \label{fig:DatasetsUsed}
 \end{figure}
-
-
-
-
-
-
-
-
-
-
-
 
 
 \subsubsection{Model Fitting}

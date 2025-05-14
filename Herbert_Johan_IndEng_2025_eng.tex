@@ -363,10 +363,193 @@ abstracton=true
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \nocite{*}
 \printbibliography
-% \newpage
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Additional portfolio plots
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Additional plots of generated data}\label{sec:CopulaResultsData}
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/ResultPortfolio1Gauss.png}
+        \subcaption*{Gaussian copula}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/ResultPortfolio1Students.png}
+        \subcaption*{Students $t$ copula}
+    \end{minipage}
+    \vfill
+    \begin{minipage}{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/ResultPortfolio1Clayton.png}
+        \subcaption*{Clayton copula}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/ResultPortfolio1Neural.png}
+        \subcaption*{Neural copula}
+    \end{minipage}
+    \caption{Fitted neural copula surfaces for Gaussian $\rho=0$ portfolio.}
+    \label{fig:GeneratedDataGaussian0}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/ResultPortfolio2Gauss.png}
+        \subcaption*{Gaussian copula}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/ResultPortfolio2Students.png}
+        \subcaption*{Students $t$ copula}
+    \end{minipage}
+    \vfill
+    \begin{minipage}{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/ResultPortfolio2Clayton.png}
+        \subcaption*{Clayton copula}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/ResultPortfolio2Neural.png}
+        \subcaption*{Neural copula}
+    \end{minipage}
+    \caption{Fitted neural copula surfaces for Gaussian $\rho=0.7$ portfolio.}
+    \label{fig:GeneratedDataGaussian07}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/ResultPortfolio3Gauss.png}
+        \subcaption*{Gaussian copula}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/ResultPortfolio3Students.png}
+        \subcaption*{Students $t$ copula}
+    \end{minipage}
+    \vfill
+    \begin{minipage}{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/ResultPortfolio3Clayton.png}
+        \subcaption*{Clayton copula}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/ResultPortfolio3Neural.png}
+        \subcaption*{Neural copula}
+    \end{minipage}
+    \caption{Fitted neural copula surfaces for Students $\rho=-0.8$ , $\nu = 3$ portfolio.}
+    \label{fig:GeneratedDataStudents}
+\end{figure}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Copula surfaces
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Copula surface plots}\label{sec:CopulaSurfacesPlots}
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/CopulaSurface1.png}
+        \subcaption*{Gaussian $\rho=0$}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/CopulaSurface2.png}
+        \subcaption*{Gaussian $\rho=0.7$}
+    \end{minipage}
+    \vfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/CopulaSurface3.png}
+        \subcaption*{Students $\rho=-0.8$ , $\nu = 3$}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/CopulaSurface4.png}
+        \subcaption*{Clayton $\alpha=4$}
+    \end{minipage}
+
+    \caption{Copula surfaces for the different datasets.}
+    \label{fig:NeuralCopulaSurface}
+\end{figure}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Copula gradients
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Copula gradient plots}\label{sec:CopulaGradientsPlots}
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/CopulaGradient1.png}
+        \subcaption*{Gaussian $\rho=0.7$}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/CopulaGradient2.png}
+        \subcaption*{Gaussian $\rho=0.7$}
+    \end{minipage}
+    \vfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/CopulaGradient3.png}
+        \subcaption*{Students $\rho=-0.8$ , $\nu = 3$}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/CopulaGradient4.png}
+        \subcaption*{Clayton $\alpha=4$}
+    \end{minipage}
+    \caption{Copula density surfaces for the different datasets.}
+    \label{fig:NeuralCopulaGradient}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Example of Correlation not working
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Correlation issue example }\label{sec:CorrelationNotWorking}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Distance measure derivation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Goodness of fit measure derivation}\label{sec:DistanceDerivation}
+
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Code
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
 \section{Code}\label{sec:Code}
 In this section, the code used in this thesis is provided. Given the amount of code, we have chosen to provide the Github link to the code repository. The code is available at \url{https://github.com/JohanHerbert/ThesisWork}. The main tests are \todo{Fill in this when code is cleaned up. Make Repo public}. 
 

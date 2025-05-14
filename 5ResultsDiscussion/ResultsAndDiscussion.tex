@@ -3,7 +3,8 @@ This section presents the results of the tests conducted on the simulated data. 
 \subsection{Marginal Model Test}
 The losses of the models in the marginal model test after training is shown in \Cref{tab:MarginalFinalLosses}. The table shows the total loss and the losses for each of the four terms in the loss function. The total loss is the sum of the four terms. The loss terms L2, L3, and L4 are the losses governed by constraints whereas L1 is the term maximizing the likelihood of the observed data. 
 
-We can see that constraint losses are very close to zero for all distributions, indicating that the models satisfy the constraints. In \Cref{fig:MarginalResults}, we show the trained \gls{CDF} in a plot together with its corresponding \gls{PDF} and the observed data in a histogram. Additionally a QQ plot is shown for the transformed data when the fitted model is used and when the true distribution is used. This is done for all distributions. Visually it seems like the fitted models are able to capture the true distributions well. The most difficult distribution to fit seems to be the uniform distribution which has a somewhat unstable \gls{PDF}, this is also reflected in the total loss being the greatest. Overall, all distributions seem to be fitted well, and the QQ plots indicate that the transformed data is very similar regardless of whether using the fitted model or the true distribution. The conclusion is that the marginal model seem to be able to adequately fit a wide range of distributions. 
+We can see that constraint losses are very close to zero for all distributions, indicating that the models satisfy the constraints. In \Cref{fig:MarginalResults}, we show the trained \gls{CDF} in a plot together with its corresponding \gls{PDF} and the observed data in a histogram. The generated QQ plots all show a perfect straight line and hence the inclusion of these plots is omitted. Visually it seems like the fitted models are able to capture the true distributions well. The most difficult distribution to fit seems to be the uniform distribution which has a somewhat unstable \gls{PDF}, this is also reflected in the total loss being the greatest. Overall, all distributions seem to be fitted well, and the QQ plots indicate that the transformed data is very similar regardless of whether using the fitted model or the true distribution. The conclusion is that the marginal model seem to be able to adequately fit a wide range of distributions. The results of the marginal model test answer the first research question \RQone about if the marginal models are adequate for the task of fitting the marginal distributions. The answer to this question is yes as the models are able to fit the distributions well. These results are limited to the distributions tested and the data used. The models may not perform as well on other distributions or datasets. There is however, nothing in these results suggest that the results would not hold. These results are in line with the results of \Citet[FindPage]{ZengWang2022}. What would be interesting to see is how to best work around the requirement of having to normalize the data before training the marginal models. This becomes especially relevant when trying to fit distributions that accurately capture the tails of the distribution where observations are rare.  
+
 
 \begin{table}[h]
     \centering
@@ -23,114 +24,53 @@ We can see that constraint losses are very close to zero for all distributions, 
 
 
 \begin{figure}
-    \centering
     % --- (a) Normal ---
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \begin{minipage}{0.48\textwidth}
+        \begin{minipage}{0.45\textwidth}
             \centering
             \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/NormalHistogram.png}
-            %\subcaption*{Histogram}
+            \subcaption*{(a) Normal}
         \end{minipage}
-        \hfill
-        \begin{minipage}{0.48\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/NormalQQ.png}
-            %\subcaption*{QQ plot}
-        \end{minipage}
-        \subcaption*{(a) Normal}
-    \end{minipage}
     \hfill
     % --- (b) Student's t ---
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \begin{minipage}{0.48\textwidth}
+        \begin{minipage}{0.45\textwidth}
             \centering
             \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/StudentsHistogram.png}
-            %\subcaption*{Histogram}
+            \subcaption*{(b) Student's t}
         \end{minipage}
-        \hfill
-        \begin{minipage}{0.48\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/StudentsQQ.png}
-            %\subcaption*{QQ plot}
-        \end{minipage}
-        \subcaption*{(b) Student's t}
-    \end{minipage}
 
     \vspace{1em}
 
     % --- (c) Uniform ---
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \begin{minipage}{0.48\textwidth}
+        \begin{minipage}{0.45\textwidth}
             \centering
             \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/UniformHistogram.png}
-            %\subcaption*{Histogram}
+            \subcaption*{(c) Uniform}
         \end{minipage}
-        \hfill
-        \begin{minipage}{0.48\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/UniformQQ.png}
-            %\subcaption*{QQ plot}
-        \end{minipage}
-        \subcaption*{(c) Uniform}
-    \end{minipage}
     \hfill
     % --- (d) Exponential ---
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \begin{minipage}{0.48\textwidth}
+        \begin{minipage}{0.45\textwidth}
             \centering
             \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/ExponentialHistogram.png}
-            %\subcaption*{Histogram}
+            \subcaption*{(d) Exponential}
         \end{minipage}
-        \hfill
-        \begin{minipage}{0.48\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/ExponentialQQ.png}
-            %\subcaption*{QQ plot}
-        \end{minipage}
-        \subcaption*{(d) Exponential}
-    \end{minipage}
 
     \vspace{1em}
 
     % --- (e) Laplace ---
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \begin{minipage}{0.48\textwidth}
+        \begin{minipage}{0.45\textwidth}
             \centering
             \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/LaplaceHistogram.png}
-            %\subcaption*{Histogram}
+            \subcaption*{(e) Laplace}
         \end{minipage}
-        \hfill
-        \begin{minipage}{0.48\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/LaplaceQQ.png}
-            %\subcaption*{QQ plot}
-        \end{minipage}
-        \subcaption*{(e) Laplace}
-    \end{minipage}
     \hfill
     % --- (f) Lognormal ---
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \begin{minipage}{0.48\textwidth}
+        \begin{minipage}{0.45\textwidth}
             \centering
             \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/LognormalHistogram.png}
-            %\subcaption*{Histogram}
+            \subcaption*{(f) Lognormal}
         \end{minipage}
-        \hfill
-        \begin{minipage}{0.48\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/LognormalQQ.png}
-            %\subcaption*{QQ plot}
-        \end{minipage}
-        \subcaption*{(f) Lognormal}
-    \end{minipage}
 
-    \caption{Marginal distribution visualizations. Each subfigure (a--f) shows a histogram with the trained model and a QQ plot for a distribution.}
+    \caption{Marginal distribution visualizations. Each subfigure (a--f) shows a histogram with the trained model for the distribution.}
     \label{fig:MarginalResults}
 \end{figure}
 
@@ -139,8 +79,7 @@ We can see that constraint losses are very close to zero for all distributions, 
 %% Neural Copula Test   
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Neural Copula Test}
-The results of the grid search for the hyperparameters and weights are shown in \Cref{tab:Best_hyperparams} and \Cref{tab:Best_weights} respectively. Additionally, the losses for the different datasets using the best hyper parameters and weights are shown in \Cref{tab:LossesBestParameters}. 
-
+The results of the grid search for the hyperparameters and weights are shown in \Cref{tab:Best_hyperparams} and \Cref{tab:Best_weights} respectively. Additionally, the losses for the different datasets using the best hyper parameters and weights are shown in \Cref{tab:LossesBestParameters}. These hyperparameter options answer the second research question \RQtwo about how to train the \gls{NC} to obtain the best results. The observations from these results are that the best performing hyperparameters are a network with three layers and ten neurons in each layer. The learning rate is 0.1 and the solver is Adam. The best performing scheduler is exponential and the number of epochs is 10000. 
 
 \begin{table}[h!]
     \centering
@@ -154,7 +93,7 @@ The results of the grid search for the hyperparameters and weights are shown in 
     Scheduler & exponential \\
     Solver & Adam \\
     Epochs & 10000 \\
-    Batch size & 2014 (Not valid, should remove this as dataset was smaller)\\
+    Batch size & 2048 (Not valid, should remove this as dataset was smaller)\\
     \end{tabular}
     \label{tab:Best_hyperparams}
 \end{table}
@@ -179,16 +118,6 @@ The results of the grid search for the hyperparameters and weights are shown in 
 \begin{table}[h!]
     \centering
     \caption{Losses for the datasets using the best hyper parameters and weights.}
-    % \begin{tabular}{lllllll}
-    % \textbf{Dataset} & \textbf{L1}& \textbf{L2}& \textbf{L3}& \textbf{L4}& \textbf{L5}& \textbf{Total Loss} \\
-    % \hline
-    % Independence & ? & ? & ? &  ? & ? & ?  \\
-    % Gaussian, $\rho = 0.7$ & ? & ? & ? &  ? & ? & ? \\
-    % Gaussian, $\rho = -0.7$ & ? & ? & ? & ? & ? & ?  \\
-    % Upper Frechet Hoeffding bound & ? & ? & ? & ? & ? & ?  \\
-    % Lower Frechet Hoeffding bound & ? & ? & ? & ? & ? &   ?  \\
-    % \end{tabular}
-
     \begin{tabular}{lllllll}
         \textbf{Dataset} & \textbf{L1}& \textbf{L2}& \textbf{L3}& \textbf{L4}& \textbf{L5}& \textbf{Total Loss} \\
         \midrule
@@ -201,18 +130,18 @@ The results of the grid search for the hyperparameters and weights are shown in 
     \label{tab:LossesBestParameters}
 \end{table}
 
+\begin{remark}
+    When testing to rerun the training of the \gls{NC} for the different datasets a numerical instability was encountered. This sometimes results in that the copula does not train properly and that the loss function does not converge to zero for the constraint terms. In the cases where this was encountered the resulting copula surface did not look remotely like a copula function. 
+\end{remark}
 
-\todo{Figure of best fitted copula for the different distributions.}
-
-
+These results are limited to the datasets used in this test and the hyperparameters tested. The results may not be generalizable to other datasets or hyperparameters particularly when the dimensionality of the data increases. The results could also be influenced by the numerical instability observed during training. To be more certain about the results, it would be a good idea to test running this test with more hyperparameters, weights, and to run each training of the copulas several times to see which hyperparameters are truly the most reliable. This was not done in this thesis due to the large amount of time this would take to run. Given that this is a new method there is not much previous research to compare the results to.  
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Portfolio Test
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Portfolio Test}
-
-
+The results of the portfolio test are shown in \Cref{tab:DistributionDistances}. In the table, the distance between the data generated using the fitted copula and the true distribution is shown. The distance is calculated as described in \Cref{sec:GoodnessOfFit}. The last row in the table shows the total distance over all datasets for each copula used for fitting. This shows that the Gaussian copula was the best performing copula overall. The order of the remaining copulas is as follows: Clayton, Neural, and Students $t$. Of particular interest is the performance of the \gls{NC}. It seems like the \gls{NC} is not able to fit the data better than the other copulas as asked in \RQthree. 
 
 \begin{table}[h!]
     \centering
@@ -220,24 +149,71 @@ The results of the grid search for the hyperparameters and weights are shown in 
     \begin{tabular}{lllll}
     \textbf{Dataset/Copula} & \textbf{Gaussian} & \textbf{Students} & \textbf{Clayton} & \textbf{Neural} \\
     \hline
-    Gaussian, $\rho$: 0 & ? & ? & ? & ? \\
-    Gaussian, $\rho$: 0.7 & ? & ? & ? & ? \\
-    Students, $t$ $\rho$: -0.8, df: 3 & ? & ? & ? & ? \\
-    Clayton, $\alpha$: 4 & ? & ? & ? & ? \\
+    % Gaussian, $\rho$: 0 & 0.00036880264225801646 & 0.0038564860944720883 & 0.00025453304967998163 & 0.002076942666237979 \\
+    % Gaussian, $\rho$: 0.7 & 0.0005745609625385594 & 0.003405384070244613 & 0.0010251930676579886 & 0.0026765474087561796 \\
+    % Students $t$, $\rho$: -0.8, $\nu$: 3 & 0.0005848558576855685 & 0.0013683433848652698 & 0.004119685177811808 & 0.0008999958003606833 \\
+    % Clayton, $\alpha$: 4 &  0.0012345696582828495 & 0.0011805210541269663 & 0.001246438499213834 & 0.0026185757619811086 \\
+    % Total & 0.0027627891207649942 & 0.009876652048795806 & 0.0038945080014170744 & 0.00827206163733595 \\
+    Gaussian, $\rho$: 0               & 0.000369 & 0.003856 & 0.000255 & 0.002077 \\
+    Gaussian, $\rho$: 0.7             & 0.000575 & 0.003405 & 0.001025 & 0.002677 \\
+    Students $t$, $\rho$: -0.8, $\nu$: 3 & 0.000585 & 0.001368 & 0.004120 & 0.000900 \\ 
+    Clayton, $\alpha$: 4              & 0.001235 & 0.001181 & 0.001246 & 0.002619 \\ %done
+    \textbf{Total}      & \textbf{0.002764} & \textbf{0.009810} & \textbf{0.006646} & \textbf{0.008273} \\
     \end{tabular}
     \label{tab:DistributionDistances}
 \end{table}
 
-\todo{Figures of the generated data, and fitted copulas.}
+To better understand the results of the portfolio test, we investigate the data that the fitted copulas have generated. The data generated from the portfolio having dependence specified by a Clayton copula with $\alpha=4$ is shown in \Cref{fig:GeneratedDataClayton}. The figure shows the generated from each copula after being fitted to the data. We can see that it is only the clayton copula that is able to generate data that looks like the true distribution. Both the gaussian and the students $t$ are unable to capture the behavior of the data in the lower tail and hence the generated data looks very different from the true distribution. The \gls{NC} does seem to partially capture the behavior of the data by having a slightly pointy shape in the main body of the generated data similar to the true distribution also have. It does however have a very clear issue in that there are chunks of data that lie far from the true distribution. Given these observations it seems odd that the distance measure is similar for the Clayton, Gaussian, and Students $t$ copulas in \Cref{tab:DistributionDistances}. 
 
-\todo{Figure showing copula gradient}
+\begin{figure}
+    \centering
+    \begin{minipage}{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/ResultPortfolio4Gauss.png}
+        \subcaption*{Gaussian copula}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/ResultPortfolio4Students.png}
+        \subcaption*{Students $t$ copula}
+    \end{minipage}
+    \vfill
+    \begin{minipage}{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/ResultPortfolio4Clayton.png}
+        \subcaption*{Clayton copula}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/ResultPortfolio4Neural.png}
+        \subcaption*{Neural copula}
+    \end{minipage}
+    \caption{Fitted neural copula surfaces for Clayton $\alpha=4$ portfolio .}
+    \label{fig:GeneratedDataClayton}
+\end{figure}
+
+The other portfolios are analyzed in a similar manner. The resulting figures are however placed in the appendix in \Cref{sec:CopulaResultsData}. In the following we will summarize the most important observations from the analysis of the generated data. 
+
+In \Cref{fig:GeneratedDataGaussian0} we can see that the copulas seem to do quite well in capturing the true dependence being the Gaussian copula with $\rho = 0$. The Gaussian copula is unsurprisingly able to capture the true distribution well. The students $t$ copula captures the approximate shape of the true distribution but it creates too many extreme values resulting in that the generated data seems to have higher variance. The Clayton copula is able to capture the true distribution well which is unsurpricing as the Clayton copula coincides with the independence copula when $\alpha $ approaches 0. The \gls{NC} data also seems okay at capturign the true distribution. It does however not look completely circular as the true distribution does. Looking at the distance measures in \Cref{tab:DistributionDistances} we can see that Clayton is the best performing copula closely followed by the Gaussian copula.  
+
+In \Cref{fig:GeneratedDataGaussian07} the portfolio having Gaussian dependence with $\rho = 0.7$ it seems like only the Gaussian copula is able to capture the true distribution well. The students $t$ copula generates data that is very similar to the true distribution but it has a lot of extreme values. The Clayton copula struggles to capture the true distribution because it has the lower tail dependence that the test data does not have. The \gls{NC} deviates a lot from the true distribution and is not able to capture the true distribution. The distance measures in \Cref{tab:DistributionDistances} show that the Gaussian copula is the best performing followed by the Clayton, Neural, and Students in that order. 
 
 
-\begin{generalinstructions}
-    • Discuss the meaning of your results.\\
-    • Discuss the limitations of your results.\\
-    • Discuss the relations of your findings to previous knowledge.\\
-    • Propose future research direction.\\
-\end{generalinstructions}
+\Cref{fig:GeneratedDataStudents} shows the data generated when the copulas are fitted to the data generated from a Student's $t$ copula with $\rho = -0.8 \; \mathrm{and} \; \nu = 3$. For this portfolio it looks like all but the Clayton copula work well. The Clayton copula is unable to capture the distribution because it has negative correlation. This is something that the Clayton copula is not able to handle. The \gls{NC} seems to have a systematic issue with generating too few values in the lowe left quadrant despite working quite well. Looking at the distance measures in \Cref{tab:DistributionDistances} we can see that the Gaussian copula performs best followed by the \gls{NC} Student's $t$ and Clayton copula in that order. It is surprising that the Student's $t$ copula performs so poorly given that it is the true distribution and that the figure looks so good. 
+
+
+Some further investigation in the fitted \gls{NC}s for the different portfolios are included in the appendix in \Cref{sec:CopulaSurfacesPlots}. \Cref{fig:NeuralCopulaSurface} shows the fitted \gls{NC} for the different portfolios. All of the fitted \gls{NC}s look like copulas should look in broad terms. All of the copulas do however seem to increase slower in the upper corner, where both $u_1$ and $u_2$ are close to 1, than they do before that. The copula fitted to the Gaussian portfolio with $\rho = 0$ is flat in the lower tail where both $u_1$ and $u_2$ are close to 0. It should not be if thinking back to the independence copula illustrated in \Cref{fig:FrechetBounds}.      
+
+To investigate why the \gls{NC} does not successfully reproduce data looking like the true distributions the copula densities were visualized. This is because the copula density is used to sample from the fitted copula and might influence the generated data. The copula densities are shown in \Cref{sec:CopulaGradientsPlots} in \Cref{fig:NeuralCopulaGradient}. In the figure we see that the copula densities are not very smooth. Also, it is negative in some places, particularly near the edges. The wiggly nature of the copula densities might be the reason why the \gls{NC} is not able to generate data looking like the true distribution. It can possibly explain why the data generated from the \gls{NC} is very unevenly spread out as seen for the Clayton portfolio in \Cref{fig:GeneratedDataClayton}. 
+
+These results are limited to the datasets used in this test and the copulas tested. Given that these results are not as positive as the results obtained bu \Citet[postnote]{ZengWang2022} we also need to be careful about drawing conclusions from these results. In particular, we acknowledge the possibility that we could have made mistakes. The differing results could also be due to the fact that we are using a very different approach of fitting the copula when training the copula on return data looking more like traditional probability distributions. Another possible reason for the differing results could be that we are evaluating the copulas based on the data generated from the fitted copula. As seen previously in this section, this might be explained by the non-smoothness of the copula density. This is something that would not have been a problem with the same impact for the \Citet{ZengWang2022} as for this experiment. The problem with sampling from the fitted copula gives rise to the question of how the copula can be trained to be more smooth. One possible solution is to use a different loss function term that penalizes the copula density for being non-smooth. Some small tests of this was done but no meaningful progress was made. 
+
+
+
+
+\todo{Randomness in results}
+\todo{what use when}
 
 

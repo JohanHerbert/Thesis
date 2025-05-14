@@ -1,1 +1,55 @@
-\subsection{Further Research}
+In this section the purpose, results and discussion are summarized. An outlook on potential future research topics is also provided. 
+
+\subsection{Summary}
+%% What has the thesis been about 
+This thesis has been about investigating the performance of different copula models for the purpose of modeling the joint distribution of financial time series. During the thesis the focus has been on evaluating how a newly proposed \Citet[postnote]{ZengWang2022} method for estimating copula functions performs in comparison to the more traditional methods of estimating copula functions. The new method utilizes \gls{NN}s to estimate the copula function by formulating the loss function of the \gls{NN} in a way that penalizes when the \gls{NN} does not satisfy the properties of a copula while also maximizing the log likelihood of the copula given the observed data it is trained on. 
+
+In the thesis three experiments were conducted. The first experiment was an evaluation of how well a \gls{NN} approach to estimating univariate distributions perform in comparison to the theoretical distributions from which the data is generated. The second experiment was a sort of cross validation to tune hyperparameters in the \gls{NC}. This was done by training the \gls{NC} several times with different hyperparameters and evaluating the performance by finding the parameters that minimized the value of the loss function over several datasets. The third experiment was an evaluation of how well the \gls{NC} performs in comparison to the more traditional methods of estimating copula functions. This was done by generating data from known copulas and then estimating the copula function using the generated data. The performance of the \gls{NC} was evaluated by comparing data generated from the estimated copula function to the data generated from the known copula.  
+
+%% restate the research questions
+These experiments were conducted in order to answer the following research questions:
+\begin{compactenum}[{\bfseries RQ}1]
+    \item \label{item:RQ1} Is the marginal distribution used in the \gls{NC} adequate to use?
+    \item \label{item:RQ2} How should the neural copula function be trained to obtain consistently reliable results?
+    \item \label{item:RQ3} Can a neural copula be used to better model the dependence between asset returns than other copulas?
+\end{compactenum}
+
+%% What were the results
+\RQone  was answered by the first experiment, which showed that the \gls{NC} method of estimating the marginal distributions is adequate since the estimated distributions closely matched the theoretical distributions used in the test. 
+
+\RQtwo  was answered by the second experiment, which resulted in a set of hyperparameters that minimized the loss function over all datasets used. 
+
+\RQthree  was answered by the third experiment, which showed that the \gls{NC} method of estimating copula functions and generating new data from the copula did not perform as well as the traditional copula methods used for comparison.   
+
+%% Talk about the intended contributions
+
+The intended contribution of this project were to provide better understanding of how different methods of modeling dependence can be used in practice. Specifically, the focus was on how to use the \gls{NC} to model dependence between log returns of different assets. To make the \gls{NC} method more useful in practical risk applications, an alternative method for fitting the \gls{NC} marginal distributions was be investigated. Additionally, an approach for sampling the \gls{NC} was developed to make it useful in practice. Finally, we investigated what copula method to use when and investigate if the \gls{NC} outperforms other methods for all types of dependence structures. 
+
+This thesis has contributed to all intended contribution areas by designing experiments to investigate the different research questions. 
+
+\subsection{Future Research}
+%% Mention the limitations of the current work
+%Until now, not much research has been done on the \gls{NC}. Particularly about how to use it in practical risk applications.  
+
+
+
+%% Mention the potential future research topics
+During this thesis some ideas for future research topics were identified. We begin with restating the limitations tied to the neural copula model in particular. Then we discuss some potential future research concerning copulas in general.
+
+Investigating how the scaling procedure for the \gls{NC} marginal models, proposed in this thesis, can be used in practice would be valuable for the creation of extreme scenarios in the context of stress testing of financial models. Further investigation of the \gls{NC} to overcome its numerical instability would be valuable for the practical use of the \gls{NC}. Continued improvement of the \gls{NC} sampling procedure would also be valuable for the practical use of the \gls{NC} in simulation.   
+
+
+
+%% Investigating marginal model normalization
+%% Further investigating the NC model numerical instability
+%% Solving the problem with data generation from NC. Penalizing copula density wiggliness
+
+
+%% How do copulas play together with modeling dynamic volatility 
+%% Different correlation measures
+%% Investigating the performance of copulas for real data, in particular if the core assumptions of historical dependece continuing to hold. 
+%% Copula performance in higher dimensions
+
+
+
+
