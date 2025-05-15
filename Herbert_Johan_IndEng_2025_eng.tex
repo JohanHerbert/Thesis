@@ -279,19 +279,31 @@ abstracton=true
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{abstract}
     This is the english abstract.
+
+    This thesis investigates the use of copulas for modeling dependency structures between financial asset returns, with a specific focus on a recently introduced method known as the \gls{NC}. The work is carried out in collaboration with Vermiculus Financial Technology and aims to enhance risk modeling in clearing systems. Traditional copulas are compared to the \gls{NC} in terms of performance, adaptability, and applicability to different dependency structures. The study involves the development of an alternative method for fitting marginal distributions and a practical sampling approach for the \gls{NC}. Simulated data is used to evaluate the methods under controlled conditions. The results show that the \gls{NC} cannot provide competitive performance compared to other copulas in capturing complex dependencies. This work contributes to the understanding of when and how to use neural copulas in financial risk modeling.
+
 \end{abstract}
 
 \newpage
 \renewcommand{\abstractname}{Sammanfattning}
 \begin{abstract}
     Det är svenska sammanfattning.
+
+    Denna masteruppsats undersöker användningen av copulor för att modellera beroendestrukturer mellan finansiella tillgångars avkastningar, med särskilt fokus på en nyligen introducerad metod kallad \gls{NC}. Arbetet har genomförts i samarbete med Vermiculus Financial Technology och syftar till att förbättra riskmodellering i clearingsystem. Traditionella copulor jämförs med \gls{NC} avseende prestanda, anpassningsförmåga och tillämplighet på olika typer av beroenden. Studien omfattar utvecklingen av en alternativ metod för att anpassa marginalfördelningar samt ett praktiskt tillvägagångssätt för slumptalsgenerering från \gls{NC}. Simulerad data används för att utvärdera metoderna under kontrollerade förhållanden. Resultaten visar att \gls{NC} inte producerar bättre resultat än övriga traditionella metoder vid modellering av komplexa beroenden, även om dess effektivitet är beroende av datakaraktäristik och korrekt träning. Uppsatsen bidrar till en ökad förståelse för när och hur neural copula kan användas inom finansiell riskmodellering.
+
 \end{abstract}
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Acknowledgements
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\section*{Acknowledgements}
-%\newpage
+\section*{Acknowledgements}
+I would like to express my gratitude to my supervisor Kevin Kamm, from Umeå University, who has been a great support and mentor during this thesis. His guidance, expertise, and excitement for the subject has been invaluable in challenging me during this thesis. I would also like to thank Victor Jonsson and Vermiculus Financial Technology for the opportunity to work on this project in addition to their warm welcome and support. Finally, I would like to thank my family and friends for their support during this thesis. 
+
+Johan Herbert\\
+Stockholm, Sweden\\
+\today 
+
+\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Glossaries & Table of Contents
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -534,14 +546,147 @@ abstracton=true
 %% Example of Correlation not working
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
-\section{Correlation issue example }\label{sec:CorrelationNotWorking}
+\section{Correlation Underestimating Dependence }\label{sec:CorrelationUnderestimates}
+\begin{example} 
+    \textbf{Correlation underestimates the true dependence} 
+    Let $X$ be a random variable such that, $X \sim N(0,1)$. Obviously, $X$ and $e^X$ are dependent. The covariance, $\mathrm{Cov}(X,e^X)$ is
+    \begin{align*}
+        \mathrm{Cov}(X,e^X) &= E \left[  (X-E\left[  X \right])(e^X-E\left[  e^X \right])  \right]\\
+         &=  E \left[  X(e^X-E\left[  e^X \right]) \right]\\
+         &= E \left[  Xe^X  \right] - E \left[  X E \left[  e^X \right] \right]\\
+         &= E \left[  Xe^X  \right]\\
+         &= \int_{-\infty}^\infty xe^x \frac{1}{\sqrt{2\pi}} e^{\frac{-x^2}{2}} dx\\ %by definition of expectation for Cont. rand. var. 
+         &=  \int_{-\infty}^\infty \frac{1}{\sqrt{2\pi}} x  e^{x -\frac{x^2}{2}} dx \\
+         &= \int_{-\infty}^\infty \frac{1}{\sqrt{2\pi}} x  e^{-\frac{1}{2}(x-1)^2+\frac{1}{2} } dx \\
+         &= \frac{e^\frac{1}{2}}{\sqrt{2\pi}}\int_{-\infty}^\infty x  e^{-\frac{1}{2}(x-1)^2 } dx\\
+         & \mathrm{Let\;} u = x-1 \; \mathrm{then\;} x = u+1\\
+         &= \frac{e^\frac{1}{2}}{\sqrt{2\pi}}\int_{-\infty}^\infty (u+1)e^{\frac{-u^2}{2}} du\\
+         &= \frac{e^\frac{1}{2}}{\sqrt{2\pi}} \left( \int_{-\infty}^\infty ue^{\frac{-u^2}{2}}du +\int_{-\infty}^\infty e^{\frac{-u^2}{2}} du  \right) \\
+         &= \frac{e^\frac{1}{2}}{\sqrt{2\pi}}\sqrt{2\pi}   \\
+         &= e^{\frac{1}{2}}.
+    \end{align*}
+    If dividing with the standard deviations of $X$ and $e^X$ we get the correlation. To do this we need to calculate the variances of $X$ and $e^X$. We know that $\mathrm{Var}(X) = 1$ but need to calculate the variance of $e^X$. The variance of $e^X$ is calculated as
+    \begin{align*}
+        \mathrm{Var}(e^X) &= E[e^{2X}] - E[e^X]^2\\
+        &= e^2 - e.\\
+    \end{align*}
+    The correlation is then calculated as
+    \begin{align*}
+        \mathrm{corr}(X,e^X) &= \frac{\mathrm{cov}(x,e^X)}{\sqrt{\mathrm{var}(x)} \sqrt{\mathrm{var}(e^X)}}\\
+        & = \frac{e^{\frac{1}{2}}}{1\sqrt{e^2-e}}\\
+        &=\sqrt{\frac{1}{e-1}} \approx 0.76. 
+    \end{align*}
+    If instead using the copula to calculate the correlation we can see that the correlation is not capturing the true dependence between $X$ and $e^X$. To see this we can use the \gls{PIT} to transform $X$ and $e^X$ into uniform random variables. If we let $F_X(X)=U_1$ be the normal data transformed to uniform random variables and $F_{e^X}(e^X)=U_2$ be the log-normal data transformed to uniform random variables we can see that 
+    \begin{align*}
+        F_{e^X}(e^X) &= P(e^X \leq e^x)\\
+        &= P(\ln(e^X) \leq \ln (e^x))\\
+        &=P(X\leq x) = U2 = U1.
+    \end{align*}
+    Since $U_1 = U_2$ we have 
+    \begin{align*}
+        P(U_1\leq u1, U_2\leq u2) = P(U_1\leq u1, U_1\leq u2) = \min(u_1,u_2).
+    \end{align*}
+    This is the upper copula given by the upper Fréchet-Hoeffding bound, which is the copula corresponding to maximum dependence. Hence, correlation underestimates the true dependence between the random variables given that maximum dependence under the correlation framework is one. This underestimation of the correlation is because of the assumption of a normal or students $t$ distribution which is violated with the lognormal variable in the example. This shows how copulas can capture dependence when correlation fails. 
 
+    In \Cref{fig:ExamplePlots} some illustrations of the example are shown. The the true copula \gls{CDF} is shown in \Cref{fig:TrueCopulaExponential} this can be compared to the estimated copula using correlation in \Cref{fig:CorrelationEstimationExponential}. %\Cref{fig:exponentialDependenceScatterProb} shows the scatter plot of the data in the probability space illustating what maximum dependence looks like in probability space. 
+    \Cref{fig:exponentialDependenceScatterRet} shows the scatter plot of the data in the return space. This illustrates why correlation is insufficient as a dependency measure when the underlying dependence is non-linear. 
+    
+    % \begin{generalinstructions}
+    %     Would be nice to tie this to something in finance. Such as the relationship between stocks returns and derivative prices.
+
+    %     This shows that estimating the correlation in a setting when the different marginals are not both normal can be misleading. This is a problem in finance where one often uses correlation to estimate the dependence between different assets. This is especially true when using correlation to estimate the dependence between stocks and derivatives.
+    % \end{generalinstructions}
+\end{example}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Distance measure derivation
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
-\section{Goodness of fit measure derivation}\label{sec:DistanceDerivation}
+\section{Distance Measure Derivation}\label{sec:DistanceDerivation}
+The Wasserstein distance is defined as in \Citet[p.~1032]{hallin2021}. Let $\mu$ and $\nu$ be two probability measures on $\mathbb{R}^2$ and let $d$ be some distance measure. The Wasserstein distance is defined as the infimum of the cost of moving the dirt from one distribution to another. The cost is defined as the average distance moved times the amount of dirt moved. The Wasserstein distance is then given by
+\begin{align*}
+    W_p(\mu,\nu) = \inf_{\gamma \in \Gamma(\mu,\nu)} \left( \int_{\mathbb{R}^2} d(x,y)^p d\gamma(x,y) \right)^{\frac{1}{p}}.
+\end{align*}
+
+
+It can be calculated between two equally sized sets of data points by
+\begin{align*}
+    W_p(\mu,\nu) =  \inf_{\pi} \left( \frac{1}{n} \sum_{i=1}^n \| X_i - Y_{\pi(i)}  \|^p \right)^{\frac{1}{p}},
+\end{align*} 
+
+
+where $d$ is replaced by the euclidean distance\footnote{See \url{https://www.stat.cmu.edu/~larry/=sml/Opt.pdf}. \textit{Optimal Transport and Wasserstein Distance} p.12. Larry Wasserman. Last Accessed 2025-05-15.}. This is the linear assignment of points between the two sets having the smallest distance between them. $\pi$ can be viewed as an operator that chooses the best assignment of points between the two sets. The distance is then the average distance between the points in the two sets. This problem has high cubic complexity and is therefore really inefficient when the number of points is large. This distance is illustrated in \Cref{fig:WassersteinDistance} where two datasets are displayed. The Wasserstein distance is the minimum distance of points moved that makes the two distributions identical. The transportation that results in the smallest distance is shown in the figure as the lines between the points. 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{3Theory/pictures/WassersteinIllustrated.png}
+    \caption{Illustration of the Wasserstein distance between two distributions. The distance is the average distance between the points in the two distributions.}
+    \label{fig:WassersteinDistance}
+\end{figure}
+
+
+In one dimension the Wasswerstein distance can be written\footnote{See \url{https://www.stat.cmu.edu/~larry/=sml/Opt.pdf}. \textit{Optimal Transport and Wasserstein Distance} p.4. Larry Wasserman. Last Accessed 2025-05-15.} as 
+\begin{align*}
+    W_p(\mu,\nu) = \left(  \int_{0}^1 |F_\mu(q)^{-1} - F_\nu(q)^{-1}|^p dq \right)^{\frac{1}{p}}.
+\end{align*}
+From this we obtain through a change of variables that the Wasserstein distance can be written as
+\begin{align*}
+    W_p(\mu,\nu) = \left( \int_{\mathbb{R}} |F_\mu(x) - F_\nu(x)|^p dx \right)^{\frac{1}{p}}. 
+\end{align*}
+
+This motivates that the integral of the absolute or squared differences between two \gls{CDF}s can be used as a distance measure between the distributions. Note that the following can no longer be called the Wasserstein distance. In two dimensions we therefore define our own distance measure between distributions as
+\begin{align*}
+    \mathrm{dist}(\mu,\nu) = \left(\iint_{\mathbb{R}^2} |F_\mu(x,y) - F_\nu(x,y)|^p dx dy \right) ^{\frac{1}{p}},
+\end{align*}
+where $F_\mu$ and $F_\nu$ are the \gls{CDF}s of the two distributions. These distributions are estimated using kernel density estimation with the gaussian kernel over a grid of points. After normalizing the densities to create a distribution, this gives estimates of the \gls{PDF}s for each data set. If computing the cumulative sum of the approximate \gls{PDF}s in each dimension we get an approximated \gls{CDF} of the data. We denote the estimated \gls{CDF}s by $\hat F_\mu$ and $\hat F_\nu$. 
+
+The distance is then approximated by numerical integration over the grid of points as
+\begin{align*}
+    \mathrm{dist}(\mu,\nu) = \left( \sum_{i=1}^n \sum_{j=1}^m |\hat F_\mu(x_i,y_j) - \hat F_\nu(x_i,y_j)|^p \Delta x_i \Delta y_j \right)^{\frac{1}{p}},
+\end{align*}
+where $\Delta x_i$ and $\Delta y_j$ are the step sizes in the $x$ and $y$ dimensions respectively. The distance is then calculated as the average distance between the two distributions. The density estimates and the corresponding CDFs are illustrated in \Cref{fig:ApproxWasserstein}. The estimated \gls{PDF}s are shown in \Cref{fig:density1} and \Cref{fig:density2}. The estimated \gls{CDF}s are shown in \Cref{fig:dist1} and \Cref{fig:dist2}. The difference between the two distributions is shown in \Cref{fig:diffDist1and2} and the distance approximation is then calculated as the average distance between the two distributions. That is, the volume under the surface in \Cref{fig:diffDist1and2}. 
+
+
+\begin{figure}
+    \centering
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{3Theory/pictures/densityDist2.png}
+        \caption{Density estimation of the first distribution.}
+        \label{fig:density1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{3Theory/pictures/densityDist1.png}
+        \caption{Density estimation of the second distribution.}
+        \label{fig:density2}
+    \end{subfigure}
+    \vfill
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{3Theory/pictures/CDFDist2.png}
+        \caption{Distribution function estimate of the first distribution.}
+        \label{fig:dist1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{3Theory/pictures/CDFDist1.png}
+        \caption{Distribution function estimate of the second distribution.}
+        \label{fig:dist2}
+    \end{subfigure}
+    
+    \vfill
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{3Theory/pictures/diffDist1and2.png}
+        \caption{Difference between the two distributions.}
+        \label{fig:diffDist1and2}
+    \end{subfigure}
+    \caption{Density and CDF plots used in the distance calculation.}
+    \label{fig:ApproxWasserstein}
+\end{figure}
+
 
 
 

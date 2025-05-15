@@ -44,52 +44,30 @@
     \field{year}{2008}
   \endentry
 
-  \entry{Bjork2019Edition3}{book}{}{}
+  \entry{Bjork2019Edition4}{book}{}{}
     \name{author}{1}{}{%
       {{hash=BT}{%
-         family={Bjork},
+         family={Björk},
          familyi={B\bibinitperiod},
          given={Tomas},
          giveni={T\bibinitperiod},
       }}%
     }
-    \list{publisher}{1}{%
-      {Oxford University Press}%
-    }
     \strng{namehash}{BT1}
     \strng{fullhash}{BT1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
-    \field{labelyear}{2009}
+    \field{labelyear}{2019}
     \field{labeldatesource}{}
     \field{sortinit}{B}
     \field{sortinithash}{B}
-    \field{abstract}{%
-    The third edition of this popular introduction to the classical
-  underpinnings of the mathematics behind finance continues to combine sound
-  mathematical principles with economic applications. Concentrating on the
-  probabilistic theory of continuous arbitrage pricing of financial
-  derivatives, including stochastic optimal control theory and Merton's fund
-  separation theory, the book is designed for graduate students and combines
-  necessary mathematical background with a solid economic focus. It includes a
-  solved example for every new technique presented, contains numerous
-  exercises, and suggests further reading in each chapter. In this
-  substantially extended new edition Bjork has added separate and complete
-  chapters on the martingale approach to optimal investment problems, optimal
-  stopping theory with applications to American options, and positive interest
-  models and their connection to potential theory and stochastic discount
-  factors. More advanced areas of study are clearly marked to help students and
-  teachers use the book as it suits their needs.%
-    }
-    \field{isbn}{ARRAY(0x5f5f2288)}
-    \field{number}{9780199574742}
-    \field{series}{OUP Catalogue}
-    \field{title}{{Arbitrage Theory in Continuous Time}}
-    \verb{url}
-    \verb https://ideas.repec.org/b/oxp/obooks/9780199574742.html
+    \verb{doi}
+    \verb 10.1093/oso/9780198851615.001.0001
     \endverb
-    \field{year}{2009}
-    \warn{\item Invalid format of field 'month'}
+    \field{isbn}{9780198851615}
+    \field{title}{Arbitrage Theory in Continuous Time}
+    \field{month}{12}
+    \field{year}{2019}
   \endentry
 
   \entry{BrigoMercurio2006}{book}{}{}
