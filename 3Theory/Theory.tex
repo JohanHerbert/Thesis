@@ -3,204 +3,606 @@
 % \end{generalinstructions}
 
 
+
+\begin{generalinstructions}
+    \begin{compactitem}
+        \item \textbf{Returns}
+        \item $P_{t_i}$ : Price at time $t_i$. 
+        \item $t_i$ : time increment
+        \item $R_{t_i}$ : Return over time increment $t_i$.
+        \item $R_{t_i,\mathrm{port}}$ : portfolio return over time increment $t_i$.
+        \item $R_{t_i}^-$ : minimum simple return.
+        \item $R_{t_i}^+$ : maximum simple return.
+        \item $Y_{t_i}$ : log return over time increment $t_i$.
+        \item $Y_{t_i, \mathrm{port}}$  : portfolio log return over time increment $t_i$.
+        \item $Y_{t_i}^-$ :
+        \item $Y_{t_i}^+$ :
+        \item \textbf{Geometric Brownian motion and euler} 
+        \item $S_t$ : stock price at time $t$.
+        \item $\mu$ : drift.    
+        \item $\sigma$ : volatility.
+        \item $W_t$ : Wiener process.
+        \item $s_0$ : initial stock price.
+        \item $\hat{S}(t_i)$ : approximate solution to the \gls{SDE} at time $t_i$.
+        \item $d$: dimension of the \gls{SDE}.
+        \item \textbf{Probability theory}
+        \item $\bar{R}$: extended real line $[-\infty, \infty]$.
+        \item $F$ : \gls{CDF} of a random variable.
+        \item $f$ : \gls{PDF} of a random variable.
+        \item $X$ : random variable usuallt log returns
+        \item $P$ : probability.
+        \item $H$ : 2-place real function.
+        \item $u,v$ : nonempty subsets of $\bar{R}$ (sections of the real line).
+        \item $B$ : rectangle in $\bar{R}^2$.
+        \item $V_H(B)$ : $H$-volume of $B$.
+        \item Return space: (for log returns we have $(-\infty, \infty)$)
+        \item Probability space  : $[0,1]$.
+        \item $U$ : uniformly distributed random variable in probability space.
+        \item $\mathcal{L}$ : likelihood function.
+        \item $l$ : likelihood function value.
+        \item $\theta$ : parameters for a statistical distribution.
+        \item $\hat{\theta}$ : estimated parameters for a statistical distribution.
+        \item \textbf{Copula theory}
+        \item $C$ : copula function.
+        \item $c$ : copula density function.
+        \item $I= [0,1]$ : 
+        \item $H$ distribution function in 2d
+        \item $F,G$ : marginal \gls{CDF}s.
+        \item $\D$ : domain
+        \item $\mathrm{Ran}$ :range
+    \end{compactitem}
+\end{generalinstructions}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%% Mathematical finance
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Mathematical finance}\label{sec:MathematicalFinance}
-%\todo{What is Mathematical finance}
-In mathematical finance, one is typically interested in the returns of financial assets, over discrete time steps, rather than their price \citet[p.~2]{Danielsson2011}. Let $P_{t_i}$ denote the price at time increment $t_i$, where $t_i$ is usually in daily time increments, but can be any unit of time. 
 
+\subsection{Mathematical finance}\label{sec:MathematicalFinance}
+In mathematical finance, one is typically interested in the returns of financial assets over discrete time steps, rather than their prices \citet[p.~2]{Danielsson2011}. Let $P_{t_i}$ denote the price at time increment $t_i$, where $t_i$ is usually in daily time increments but can represent any unit of time. 
 
 \subsubsection{Returns}
-This section will introduce different types of returns, simple and log, as well as their different properties. These properties are for example return aggregation over time, portfolio return calculations, generation of new prices, and the bounds for returns. The reason for introducing different types of returns is to show the connections between financial returns and statistical distributions that in turn connect to the theory of copulas. 
+This section introduces different types of returns—simple and log—and their respective properties. These properties include return aggregation over time, portfolio return calculations, the generation of new prices, and bounds for returns. The reason for introducing different types of returns is to show the connections between financial returns and statistical distributions, which in turn connect to the theory of copulas. 
 
-Firstly we should introduce what financial returns on assets are. The return of a financial asset is the relative price change over a given time interval, often expressed as a percentage \citet[p.~2]{Danielsson2011}. One type of return is simple returns, defined in \Cref{def:simpleReturns}.
+First, we introduce what financial returns on assets are. The return of a financial asset is the relative price change over a given time interval, often expressed as a percentage \citet[p.~2]{Danielsson2011}. One type of return is the simple return, defined in \Cref{def:simpleReturns}.
 
 \begin{definition}\label{def:simpleReturns}
-    \textbf{Simple-Returns} \citet[p.~3]{Danielsson2011}
-    A \emph{simple return} is the percentage change in price, over time period $t_i$, indicated by $R_{t_i}$:
+    \textbf{Simple Returns} \citet[p.~3]{Danielsson2011} \\
+    A \emph{simple return} is the percentage change in price over time period $t_i$, indicated by $R_{t_i}$:
     \begin{align*}
         R_{t_i} = \frac{P_{t_i}-P_{t_{i-1}}}{P_{t_{i-1}}}.
     \end{align*}
 \end{definition}
 
-To aggregate several simple (daily) returns over some time (week) to the return over the whole period (week), one has to construct several change factors that are multiplied together before subtracting one. This aggregation process is described in \citet[p.~3]{Danielsson2011}, where the aggregated return over $n$ periods can be calculated as
+To aggregate several simple (daily) returns over some period (e.g., a week), one must construct several change factors that are multiplied together before subtracting one. This aggregation process is described in \citet[p.~3]{Danielsson2011}, where the aggregated return over $n$ periods is calculated as
 \begin{align*}
     R_{t_{i}}(n) = (1+R_{t_{i}})(1+R_{t_{i-1}})(1+R_{t_{i-2}})\dots (1+R_{t_{i-n+1}}) -1 = \frac{P_{t_{i}}}{P_{t_{i-n}}}-1.
 \end{align*}
 
-In many situations, it is necessary to calculate the return of an entire portfolio of assets from its underlying asset returns. For simple returns, this is simply done by calculating a weighted average of the individual asset returns. \citet[p.~3]{Danielsson2011} describes the calculation of the portfolio return $R_{t_i,\mathrm{port}}$ for a portfolio with $K$ different assets as 
+In many situations, it is necessary to calculate the return of an entire portfolio of assets from its underlying asset returns. For simple returns, this is done by calculating a weighted average of the individual asset returns. \citet[p.~3]{Danielsson2011} describes the calculation of the portfolio return $R_{t_i,\mathrm{port}}$ for a portfolio with $K$ different assets as 
 \begin{align*}
-    R_{t,\mathrm{port}} = \sum_{k=1}^K w_kR_{t,k}.
+    R_{t_i,\mathrm{port}} = \sum_{k=1}^K w_k R_{t_i,k}.
 \end{align*}
 
-Many times, it can be useful to simulate new stock prices by using randomly generated returns. For simple returns, new prices can be calculated as
+It is often useful to simulate new stock prices by using randomly generated returns. For simple returns, new prices are calculated as
 \begin{align*}
     P_{t_{i}} = P_{t_{i-1}}(1+R_{t_{i}}).
 \end{align*}
 
-The space in which realizations of returns can be observed differs for different types of returns. In \Cref{ex:BoundsSimpleReturns} the range for simple returns is derived. 
+The space in which realizations of returns can be observed differs depending on the type of return. In \Cref{ex:BoundsSimpleReturns}, the range for simple returns is derived. 
 
 \begin{example}\label{ex:BoundsSimpleReturns}
-    To see the bounds for simple returns, we investigate what happens as the stock price moves to zero, corresponding to bankruptcy, and when the stock price moves to infinity. We denote the simple return when the price goes to zero and infinity by $R_t^-$ and $R_t^+$ respectively   
+    To determine the bounds for simple returns, we investigate what happens as the stock price moves to zero—corresponding to bankruptcy—and when the stock price moves to infinity. We denote the simple return when the price goes to zero and infinity by $R_t^-$ and $R_t^+$ respectively:   
     \begin{align*}
-        R_{t_i}^- = \lim_{P_{t_i} \to 0} \frac{P_{t_i}-P_{t_{i-1}}}{P_{t_{i-1}}} = \frac{0-P_{t_{i-1}}}{P_{t_{i-1}}} =  -1 \\
-        R_{t_i}^+ =\lim_{P_{t_i} \to \infty} \frac{P_{t_i}-P_{t_{i-1}}}{P_{t_{i-1}}} = \frac{\infty-P_{t_{i-1}}}{P_{t_{i-1}}}=\infty.\\    
+        R_{t_i}^- = \lim_{P_{t_i} \to 0} \frac{P_{t_i}-P_{t_{i-1}}}{P_{t_{i-1}}} = \frac{0-P_{t_{i-1}}}{P_{t_{i-1}}} = -1 \\
+        R_{t_i}^+ = \lim_{P_{t_i} \to \infty} \frac{P_{t_i}-P_{t_{i-1}}}{P_{t_{i-1}}} = \frac{\infty-P_{t_{i-1}}}{P_{t_{i-1}}} = \infty    
     \end{align*}
-Hence, we conclude that $R_t \in (R_t^-,R_t^+) = [-1,\infty)$. 
+    Hence, we conclude that $R_t \in [ -1,\infty )$. 
 \end{example}
 
-
-Continuously compounded returns or so-called logarithmic returns are often used for financial modeling given their desirable properties. A desirable property is that the returns are \emph{symmetric}, so positive and negative returns of the same magnitude cancel each other out \citet[p.~4]{Danielsson2011}. Log returns are defined, as done by \citet[p.~3]{Danielsson2011}, in \Cref{def:logReturns}. 
+Continuously compounded returns, or so-called logarithmic returns, are often used in financial modeling due to their desirable properties. One such property is that returns are \emph{symmetric}, meaning that positive and negative returns of the same magnitude cancel each other out \citet[p.~4]{Danielsson2011}. Log returns are defined, as done by \citet[p.~3]{Danielsson2011}, in \Cref{def:logReturns}. 
 
 \begin{definition}\label{def:logReturns}
-    \textbf{Log-Returns} \\
-    The logarithm of gross return or \emph{log-returns}, indicated by $Y_{t_i}$:
+    \textbf{Log Returns} \\
+    The logarithm of the gross return, or \emph{log return}, indicated by $Y_{t_i}$:
     \begin{align*}
-        Y_{t_i} = \mathrm{log}(1+R_{t_i}) = \mathrm{log} \left(\frac{P_{t_i}}{P_{t_{i-1}}}\right) = \mathrm{log}(P_{t_{i}}) -\mathrm{log}(P_{t_{i-1}})
+        Y_{t_i} = \mathrm{log}(1+R_{t_i}) = \mathrm{log} \left(\frac{P_{t_i}}{P_{t_{i-1}}}\right) = \mathrm{log}(P_{t_i}) - \mathrm{log}(P_{t_{i-1}})
     \end{align*}
 \end{definition}
 
-Log-returns have the advantage that the multiperiod, $n$ period, returns are just the sum of one period returns \citet[p.~3]{Danielsson2011}, that is 
+Log returns have the advantage that multi-period (e.g., $n$-period) returns are simply the sum of the one-period returns \citet[p.~3]{Danielsson2011}, that is, 
 \begin{align*}
-    Y_{t_i}(n) = Y_{t_i}+Y_{t_{i-1}} + \dots + Y_{t_{i-n+1}}.
+    Y_{t_i}(n) = Y_{t_i} + Y_{t_{i-1}} + \dots + Y_{t_{i-n+1}}.
 \end{align*}
 
- 
-As illustrated by \citet[p.~4]{Danielsson2011}, the portfolio return is more complicated to compute for log returns because the relation is not simply a weighted sum
+As illustrated by \citet[p.~4]{Danielsson2011}, the portfolio return is more complicated to compute for log returns because the relationship is not simply a weighted sum:
 \begin{align*}
-        Y_{t_i,\mathrm{port}} &= \mathrm{log}\left(\frac{P_{t_i,\mathrm{port}}}{P_{t_{i-1},\mathrm{port}}}\right) \neq  \sum_{k=1}^K w_k\mathrm{log}\left(\frac{P_{t_i,k}}{P_{t_{i-1},k}}\right), \mathrm{where} \;\\
+        Y_{t_i,\mathrm{port}} &= \mathrm{log}\left(\frac{P_{t_i,\mathrm{port}}}{P_{t_{i-1},\mathrm{port}}}\right) \neq  \sum_{k=1}^K w_k \mathrm{log}\left(\frac{P_{t_i,k}}{P_{t_{i-1},k}}\right), \quad \text{where} \\
         P_{t_i,\mathrm{port}} &= \sum_{k=1}^K w_k P_{t_i,k}.
 \end{align*}
 
-
-A weighted average is approximately, but not quite correctly, describing the portfolio returns in terms of the individual returns as described by \citet[p.~3]{Danielsson2011},
+A weighted average only approximately describes the portfolio log returns in terms of the individual returns, as described by \citet[p.~3]{Danielsson2011},
 \begin{align*}
     Y_{t_i,\mathrm{port}} \approx \sum_{k=1}^K w_k R_{t_i,k}.
 \end{align*}
 
-The correct relation between portfolio log returns and its sub-components log returns is given by first converting the log returns to prices, then calculating the portfolio returns before calculating the log return from the portfolio return
+The correct relation between portfolio log returns and the log returns of its components is given by first converting the log returns to prices, then calculating the portfolio value, and finally computing the log return from that:
 \begin{align*}
-    Y_{t_i,\mathrm{port}} = \mathrm{log} \left( \frac{\sum_{k=1}^K w_k P_{t_i,k}}{\sum_{k=1}^K w_k P_{t_{i-1},k}}\right), \mathrm{where} \; P_{t_i,k} = P_{t_i-1,k}e^{Y_{t_i,k}}.
+    Y_{t_i,\mathrm{port}} = \mathrm{log} \left( \frac{\sum_{k=1}^K w_k P_{t_i,k}}{\sum_{k=1}^K w_k P_{t_{i-1},k}} \right), \quad \text{where} \quad P_{t_i,k} = P_{t_{i-1},k} e^{Y_{t_i,k}}.
 \end{align*}
-In the above expression, the nominator represents the new portfolio value while the denominator represents the initial portfolio value. $K\in \mathbb{N}$ is the number of assets in the portfolio and $w_k$ is the weight of the total portfolio in asset $k$. Note that the individual asset prices are updated, using the log return, by themselves before weighing them together as a portfolio value. 
+In the above expression, the numerator represents the new portfolio value, while the denominator represents the initial portfolio value. $K \in \mathbb{N}$ is the number of assets in the portfolio, and $w_k$ is the weight of asset $k$ in the portfolio. Note that individual asset prices are updated using their log returns before combining them into the portfolio value. 
 
-In many applications, one wants to simulate returns to produce artificial stock price developments. Log returns from stock prices usually seem to be generated from some sort of bell-shaped probability distribution. This makes it convenient becausecause one can use samples from some probability distribution as the log returns when simulating prices for an asset. As an example, the famous Black-Scholes model assumes that stock returns are log normally distributed. That is, the log returns are normally distributed. 
+In many applications, one wants to simulate returns to generate artificial stock price developments. Log returns from stock prices usually appear to be generated from some bell-shaped probability distribution. This is convenient because one can sample from a probability distribution to simulate log returns for an asset. For example, the well-known Black-Scholes model assumes that stock returns are log-normally distributed—that is, log returns are normally distributed. 
 
-%\todo{what to do with t here?}
-To obtain the price $P_{t_i}$ at the end of time period $t_i$ using a simulated log return $Y_{t_i}$ for period $t_i$, one can calculate 
+To obtain the price $P_{t_i}$ at the end of time period $t_i$ using a simulated log return $Y_{t_i}$ for that period, one calculates 
 \begin{align*}
-    P_{t_i} = P_{t_{i-1}}e^{Y_{t_i}}. %(own)
+    P_{t_i} = P_{t_{i-1}} e^{Y_{t_i}}.
 \end{align*}
 
-The range in which log returns can be observed is, unlike those in the simple return case, unbounded both positively and negatively. 
+Unlike simple returns, the range in which log returns can be observed is unbounded in both directions. 
 \begin{example}
-    To see this we investigate what happens to the returns when the stock price moves to zero, corresponding to bankruptcy, and when the stock price moves to infinity. We denote the log return when the price goes to zero and infinity by $Y_t^-$ and $Y_t^+$ respectively.   
+    To see this, we investigate what happens to the returns when the stock price moves to zero (bankruptcy) and to infinity. We denote the log return when the price goes to zero and infinity by $Y_t^-$ and $Y_t^+$ respectively:   
     \begin{align*}
-        Y_{t_i}^- = \lim_{P_{t_i} \to 0} \mathrm{log} \left( \frac{P_{t_i}}{P_{t_{i-1}}}\right) = \mathrm{log}(0)= -\infty\\
-        Y_{t_i}^+ =\lim_{P_{t_i} \to \infty} \mathrm{log}\left( \frac{P_{t_i}}{P_{t_{i-1}}}\right) = \mathrm{log}(\infty)= \infty\\    
+        Y_{t_i}^- = \lim_{P_{t_i} \to 0} \mathrm{log} \left( \frac{P_{t_i}}{P_{t_{i-1}}} \right) = \mathrm{log}(0) = -\infty \\
+        Y_{t_i}^+ = \lim_{P_{t_i} \to \infty} \mathrm{log} \left( \frac{P_{t_i}}{P_{t_{i-1}}} \right) = \mathrm{log}(\infty) = \infty    
     \end{align*}
-    Hence, we conclude that $Y_{t_i} \in (Y_{t_i}^-,Y_{t_i}^+) = (-\infty,\infty)$. 
+    Hence, we conclude that $Y_{t_i} \in (-\infty,\infty)$. 
 \end{example}
 
-To better understand how the different types of returns work, \Cref{ex:returnSymmetry} shows that simple returns are not symmetrical whereas log returns are. 
+To better understand how different types of returns work, \Cref{ex:returnSymmetry} shows that simple returns are not symmetric, whereas log returns are. 
 \begin{example}\label{ex:returnSymmetry}
-    \textbf{Symmetry of returns} (own example, on the same lines as \citet[p.~4]{Danielsson2011} but not quite)
-    Consider an example of a stock having initial price $P_0 = 100$, price after one day $P_1 = 200$, and price at day two $P_2 = 100$. Let's examine what these price changes do to simple and log returns respectively.
-    
-    \textbf{Simple returns}\\
+    \textbf{Symmetry of Returns} (Own example, in the same vein as \citet[p.~4]{Danielsson2011}) \\
+    Consider a stock with an initial price $P_0 = 100$, a price after one day $P_1 = 200$, and a price on day two $P_2 = 100$. Let's examine the impact of these price changes on simple and log returns.
+
+    \textbf{Simple Returns}\\
     The return on the first day is
     \begin{align*}
-        R_1 = \frac{P_1-P_0}{P_0} = \frac{200-100}{100} = 1 = 100\%.
+        R_1 = \frac{P_1 - P_0}{P_0} = \frac{200 - 100}{100} = 1 = 100\%.
     \end{align*}
     The return on the second day is
     \begin{align*}
-        R_2 = \frac{P_2-P_1}{P_1} = \frac{100-200}{200} = -\frac{1}{2} = -50\%.
+        R_2 = \frac{P_2 - P_1}{P_1} = \frac{100 - 200}{200} = -\frac{1}{2} = -50\%.
     \end{align*}    
-    \textbf{Log returns}\\
+
+    \textbf{Log Returns}\\
     The return on the first day is 
     \begin{align*}
-       Y_1 = \log \left( \frac{P_1}{P_0}\right) = \log\left(\frac{200}{100}\right)  = \log(2) \approx 69 \%.
+        Y_1 = \log \left( \frac{P_1}{P_0} \right) = \log\left( \frac{200}{100} \right) = \log(2) \approx 69\%.
     \end{align*}
     The return on the second day is
     \begin{align*}
-        Y_2 = \log\left(\frac{P_2}{P_1}\right) = \log\left(\frac{100}{200}\right)= \log\left(\frac{1}{2}\right) \approx -69\%.
+        Y_2 = \log \left( \frac{P_2}{P_1} \right) = \log \left( \frac{100}{200} \right) = \log\left( \frac{1}{2} \right) \approx -69\%.
     \end{align*}
-    We can see that the log returns are symmetrical so that monetary gains and losses of equal magnitude have log returns of equal magnitude. This is in contrast to simple returns where gains and losses are not symmetrical.
+    We observe that log returns are symmetric, so monetary gains and losses of equal magnitude produce log returns of equal magnitude. In contrast, simple returns are not symmetric.
 \end{example}
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% GBM
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Geometric Brownian motion}
-The symmetrical property of log returns is desirable because it means that the log returns can be modeled using a normal distribution. This is a convenient because the normal distribution has many nice properties and is easy to work with. Log returns are often used in financial modeling, perhaps most notably in the Black-Scholes model, for option pricing, where stock prices are assumed to follow a \gls{GBM} which price is log normally distributed. This is a consequence of the log returns being normally distributed. The \gls{GBM} is a stochastic process that is used to model the evolution of stock prices. The \gls{GBM} is defined by the stochastic differential equation (SDE)
+\subsubsection{Geometric Brownian Motion}
+The symmetry property of log returns is desirable because it means that the log returns can be modeled using a normal distribution. This is convenient because the normal distribution has many useful properties and is easy to work with. Log returns are often used in financial modeling—perhaps most notably in the Black-Scholes model for option pricing—where stock prices are assumed to follow a \gls{GBM}, whose price is lognormally distributed. This results from the log returns being normally distributed.
+
+The \gls{GBM} is a stochastic process used to model the evolution of stock prices. It is defined by the stochastic differential equation (SDE)
 \begin{align*}
-    dS_t &= \mu S_t dt + \sigma S_t dW_t \\
-    S_0 &= s_0, 
+    dS_t &= \mu S_t \,dt + \sigma S_t \,dW_t, \\
+    S_0 &= s_0,
 \end{align*}
-where $S_t$ is the stock price at time $t$, $\mu$ is the drift, $\sigma$ is the volatility, and $W_t$ is a Wiener process \Citet[p.~67]{Bjork2019Edition4} \todo{Find page where GBM defined}. The \gls{GBM} can be solved using the Itô formula, which gives the solution
+where $S_t$ is the stock price at time $t$, $\mu$ is the drift, $\sigma$ is the volatility, and $W_t$ is a Wiener process \citep[p.~67]{Bjork2019Edition4}.\todo{Find page where GBM is defined}
+
+The \gls{GBM} can be solved using Itô's formula, which yields the solution
 \begin{align*}
-    S_t = s_0 \;\mathrm{exp}\left( \left( \mu - \frac{\sigma^2}{2} \right)t + \sigma W_t \right),
+    S_t = s_0 \; \exp\left( \left( \mu - \frac{\sigma^2}{2} \right)t + \sigma W_t \right),
 \end{align*}
-\Citet[p.~70]{Bjork2019Edition4}.
+\citep[p.~70]{Bjork2019Edition4}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%% Euler Maruyama
+%%%% Euler-Maruyama
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Euler-Maruyama Scheme}\label{sec:EulerMaruyama}
-To approximately simulate \gls{SDE}s the Euler-Maruyama scheme can be used. The Euler-Maruyama scheme is a numerical method for solving \gls{SDE}s. 
+\subsubsection{Euler-Maruyama Scheme}\label{sec:EulerMaruyama}\todo{Change X to S}
+To approximately simulate \gls{SDE}s, the Euler-Maruyama scheme can be used. It is a numerical method for solving \gls{SDE}s.
 
 For an \gls{SDE} of the form
 \begin{align*}
-    dX_t = a(X_t)dt + b(X_t)dW_t,
+    dS_t = a(S_t)\,dt + b(S_t)\,dW_t,
 \end{align*}
-the Euler-Maruyama scheme is defined as follows. 
-Let $\hat{X}$ denote the approximate solution to the \gls{SDE} and let $X$ denote the exact solution. The Euler-Maruyama scheme is defined by the following recursive formula 
+the Euler-Maruyama scheme is defined as follows. Let $\hat{S}$ denote the approximate solution and $S$ the exact solution. The recursive formula is given by
 \begin{align*}
-    \hat{X}(t_{i+1}) = \hat{X}(t_i) + a(\hat{X}(t_i))[t_{i+1}-t_i]  + b(\hat{X}(t_i)) \sqrt{t_{i+1}-t_i} Z_{i+1},
+    \hat{S}(t_{i+1}) = \hat{S}(t_i) + a(\hat{S}(t_i)) \Delta t + b(\hat{S}(t_i)) \sqrt{\Delta t} Z_{i+1},
 \end{align*}
-where $Z_{i+1}$ is a standard normal random variable. The time step $t_{i+1}-t_i$ is the time increment, and $a$ and $b$ are the drift and diffusion functions respectively \Citet[pp.~339-340]{glasserman2004monte}.
+where $\Delta t = t_{i+1} - t_i$ and $Z_{i+1}$ is a standard normal random variable. The functions $a$ and $b$ represent the drift and diffusion terms, respectively \citep[pp.~339--340]{glasserman2004monte}.
 
-We can use the Euler-Maruyama scheme to simulate a stock trajectory with the \gls{GBM} by setting $a(S_t) = \mu S_t$ and $b(S_t) = \sigma S_t$. The resulting scheme is
+To simulate a stock trajectory governed by a \gls{GBM}, we set $a(S_t) = \mu S_t$ and $b(S_t) = \sigma S_t$. The resulting scheme becomes
 \begin{align*}
-    \hat{S}(t_{i+1}) = \hat{S}(t_i) + \mu \hat{S}(t_i)[t_{i+1}-t_i]  + \sigma \hat{S}(t_i) \sqrt{t_{i+1}-t_i} Z_{i+1}.
+    \hat{S}(t_{i+1}) = \hat{S}(t_i) + \mu \hat{S}(t_i) \Delta t + \sigma \hat{S}(t_i) \sqrt{\Delta t} Z_{i+1}.
 \end{align*}
-To simulate a stock trajectory, the time increment $t_{i+1}-t_i$ is set to a small value, and the process is iterated for a large number of steps. 
+A stock trajectory can be simulated by iterating this scheme with a small time step $\Delta t$ over a fixed time horizon.
 
-We can simulate a pair of dependent stock trajectroies by simulating a system of \gls{GBM}s  
+To simulate a pair of dependent stock trajectories, we can use a system of \gls{GBM}s:
 \begin{align*}
-    dS_t^d = \mu S_t^d dt + \sigma S_t^d dW_t^d, \; d=1,2, 
+    dS_t^d = \mu S_t^d \,dt + \sigma S_t^d \,dW_t^d, \quad d = 1, 2,
 \end{align*}
-where $W_t^1$ and $W_t^2$ are standard one dimensional Wiener processes with correlation $\rho$ \Citet[p.~104]{glasserman2004monte}. One can also simulate a system of \gls{GBM}s with a dependence different than correlation. This can be done by using a copula to generate the dependent Weiner processes.
+where $W_t^1$ and $W_t^2$ are standard one-dimensional Wiener processes with correlation $\rho$ \citep[p.~104]{glasserman2004monte}.
 
-In financial applications one is often interested in what impact changes in asset prices have on the value of a financial instrument and risk metrics. To do this a widely used method is to simulate the future price of the underlying asset and then calculate how the value of the instrument or metric changes based on the simulated prices. This allows for the calculation of risk metrics such as \gls{VaR} and \gls{ES} as well as the pricing of financial instruments such as options. The method is often referred to as Monte Carlo simulation.  
+More generally, dependency structures beyond simple correlation can be introduced by using a copula to generate dependent Wiener processes.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%% Monte Carlo methods
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Monte Carlo methods} \label{sec:MonteCarlo}
-% \begin{generalinstructions}
-%     \textbf{I would say}\\
-%     Monte Carlo methods is a blanket term for computational methods that utilize random numbers to model uncertain events. Given an assumption about the underlying distribution of a random process. The random process is simulated multiple times and used as the input in a deterministic function, the result of which is averaged. 
-% \end{generalinstructions}
-Many times in different scientific fields, relationships between different variables can be described using deterministic relationships between input variables and output variables. In some situations, these deterministic relationships have random input parameters. In these cases, Monte Carlo methods can be useful. 
+In financial applications, one is often interested in how changes in asset prices affect the value of financial instruments and associated risk metrics. A widely used method is to simulate future asset prices and compute how the instrument's value or risk metric responds. This enables the calculation of risk measures such as \gls{VaR} and \gls{ES}, as well as pricing financial instruments such as options. This approach is commonly referred to as Monte Carlo simulation.
 
-Monte Carlo simulation is a method for simulating events that, due to some source of randomness, are uncertain. In Monte Carlo methods, a statistical distribution is identified for each source of randomness. The method is then to sample random numbers from these distributions to use as input in the deterministic relationship. This gives the outcome for multiple possible scenarios. The final step is to perform some statistical analysis of the generated output values from the functions. This can, for example, be used to calculate the mean, standard deviation, or percentile \Citet[pp.~91-92]{Raychaudhuri2008}. Monte Carlo methods are widely used in finance, for example to price options where they are often used to simulate the future price of an asset, given a model for the asset price. By performing a large number of simulations, one can obtain a distribution of possible future prices from which the price can be estimated \Citet[p.~105]{KellyConall2024CaSf}. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Monte Carlo Methods
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Monte Carlo Methods} \label{sec:MonteCarlo}
+In many scientific fields, relationships between variables can be described by deterministic functions linking input and output variables. However, in some cases, the input parameters themselves are random. In such situations, \gls{MC} methods can be particularly useful.
+
+\gls{MC} simulation is a technique for modeling events that involve some source of uncertainty. In \gls{MC} methods, a probability distribution is specified for each random input. Random samples are then drawn from these distributions and used as inputs to a deterministic model. This process is repeated many times to produce a range of possible outcomes. The final step involves performing statistical analysis on the simulated outputs—for example, computing the mean, standard deviation, or percentiles \citep[pp.~91--92]{Raychaudhuri2008}.
+
+\gls{MC} methods are widely used in finance. One common application is option pricing, where they are used to simulate the future price of an asset under a given model. By running a large number of simulations, a distribution of possible future prices is obtained, from which the expected price or other statistics can be estimated \citep[p.~105]{KellyConall2024CaSf}.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% From before reviewing the language
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \subsection{Mathematical finance}\label{sec:MathematicalFinance}
+% In mathematical finance, one is typically interested in the returns of financial assets, over discrete time steps, rather than their price \citet[p.~2]{Danielsson2011}. Let $P_{t_i}$ denote the price at time increment $t_i$, where $t_i$ is usually in daily time increments, but can be any unit of time. 
+
+% \subsubsection{Returns}
+% This section will introduce different types of returns, simple and log, as well as their different properties. These properties are for example return aggregation over time, portfolio return calculations, generation of new prices, and the bounds for returns. The reason for introducing different types of returns is to show the connections between financial returns and statistical distributions that in turn connect to the theory of copulas. 
+
+% Firstly we should introduce what financial returns on assets are. The return of a financial asset is the relative price change over a given time interval, often expressed as a percentage \citet[p.~2]{Danielsson2011}. One type of return is simple returns, defined in \Cref{def:simpleReturns}.
+
+% \begin{definition}\label{def:simpleReturns}
+%     \textbf{Simple-Returns} \citet[p.~3]{Danielsson2011}
+%     A \emph{simple return} is the percentage change in price, over time period $t_i$, indicated by $R_{t_i}$:
+%     \begin{align*}
+%         R_{t_i} = \frac{P_{t_i}-P_{t_{i-1}}}{P_{t_{i-1}}}.
+%     \end{align*}
+% \end{definition}
+
+% To aggregate several simple (daily) returns over some time (week) to the return over the whole period (week), one has to construct several change factors that are multiplied together before subtracting one. This aggregation process is described in \citet[p.~3]{Danielsson2011}, where the aggregated return over $n$ periods can be calculated as
+% \begin{align*}
+%     R_{t_{i}}(n) = (1+R_{t_{i}})(1+R_{t_{i-1}})(1+R_{t_{i-2}})\dots (1+R_{t_{i-n+1}}) -1 = \frac{P_{t_{i}}}{P_{t_{i-n}}}-1.
+% \end{align*}
+
+% In many situations, it is necessary to calculate the return of an entire portfolio of assets from its underlying asset returns. For simple returns, this is simply done by calculating a weighted average of the individual asset returns. \citet[p.~3]{Danielsson2011} describes the calculation of the portfolio return $R_{t_i,\mathrm{port}}$ for a portfolio with $K$ different assets as 
+% \begin{align*}
+%     R_{t_i,\mathrm{port}} = \sum_{k=1}^K w_kR_{t_i,k}.
+% \end{align*}
+
+% Many times, it can be useful to simulate new stock prices by using randomly generated returns. For simple returns, new prices can be calculated as
+% \begin{align*}
+%     P_{t_{i}} = P_{t_{i-1}}(1+R_{t_{i}}).
+% \end{align*}
+
+% The space in which realizations of returns can be observed differs for different types of returns. In \Cref{ex:BoundsSimpleReturns} the range for simple returns is derived. 
+
+% \begin{example}\label{ex:BoundsSimpleReturns}
+%     To see the bounds for simple returns, we investigate what happens as the stock price moves to zero, corresponding to bankruptcy, and when the stock price moves to infinity. We denote the simple return when the price goes to zero and infinity by $R_t^-$ and $R_t^+$ respectively   
+%     \begin{align*}
+%         R_{t_i}^- = \lim_{P_{t_i} \to 0} \frac{P_{t_i}-P_{t_{i-1}}}{P_{t_{i-1}}} = \frac{0-P_{t_{i-1}}}{P_{t_{i-1}}} =  -1 \\
+%         R_{t_i}^+ =\lim_{P_{t_i} \to \infty} \frac{P_{t_i}-P_{t_{i-1}}}{P_{t_{i-1}}} = \frac{\infty-P_{t_{i-1}}}{P_{t_{i-1}}}=\infty.\\    
+%     \end{align*}
+% Hence, we conclude that $R_t \in (R_t^-,R_t^+) = [-1,\infty)$. 
+% \end{example}
+
+
+% Continuously compounded returns or so-called logarithmic returns are often used for financial modeling given their desirable properties. A desirable property is that the returns are \emph{symmetric}, so positive and negative returns of the same magnitude cancel each other out \citet[p.~4]{Danielsson2011}. Log returns are defined, as done by \citet[p.~3]{Danielsson2011}, in \Cref{def:logReturns}. 
+
+% \begin{definition}\label{def:logReturns}
+%     \textbf{Log-Returns} \\
+%     The logarithm of gross return or \emph{log-returns}, indicated by $Y_{t_i}$:
+%     \begin{align*}
+%         Y_{t_i} = \mathrm{log}(1+R_{t_i}) = \mathrm{log} \left(\frac{P_{t_i}}{P_{t_{i-1}}}\right) = \mathrm{log}(P_{t_{i}}) -\mathrm{log}(P_{t_{i-1}})
+%     \end{align*}
+% \end{definition}
+
+% Log-returns have the advantage that the multiperiod, $n$ period, returns are just the sum of one period returns \citet[p.~3]{Danielsson2011}, that is 
+% \begin{align*}
+%     Y_{t_i}(n) = Y_{t_i}+Y_{t_{i-1}} + \dots + Y_{t_{i-n+1}}.
+% \end{align*}
+
+ 
+% As illustrated by \citet[p.~4]{Danielsson2011}, the portfolio return is more complicated to compute for log returns because the relation is not simply a weighted sum
+% \begin{align*}
+%         Y_{t_i,\mathrm{port}} &= \mathrm{log}\left(\frac{P_{t_i,\mathrm{port}}}{P_{t_{i-1},\mathrm{port}}}\right) \neq  \sum_{k=1}^K w_k\mathrm{log}\left(\frac{P_{t_i,k}}{P_{t_{i-1},k}}\right), \mathrm{where} \;\\
+%         P_{t_i,\mathrm{port}} &= \sum_{k=1}^K w_k P_{t_i,k}.
+% \end{align*}
+
+
+% A weighted average is approximately, but not quite correctly, describing the portfolio returns in terms of the individual returns as described by \citet[p.~3]{Danielsson2011},
+% \begin{align*}
+%     Y_{t_i,\mathrm{port}} \approx \sum_{k=1}^K w_k R_{t_i,k}.
+% \end{align*}
+
+% The correct relation between portfolio log returns and its sub-components log returns is given by first converting the log returns to prices, then calculating the portfolio returns before calculating the log return from the portfolio return
+% \begin{align*}
+%     Y_{t_i,\mathrm{port}} = \mathrm{log} \left( \frac{\sum_{k=1}^K w_k P_{t_i,k}}{\sum_{k=1}^K w_k P_{t_{i-1},k}}\right), \mathrm{where} \; P_{t_i,k} = P_{t_i-1,k}e^{Y_{t_i,k}}.
+% \end{align*}
+% In the above expression, the nominator represents the new portfolio value while the denominator represents the initial portfolio value. $K\in \mathbb{N}$ is the number of assets in the portfolio and $w_k$ is the weight of the total portfolio in asset $k$. Note that the individual asset prices are updated, using the log return, by themselves before weighing them together as a portfolio value. 
+
+% In many applications, one wants to simulate returns to produce artificial stock price developments. Log returns from stock prices usually seem to be generated from some sort of bell-shaped probability distribution. This makes it convenient becausecause one can use samples from some probability distribution as the log returns when simulating prices for an asset. As an example, the famous Black-Scholes model assumes that stock returns are log normally distributed. That is, the log returns are normally distributed. 
+
+% To obtain the price $P_{t_i}$ at the end of time period $t_i$ using a simulated log return $Y_{t_i}$ for period $t_i$, one can calculate 
+% \begin{align*}
+%     P_{t_i} = P_{t_{i-1}}e^{Y_{t_i}}. %(own)
+% \end{align*}
+
+% The range in which log returns can be observed is, unlike those in the simple return case, unbounded both positively and negatively. 
+% \begin{example}
+%     To see this we investigate what happens to the returns when the stock price moves to zero, corresponding to bankruptcy, and when the stock price moves to infinity. We denote the log return when the price goes to zero and infinity by $Y_t^-$ and $Y_t^+$ respectively.   
+%     \begin{align*}
+%         Y_{t_i}^- = \lim_{P_{t_i} \to 0} \mathrm{log} \left( \frac{P_{t_i}}{P_{t_{i-1}}}\right) = \mathrm{log}(0)= -\infty\\
+%         Y_{t_i}^+ =\lim_{P_{t_i} \to \infty} \mathrm{log}\left( \frac{P_{t_i}}{P_{t_{i-1}}}\right) = \mathrm{log}(\infty)= \infty\\    
+%     \end{align*}
+%     Hence, we conclude that $Y_{t_i} \in (Y_{t_i}^-,Y_{t_i}^+) = (-\infty,\infty)$. 
+% \end{example}
+
+% To better understand how the different types of returns work, \Cref{ex:returnSymmetry} shows that simple returns are not symmetrical whereas log returns are. 
+% \begin{example}\label{ex:returnSymmetry}
+%     \textbf{Symmetry of returns} (own example, on the same lines as \citet[p.~4]{Danielsson2011} but not quite)
+%     Consider an example of a stock having initial price $P_0 = 100$, price after one day $P_1 = 200$, and price at day two $P_2 = 100$. Let's examine what these price changes do to simple and log returns respectively.
+    
+%     \textbf{Simple returns}\\
+%     The return on the first day is
+%     \begin{align*}
+%         R_1 = \frac{P_1-P_0}{P_0} = \frac{200-100}{100} = 1 = 100\%.
+%     \end{align*}
+%     The return on the second day is
+%     \begin{align*}
+%         R_2 = \frac{P_2-P_1}{P_1} = \frac{100-200}{200} = -\frac{1}{2} = -50\%.
+%     \end{align*}    
+%     \textbf{Log returns}\\
+%     The return on the first day is 
+%     \begin{align*}
+%        Y_1 = \log \left( \frac{P_1}{P_0}\right) = \log\left(\frac{200}{100}\right)  = \log(2) \approx 69 \%.
+%     \end{align*}
+%     The return on the second day is
+%     \begin{align*}
+%         Y_2 = \log\left(\frac{P_2}{P_1}\right) = \log\left(\frac{100}{200}\right)= \log\left(\frac{1}{2}\right) \approx -69\%.
+%     \end{align*}
+%     We can see that the log returns are symmetrical so that monetary gains and losses of equal magnitude have log returns of equal magnitude. This is in contrast to simple returns where gains and losses are not symmetrical.
+% \end{example}
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%% GBM
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \subsubsection{Geometric Brownian motion}
+% The symmetrical property of log returns is desirable because it means that the log returns can be modeled using a normal distribution. This is a convenient because the normal distribution has many nice properties and is easy to work with. Log returns are often used in financial modeling, perhaps most notably in the Black-Scholes model, for option pricing, where stock prices are assumed to follow a \gls{GBM} which price is log normally distributed. This is a consequence of the log returns being normally distributed. The \gls{GBM} is a stochastic process that is used to model the evolution of stock prices. The \gls{GBM} is defined by the stochastic differential equation (SDE)
+% \begin{align*}
+%     dS_t &= \mu S_t dt + \sigma S_t dW_t \\
+%     S_0 &= s_0, 
+% \end{align*}
+% where $S_t$ is the stock price at time $t$, $\mu$ is the drift, $\sigma$ is the volatility, and $W_t$ is a Wiener process \Citet[p.~67]{Bjork2019Edition4} \todo{Find page where GBM defined}. The \gls{GBM} can be solved using the Itô formula, which gives the solution
+% \begin{align*}
+%     S_t = s_0 \;\mathrm{exp}\left( \left( \mu - \frac{\sigma^2}{2} \right)t + \sigma W_t \right),
+% \end{align*}
+% \Citet[p.~70]{Bjork2019Edition4}.
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%% Euler Maruyama
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \subsubsection{Euler-Maruyama Scheme}\label{sec:EulerMaruyama}\todo{Change X to S}
+% To approximately simulate \gls{SDE}s the Euler-Maruyama scheme can be used. The Euler-Maruyama scheme is a numerical method for solving \gls{SDE}s.
+
+% For an \gls{SDE} of the form
+% \begin{align*}
+% dS_t = a(S_t)dt + b(S_t)dW_t,
+% \end{align*}
+% the Euler-Maruyama scheme is defined as follows.
+% Let $\hat{S}$ denote the approximate solution to the \gls{SDE} and let $S$ denote the exact solution. The Euler-Maruyama scheme is defined by the following recursive formula
+% \begin{align*}
+% \hat{S}(t_{i+1}) = \hat{S}(t_i) + a(\hat{S}(t_i))[t_{i+1}-t_i] + b(\hat{S}(t_i)) \sqrt{t_{i+1}-t_i} Z_{i+1},
+% \end{align*}
+% where $Z_{i+1}$ is a standard normal random variable. The time step $t_{i+1}-t_i$ is the time increment, and $a$ and $b$ are the drift and diffusion functions respectively \Citet[pp.~339-340]{glasserman2004monte}.
+
+% We can use the Euler-Maruyama scheme to simulate a stock trajectory with the \gls{GBM} by setting $a(S_t) = \mu S_t$ and $b(S_t) = \sigma S_t$. The resulting scheme is
+% \begin{align*}
+% \hat{S}(t_{i+1}) = \hat{S}(t_i) + \mu \hat{S}(t_i)[t_{i+1}-t_i] + \sigma \hat{S}(t_i) \sqrt{t_{i+1}-t_i} Z_{i+1}.
+% \end{align*}
+% To simulate a stock trajectory, the time increment $t_{i+1}-t_i$ is set to a small value, and the process is iterated for a large number of steps.
+
+% We can simulate a pair of dependent stock trajectories by simulating a system of \gls{GBM}s
+% \begin{align*}
+% dS_t^d = \mu S_t^d dt + \sigma S_t^d dW_t^d, ; d=1,2,
+% \end{align*}
+% where $W_t^1$ and $W_t^2$ are standard one dimensional Wiener processes with correlation $\rho$ \Citet[p.~104]{glasserman2004monte}. One can also simulate a system of \gls{GBM}s with a dependence different than correlation. This can be done by using a copula to generate the dependent Weiner processes.
+
+% In financial applications one is often interested in what impact changes in asset prices have on the value of a financial instrument and risk metrics. To do this a widely used method is to simulate the future price of the underlying asset and then calculate how the value of the instrument or metric changes based on the simulated prices. This allows for the calculation of risk metrics such as \gls{VaR} and \gls{ES} as well as the pricing of financial instruments such as options. The method is often referred to as \gls{MC} simulation.
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%% Euler Maruyama
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \subsubsection{Euler-Maruyama Scheme}\label{sec:EulerMaruyama}\todo{Change X to S}
+% To approximately simulate \gls{SDE}s the Euler-Maruyama scheme can be used. The Euler-Maruyama scheme is a numerical method for solving \gls{SDE}s. 
+
+% For an \gls{SDE} of the form
+% \begin{align*}
+%     dX_t = a(X_t)dt + b(X_t)dW_t,
+% \end{align*}
+% the Euler-Maruyama scheme is defined as follows. 
+% Let $\hat{X}$ denote the approximate solution to the \gls{SDE} and let $X$ denote the exact solution. The Euler-Maruyama scheme is defined by the following recursive formula 
+% \begin{align*}
+%     \hat{X}(t_{i+1}) = \hat{X}(t_i) + a(\hat{X}(t_i))[t_{i+1}-t_i]  + b(\hat{X}(t_i)) \sqrt{t_{i+1}-t_i} Z_{i+1},
+% \end{align*}
+% where $Z_{i+1}$ is a standard normal random variable. The time step $t_{i+1}-t_i$ is the time increment, and $a$ and $b$ are the drift and diffusion functions respectively \Citet[pp.~339-340]{glasserman2004monte}.
+
+% We can use the Euler-Maruyama scheme to simulate a stock trajectory with the \gls{GBM} by setting $a(S_t) = \mu S_t$ and $b(S_t) = \sigma S_t$. The resulting scheme is
+% \begin{align*}
+%     \hat{S}(t_{i+1}) = \hat{S}(t_i) + \mu \hat{S}(t_i)[t_{i+1}-t_i]  + \sigma \hat{S}(t_i) \sqrt{t_{i+1}-t_i} Z_{i+1}.
+% \end{align*}
+% To simulate a stock trajectory, the time increment $t_{i+1}-t_i$ is set to a small value, and the process is iterated for a large number of steps. 
+
+% We can simulate a pair of dependent stock trajectroies by simulating a system of \gls{GBM}s  
+% \begin{align*}
+%     dS_t^d = \mu S_t^d dt + \sigma S_t^d dW_t^d, \; d=1,2, 
+% \end{align*}
+% where $W_t^1$ and $W_t^2$ are standard one dimensional Wiener processes with correlation $\rho$ \Citet[p.~104]{glasserman2004monte}. One can also simulate a system of \gls{GBM}s with a dependence different than correlation. This can be done by using a copula to generate the dependent Weiner processes.
+
+% In financial applications one is often interested in what impact changes in asset prices have on the value of a financial instrument and risk metrics. To do this a widely used method is to simulate the future price of the underlying asset and then calculate how the value of the instrument or metric changes based on the simulated prices. This allows for the calculation of risk metrics such as \gls{VaR} and \gls{ES} as well as the pricing of financial instruments such as options. The method is often referred to as \gls{MC} simulation.  
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%% Monte Carlo methods
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \subsubsection{Monte Carlo methods} \label{sec:MonteCarlo}
+% Many times in different scientific fields, relationships between different variables can be described using deterministic relationships between input variables and output variables. In some situations, these deterministic relationships have random input parameters. In these cases, \gls{MC} methods can be useful. 
+
+% \gls{MC} simulation is a method for simulating events that, due to some source of randomness, are uncertain. In \gls{MC} methods, a statistical distribution is identified for each source of randomness. The method is then to sample random numbers from these distributions to use as input in the deterministic relationship. This gives the outcome for multiple possible scenarios. The final step is to perform some statistical analysis of the generated output values from the functions. This can, for example, be used to calculate the mean, standard deviation, or percentile \Citet[pp.~91-92]{Raychaudhuri2008}. \gls{MC} methods are widely used in finance, for example to price options where they are often used to simulate the future price of an asset, given a model for the asset price. By performing a large number of simulations, one can obtain a distribution of possible future prices from which the price can be estimated \Citet[p.~105]{KellyConall2024CaSf}. 
+
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%% Probability theory
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \subsection{Probability theory}
+% As mentioned above, stock returns are often modeled using some statistical distribution. Statistical distributions are fundamental to the theory of copulas, and we therefore need to define the terminology surrounding distributions more formally. Throughout the following sections, visual illustrations will be used to explain key ideas. Unless otherwise stated, the Gaussian distribution with mean 0 and standard deviation 1 will be used for these illustrations.
+
+% We begin by defining statistical distributions, starting with the \gls{CDF} in one dimension, as shown in \Cref{def:CDF1d}.
+
+% \begin{definition}\label{def:CDF1d} \textbf{Cumulative Distribution Function in one dimension }  \citet[p.~17]{Nelsen2006}\\
+%     A \emph{distribution function} or \gls{CDF} is a function $F$ with domain $\bar{R} = [-\infty, \infty]$ such that 
+%     \begin{compactenum}
+%         \item $F$ is non-decreasing; 
+%         \item $F(-\infty)=0$ and $F(\infty)=1$.
+%     \end{compactenum}
+% \end{definition}
+
+% The value of the \gls{CDF} at a point in its domain $\bar{R}$ can be interpreted as the probability that a realization is less than or equal to that point. Closely related to the \gls{CDF} is the \gls{PDF}, defined in \Cref{def:PDF1d}.
+
+% \begin{definition}\label{def:PDF1d} \textbf{Probability Density Function in one dimension} \citet[pp.~160-161]{DevoreBerk2012}\\
+%     Let $X$ be a continuous random variable. Then a \emph{probability distribution} or \gls{PDF} of $X$ is a function $f(x)$ such that for any two numbers $a$ and $b$ with $a \leq  b$,
+%         \begin{align*}
+%             P(a \leq X \leq b) = \int_a^b f(x)\,dx.
+%         \end{align*}
+% \end{definition}
+
+% \begin{remark}\label{rem:pdfProperties}
+%     For a function to be a valid \gls{PDF}, the following conditions must be satisfied:
+%     \begin{align*}
+%         f(x) \geq 0 \; \text{for all } x;\\
+%         \int_{-\infty}^{\infty} f(x)\,dx = 1.
+%     \end{align*}
+%     These conditions are implied by \Cref{def:PDF1d} but are explicitly stated here for clarity.
+% \end{remark}
+
+% \Cref{fig:PDFandCDF1D} illustrates both a \gls{PDF} (left) and a \gls{CDF} (right) for a standard normally distributed random variable $X$. In the left figure, a histogram of simulated data from the standard normal distribution is shown along with the theoretical density. The \gls{PDF} represents the likelihood of a realization of $X$ falling at a specific point in its domain. The right figure shows the corresponding \gls{CDF}, where each value represents the cumulative probability of falling below that point.
+
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=1\linewidth]{3Theory/pictures/CDFandPDF1D.png}
+%     \caption{Illustration of a \gls{PDF} (left) and \gls{CDF} (right) for a standard normally distributed random variable $X$.}
+%     \label{fig:PDFandCDF1D}
+% \end{figure}
+% \todo{Make Left Right pictures}
+
+% When dealing with multiple assets, the notion of a \gls{CDF} generalizes to a multivariate \gls{CDF}. To define such a function formally in two dimensions, we first introduce the concept of $H$-volume and the property of being 2-increasing, following \citet[p.~8]{Nelsen2006}, in \Cref{def:H-volume} and \Cref{def:2-Increasing}.
+
+% \begin{definition}\label{def:H-volume} \textbf{H-Volume} \citet[p.~8]{Nelsen2006}\\
+%     Let $u$ and $v$ be nonempty subsets of $\bar{R} = [-\infty, \infty]$, and let $H$ be a two-variable real function with domain $\D H = u \times v$. Let $B = [u_1,u_2] \times [v_1,v_2]$ be a rectangle with all vertices in $\D H$. Then the \emph{H-volume} of $B$ is given by
+%     \begin{align*}
+%         V_H(B) = H(u_2,v_2) - H(u_2,v_1) - H(u_1,v_2) + H(u_1,v_1).
+%     \end{align*}
+% \end{definition}
+
+% \begin{definition}\label{def:2-Increasing} \textbf{2-Increasing} \citet[p.~8]{Nelsen2006}\\
+%      A two-variable real function $H$ is \emph{2-increasing} if $V_H(B) \geq 0$ for all rectangles $B$ whose vertices lie in $\D H$.
+% \end{definition}
+
+% \Cref{fig:2-Increasing} illustrates what it means for a function to be 2-increasing (left) and not 2-increasing (right). This property is necessary to define a multivariate \gls{CDF}, as shown in \Cref{def:JointCDF}, following \citet[p.~17]{Nelsen2006}.
+
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=1\linewidth]{3Theory/pictures/2increasingAndNot.png}
+%     \caption{Illustration of a function that is 2-increasing (left) and a function that is not (right), using the $H$-volume.}
+%     \label{fig:2-Increasing}
+% \end{figure}
+% \todo{Make Left Right pictures}
+
+% \begin{definition}\label{def:JointCDF} \textbf{Joint CDF} \\ 
+%     A \emph{joint distribution function} or joint \gls{CDF} is a function $F$ with domain $\bar{R}^2 = [-\infty, \infty]^2$ such that 
+%     \begin{compactenum}
+%         \item $F$ is 2-increasing;
+%         \item $F(x_1,-\infty) = F(-\infty, x_2) = 0$, and $F(\infty,\infty) = 1$.
+%     \end{compactenum}
+% \end{definition}
+
+% As in the univariate case, the value of the joint \gls{CDF} at any point in $\D X \times \D Y \in \bar{R}^2$ represents the probability of both variables falling below that point simultaneously.
+
+% A two-dimensional \gls{PDF} is defined analogously, as described by \citet[p.~235]{DevoreBerk2012}, in \Cref{def:JointPDF}.
+
+% \begin{definition}\label{def:JointPDF} \textbf{Joint PDF} \todo{Change X,Y to $X_1$, $X_2$?}\\
+%     Let $X$ and $Y$ be continuous random variables. Then $f(x, y)$ is the \emph{joint} \gls{PDF} for $X$ and $Y$ if for any two-dimensional set $A$,
+%     \begin{align*}
+%         P[(X,Y) \in A] =  \iint_A f(x,y)\,dx\,dy.
+%     \end{align*}
+    
+%     In particular, if $A = \{(x,y) : a \leq x \leq b, \, c \leq y \leq d\}$, then
+%     \begin{align*}
+%         P[(X,Y) \in A] = P(a \leq X \leq b, \, c \leq Y \leq d) = \int_a^b\!\!\!\int_c^d f(x,y)\,dy\,dx.
+%     \end{align*}
+% \end{definition}
+
+% \begin{remark}
+%     As in the univariate case, the joint \gls{PDF} $f(x,y)$ must satisfy:
+%     \begin{align*}
+%         &f(x,y) \geq 0, \quad \text{and} \\
+%         &\int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f(x,y)\,dy\,dx = 1.
+%     \end{align*}
+% \end{remark}
+
+% The joint \gls{PDF} and \gls{CDF} are visualized in \Cref{fig:JointCDFandPDF} to support intuition. The left figure shows a joint \gls{PDF} for $X = (X_1, X_2)$ from a standard normal distribution with zero correlation. The right figure shows the corresponding joint \gls{CDF}.
+
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=1\linewidth]{3Theory/pictures/MultivariatePDFandCDF.png}
+%     \caption{Illustration of a joint \gls{PDF} (left) and joint \gls{CDF} (right) for a bivariate standard normal random variable $X = (X_1, X_2)$.}
+%     \label{fig:JointCDFandPDF}
+% \end{figure}
+% \todo{Make Left Right pictures}
+
+
+
+% \subsection{Maximum Likelihood}
+
+% Another important concept that will be used when fitting distributions and copulas is the \gls{MLE} method. \gls{MLE} is a method for estimating the parameters of a statistical model by finding the parameter values that maximize the likelihood function, given the observed data.
+
+% Let $\theta$ be a vector of parameters, and let $X = (X_1, X_2, \dots, X_n)$ be a sample of $n$ independent observations from a distribution with density function $f(x;\theta)$. Then the likelihood function is defined as
+% \begin{align*}
+%     L(\theta; x_1, x_2, \dots, x_n) = \prod_{i=1}^{n} f(x_i; \theta).
+% \end{align*}
+% It is often convenient to work with the natural logarithm of the likelihood function, known as the \emph{log-likelihood}:
+% \begin{align*}
+%     \ell(\theta; x_1, x_2, \dots, x_n) = \log L(\theta; x_1, x_2, \dots, x_n) = \sum_{i=1}^{n} \log f(x_i; \theta).
+% \end{align*}
+% The maximum likelihood estimator $\hat{\theta}$ is the value of $\theta$ that maximizes the log-likelihood function:
+% \begin{align*}
+%     \hat{\theta} = \arg\max_{\theta} \ell(\theta; x_1, x_2, \dots, x_n).
+% \end{align*}
+% MLE will be used throughout this work to estimate the parameters of various distributions, including marginal distributions and copula parameters.
+
+% \subsection{Summary}
+% This subsection has laid the groundwork for understanding copulas by introducing key concepts in probability theory. We have covered univariate and multivariate cumulative distribution functions (CDFs), probability density functions (PDFs), and the notion of 2-increasing functions necessary for defining joint CDFs. We also introduced tools such as the probability integral transform (PIT) and the inverse transform method (ITM), both essential for understanding and constructing copulas.
+
+% Furthermore, we defined marginal distributions as projections of joint distributions onto single dimensions and explained how the PIT can be applied to data, transforming it into a uniform distribution on the $[0,1]$ interval. This transformation is a crucial step before copulas can be applied, as copulas operate on data in the probability space.
+
+% Lastly, we introduced the method of maximum likelihood estimation (MLE), which will be the primary method for fitting models to data in the following sections. With these tools in hand, we are now ready to explore the theory and applications of copulas.
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% From before reviewing the language
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Probability theory}
 As mentioned above, stock returns are often modeled using some statistical distribution. Statistical distributions are fundamental to the theory of copulas and therefore we need to define the terminology around distributions more formally. Throughout the upcoming sections, illustrations will be made to explain the ideas visually. Unless otherwise stated the Gaussian distribution, with mean 0 and standard deviation 1, will be used for these illustrations.
 
 First, we need to define what statistical distributions are, beginning with \gls{CDF} in one dimension defined in \Cref{def:CDF1d}.
-
-\todo{Maybe write in terms of random variable?}
-
 \begin{definition}\label{def:CDF1d} \textbf{CDF one dimension }  \citet[p.~17]{Nelsen2006}\\
     A \emph{distribution function} or \gls{CDF} is a function $F$ with domain $\bar{R} = [-\infty, \infty]$ such that 
     \begin{compactenum}
@@ -272,11 +674,11 @@ The notion of a 2-increasing function is illustrated in \Cref{fig:2-Increasing}.
     \end{compactenum}
 \end{definition}
 
-As in the univariate case the function value of the joint \gls{CDF} at any point in $\mathrm{Dom}X\times\mathrm{Dom}Y$ $\bar{R}^2$ is the probability of being below that point. In the two-dimensional setting, it is the probability of a point ending up below the point in both dimensions simultaneously. 
+As in the univariate case the function value of the joint \gls{CDF} at any point in $\D X\times \D Y \in\bar{R}^2$ \todo{Change to $X_1, X_2$} is the probability of being below that point. In the two-dimensional setting, it is the probability of a point ending up below the point in both dimensions simultaneously. 
 
 We can also define a \gls{PDF} in two dimensions as done by \citet[p.~235]{DevoreBerk2012} in \Cref{def:JointPDF}.
 
-\begin{definition}\label{def:JointPDF} \textbf{Joint PDF} \\
+\begin{definition}\label{def:JointPDF} \textbf{Joint PDF} \todo{Change X,Y to X1, x2 ? }\\
     Let $X$ and $Y$ be continuous random variables. Then $f(x, y)$ is the \emph{joint} \gls{PDF} for $X$ and $Y$ if for any two-dimensional set $A$ 
     \begin{align*}
         P[(X,Y) \in A] =  \iint_A f(x,y)dxdy.
@@ -349,23 +751,11 @@ The inverse transform method is illustrated in \Cref{fig:ITM} and can be seen as
 \end{figure}
 
 
-% \begin{figure}
-%     \centering
-%     \includegraphics[width=0.45\linewidth]{3Theory/pictures/ProbabilityIntegralTransform.png}
-%     \caption{Illustration of how the probability integral transform is used to transform realizations of a random variable $X$ having distribution function $F$ into a uniformly distributed random variable $U = F(X)$. }
-%     \label{fig:PIT}
-% \end{figure}
-% \begin{figure}
-%     \centering
-%     \includegraphics[width=0.45\linewidth]{3Theory/pictures/InverseTransformMethod.png}
-%     \caption{Illustration of the inverse transform method and how it is used to generate random numbers from a given distribution given sampled points from a uniform distribution.}
-%     \label{fig:ITM}
-% \end{figure}
 
 
 Another important notion is that of a marginal distribution of a joint distribution, which can be thought of as the distribution if only considering one of the dimensions that the joint distribution is made up of. The marginal \gls{CDF} and \gls{PDF} are defined in \Cref{def:MarginalCDF} and \Cref{def:MarginalPDF} respectively, in the same way as in \citet[p.~81]{evans2004probability} and \citet[p.~34]{wasserman2010statistics} respectively. 
 
-\begin{definition}\label{def:MarginalCDF}
+\begin{definition}\label{def:MarginalCDF}\todo{change to $X_1, X_2$?}
     \textbf{Marginal \gls{CDF}} 
     Let $X$and $Y$ be two random variables having joint \gls{CDF} $F_{X,Y}$, then the \gls{CDF} $F_X$ of $X$ can be obtained from $F_{X,Y}$ because
     \begin{align*}
@@ -376,7 +766,7 @@ Another important notion is that of a marginal distribution of a joint distribut
     $F_X$ is called the \emph{marginal distribution function} or marginal \gls{CDF} of $X$. The marginal distribution $F_Y$ can be obtained similarly. 
 \end{definition}
 
-\begin{definition}\label{def:MarginalPDF}
+\begin{definition}\label{def:MarginalPDF}\todo{change to $X_1, X_2$?}
     \textbf{Marginal \gls{PDF}}
     For a continuous random variable, with domain $\mathrm{Dom}X\times \mathrm{Dom}Y$ $f_{X,Y}$, having joint \gls{PDF} $f_{X,Y}$, the \emph{marginal density function} or marginal \gls{PDF} of $X$ is given by
     \begin{align*}
@@ -396,38 +786,42 @@ In \Cref{fig:MarginalCDF} the notion of a marginal distribution is visualized. I
 \todo{Make Left Right pictures}
 
 
-To conclude this subsection, we will show how the \gls{PIT} is utilized to transform data to the probability space and explain how it sets the stage for copulas. \Cref{fig:PITonData} illustrates how the \gls{PIT} is used to transform two-dimensional data into the two-dimensional probability space, by transforming through each of the marginal distributions separately. This is done for standard normally distributed data with and without correlation in (b) and (a) respectively, to highlight the differences in the distribution of points in the probability space when dependence is present and not in (d) and (c) respectively.
+To conclude this subsection, we will show how the \gls{PIT} is utilized to transform data to the probability space and explain how it sets the stage for copulas. \Cref{fig:PITonData} illustrates how the \gls{PIT} is used to transform two-dimensional data into the two-dimensional probability space, by transforming through each of the marginal distributions separately. This is done for standard normally distributed data with and without correlation in \Cref{fig:CorrelatedScatter} and \Cref{fig:UncorrelatedScatter} respectively, to highlight the differences in the distribution of points in the probability space when dependence is present and not in \Cref{fig:CorrelatedUniformScatter}, and \Cref{fig:UncorrelatedUniformScatter} respectively.
 
 \begin{figure}
-    \label{fig:PITonData}
     \centering
     \begin{minipage}{0.4\textwidth}
         \centering
         \includegraphics[width=\textwidth]{3Theory/pictures/UncorrelatedScatter.png}
         \subcaption{ Uncorrelated data from a bivariate standard normal distribution.}
+        \label{fig:UncorrelatedScatter}
     \end{minipage}
     \hfill
     \begin{minipage}{0.4\textwidth}
         \centering
         \includegraphics[width=\textwidth]{3Theory/pictures/CorrelatedScatter.png}
         \subcaption{Correlated data from a bivariate standard normal distribution.}
+        \label{fig:CorrelatedScatter}
     \end{minipage}
     \vfill
     \begin{minipage}{0.4\textwidth}
         \centering
         \includegraphics[width=\textwidth]{3Theory/pictures/UncorrelatedUniformScatter.png}
         \subcaption{Data in the probability space after applying the \gls{PIT} to uncorrelated normally distributed data.}
+        \label{fig:UncorrelatedUniformScatter}
     \end{minipage}
     \hfill
     \begin{minipage}{0.4\textwidth}
         \centering
         \includegraphics[width=\textwidth]{3Theory/pictures/CorrelatedUnoformScatter.png}
         \subcaption{Data in the probability space after applying the \gls{PIT} to correlated normally distributed data.}
+        \label{fig:CorrelatedUniformScatter}
     \end{minipage}
     \caption{Illustration of how the \gls{PIT} is used to transform two-dimensional data into the $[0,1]$-domain by considering the marginal distribution of each dimension separately.}
+    \label{fig:PITonData}
 \end{figure}
 
-Before introducing copulas in the next section we can simply describe the setting for copulas as \gls{CDF} of the data after having transformed it into the probability space using the \gls{PIT}. Relating to \Cref{fig:PITonData} we the copula is the \gls{CDF} of the data in (c) or (d).
+Before introducing copulas in the next section we can simply describe the setting for copulas as \gls{CDF} of the data after having transformed it into the probability space using the \gls{PIT}. Relating to \Cref{fig:PITonData} we the copula is the \gls{CDF} of the data in \Cref{fig:UncorrelatedUniformScatter} or \Cref{fig:CorrelatedUniformScatter}.
 
 
 \textbf{Maximum likelihood}
@@ -470,8 +864,8 @@ Now that we have a fundamental understanding of some probability theory we can i
     \textbf{Margins}\\
     Consider a function on the domain $S_1\times S_2$ where $S_1$ and $S_2$ have the largest elements $b_1$ and $b_2$ respectively. A function $H$ from $S_1\times S_2$ into $\mathbf{R}$ has \emph{margins} $F$ and $G$ given by
     \begin{align*}
-        \mathrm{Dom}F = S_1, \;\mathrm{and }\; F(x) = H(x,b_2) \;\mathrm{for \;all\;} x \in S_1\\
-        \mathrm{Dom}G = S_2, \;\mathrm{and }\; G(x) = H(b_1,y) \;\mathrm{for \;all\;} y \in S_2.
+        \D F = S_1, \;\mathrm{and }\; F(x) = H(x,b_2) \;\mathrm{for \;all\;} x \in S_1\\
+        \D G = S_2, \;\mathrm{and }\; G(x) = H(b_1,y) \;\mathrm{for \;all\;} y \in S_2.
     \end{align*}
 \end{definition}
 
@@ -522,7 +916,7 @@ A fundamental theorem connected to copulas is described in \Cref{the:Sklars}, as
     \caption{Illustration showing the correspondence between a bivariate normal \gls{CDF} and its corresponding copula function.}
     \label{fig:CDFtoCopula}
 \end{figure}
-\todo{fix Picture so that it isn't cut}
+\todo{fix Picture so that it isn't cut, also so that u is U}
 
 Sometimes it can be more convenient to write the \Cref{eq:Sklar} theorem in terms of the marginal probabilities $u_i$ rather than the marginal distributions $x_i$. It can be done by utilizing that $F_i(x_i) = u_i$ and $F_i^{-1}(u_i)= x_i$ so that 
 \begin{align*}
@@ -723,7 +1117,7 @@ Let $U = (U_1,U_2)$ be a point specified by two marginally uniformly distributed
     X_2 = F_2^{-1}(U_2).
 \end{align*}
 
-The usefulness of copulas in sampling is visualised in \Cref{fig:CopulaSampling}. The left figure shows a sample from a Clayton copula with $\alpha = 4$. The right figure shows the same sample after applying the \gls{ITM} using a standard normal distribution for each marginal. Note that the \gls{ITM} can be applied to each of the dimensions of the copula data thanks to the fact that copulas by definition have uniform marginals. 
+The usefulness of copulas in sampling is visualized in \Cref{fig:CopulaSampling}. The left figure shows a sample from a Clayton copula with $\alpha = 4$, which will be defined in \Cref{sec:ClaytonCopula}. The right figure shows the same sample after applying the \gls{ITM} using a standard normal distribution for each marginal. Note that the \gls{ITM} can be applied to each of the dimensions of the copula data thanks to the fact that copulas by definition have uniform marginals. 
 
 \begin{figure}[h]
     \centering
@@ -737,7 +1131,7 @@ The usefulness of copulas in sampling is visualised in \Cref{fig:CopulaSampling}
     \begin{subfigure}[t]{0.45\linewidth}
         \centering
         \includegraphics[width=\linewidth]{3Theory/pictures/ReturnSpaceDataClayton.png}
-        \caption{Sample from Clayton copula after applying the inverse transform method using a standard normal distribution.}
+        \caption{Sample from Clayton copula after applying the \gls{ITM} using a standard normal distribution.}
         \label{fig:ReturnSpaceDataClayton}
     \end{subfigure}
     \caption{Illustration of sampling from a clayton copula with standard normal marginal distributions.}
@@ -747,8 +1141,8 @@ The usefulness of copulas in sampling is visualised in \Cref{fig:CopulaSampling}
 
 In the above example we have seen the usefulness of copulas in sampling. The example does not go into the nontrivial task of sampling from a copula. Therefore the next section introduces conditional sampling which is a method of sampling from a copula. 
 
-\subsubsection{Conditional sampling from copulas}\label{sec:ConditionalSampling} from \Citet[p.~41]{Nelsen2006}\\
-For some copulas samples can be generated using conditional sampling which works as follows. First, we generate two independent uniform random numbers $z_1,z_2 \sim \mathrm{Unif}(0,1)$. 
+\subsubsection{Conditional sampling from copulas}\label{sec:ConditionalSampling} 
+For some copulas samples can be generated using conditional sampling which works as follows \Citet[p.~41]{Nelsen2006}. First, we generate two independent uniform random numbers $z_1,z_2 \sim \mathrm{Unif}(0,1)$. 
 The first random number is calculated without respect for the second random number hence we set $u_2 =1$. We want to solve
 \begin{align*}
     C(u_1,u_2) =z_1,

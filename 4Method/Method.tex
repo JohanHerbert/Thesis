@@ -1,13 +1,13 @@
 This section explains and motivates the method used for the experiment conducted in this thesis. First, we provide a summary of the overall procedure to give a broad understanding without delving into specific details. Then, each component is described in detail in its own subsection.
 
-\begin{generalinstructions}
-\begin{compactenum}
-\item Method overview
-\item Test of marginal model (Does it deviate for different distributions?)
-\item Choice of method for copula
-\item Portfolio testing (Main experiment)
-\end{compactenum}
-\end{generalinstructions}
+% \begin{generalinstructions}
+% \begin{compactenum}
+% \item Method overview
+% \item Test of marginal model (Does it deviate for different distributions?)
+% \item Choice of method for copula
+% \item Portfolio testing (Main experiment)
+% \end{compactenum}
+% \end{generalinstructions}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% Method overview
@@ -32,7 +32,7 @@ These simulated price series are divided into two segments: historical and futur
 \label{fig:DataDivision}
 \end{figure}
 
-An example comparison between the test data and data generated from a fitted copula is shown in \Cref{fig:TestSampleComparison}. The red points represent test data from a Clayton copula, while the blue points are samples from a fitted Gaussian copula. If the copula successfully captures dependency, the two distributions should be visually and statistically similar.
+An example comparison between the test data and data generated from a fitted copula is shown in \Cref{fig:TestSampleComparison}. The red points represent test data from a Clayton copula, while the blue points are samples from a Gaussian copula fitted to the corresponding fitting data. If the copula successfully captures dependency, the two distributions should be visually and statistically similar.
 
 \begin{figure}
 \centering
@@ -41,9 +41,9 @@ An example comparison between the test data and data generated from a fitted cop
 \label{fig:TestSampleComparison}
 \end{figure}
 
-To evaluate the copulas’ ability to model dependency accurately, it is necessary to compare the generated and test datasets. Simulated data is used to ensure that the joint distribution remains stationary, satisfying the Monte Carlo assumption. If the copula-generated data closely resembles the test data, the dependency is well captured. Otherwise, it indicates the copula’s limitations.
+To evaluate the copulas’ ability to model dependency accurately, it is necessary to compare the generated and test datasets. Simulated data is used to ensure that the joint distribution remains stationary, satisfying the \gls{MC} assumption. If the copula-generated data closely resembles the test data, the dependency is well captured. Otherwise, it indicates the copula’s limitations.
 
-It is important to emphasize that the core assumption behind using copulas for Monte Carlo simulation is that the joint distribution observed historically remains valid into the future.
+It is important to emphasize that the core assumption behind using copulas for \gls{MC} simulation is that the joint distribution observed historically remains valid into the future.
 
 To quantify the similarity between test and sampled data, the distance metric described in \Cref{sec:GoodnessOfFit} is used. This allows for calculating an average distance for each copula over multiple datasets and identifying the best-performing copula overall.
 
@@ -51,9 +51,9 @@ To quantify the similarity between test and sampled data, the distance metric de
 %%%% Marginal model test
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Marginal model test}
-To validate the marginal model, a test is conducted to assess how closely the fitted marginal distribution matches the true distribution. This is done by generating data from known distributions and fitting the marginal model to it. The data is then transformed into probability space using the \gls{PIT}, both with the fitted and true distributions. The \gls{MAE} is computed to quantify the difference, and a QQ-plot is generated to visualize the fit.
+To validate the marginal model, a test is conducted to assess how closely the fitted marginal distribution matches the true distribution. This is done by generating data from known distributions and fitting the marginal model to it. The data is then transformed into probability space using the \gls{PIT}, both with the fitted and true distributions. A QQ-plot is generated to visualize the similarity between the fitted and true distributions. 
 
-Note that the generated data is subject to random noise, so the observed distribution may differ slightly from the true distribution, even though they are theoretically identical. Nevertheless, this test offers a good benchmark for how accurately the model fits marginals, providing a reference for what might be used if a neural network were not employed.
+Note that the generated data is subject to random noise, so the observed distribution may differ slightly from the true distribution, even though they are theoretically identical. Nevertheless, this test offers a good benchmark for how accurately the model fits marginals, providing a reference for what might be used if a \gls{NN} were not employed.
 
 The tested distributions, along with their parameter values and descriptions, are shown in \Cref{tab:distributions}. For this test, all terms in the loss function defined in \Cref{sec:NeuralCopulaLoss} are equally weighted. Each distribution is tested using 10,000 data points.
 
@@ -78,7 +78,7 @@ The tested distributions, along with their parameter values and descriptions, ar
 %%%% Neural copula testing
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Neural Copula training scheme test}
-This section outlines the procedure for identifying the best hyperparameters that produce a valid copula function. A copula is considered valid if it satisfies the conditions defined in \Cref{def:copula}. For the neural copula, this means that all loss terms—except the first—defined in \Cref{sec:NeuralCopulaLoss}, should approach zero after training.
+This section outlines the procedure for identifying the best hyperparameters that produce a valid copula function. A copula is considered valid if it satisfies the conditions defined in \Cref{def:copula}. For the \gls{NC}, this means that all loss terms—except the first—defined in \Cref{sec:NeuralCopulaLoss}, should approach zero after training.
 
 To ensure robustness across datasets, the model will be tested on several datasets. For each dataset, a grid of hyperparameter values will be evaluated. These include solver type, learning rate, number of epochs, batch size, network architecture, and learning rate scheduler. This results in a large number of parameter combinations designed to identify a universally effective training setup. To keep runtime feasible, the grid is limited to 288\todo{Change} combinations, tested across five datasets using a computing cluster.
 
@@ -86,7 +86,7 @@ The datasets used for testing are listed in \Cref{tab:DatasetsTestedOn}, which s
 
 \begin{table}[h!]
     \centering
-    \caption{Datasets used to test the neural copula hyper parameters and loss function weights.}
+    \caption{Datasets used to test the \gls{NC} hyper parameters and loss function weights.}
     \begin{tabular}{lll}
     \textbf{Copula} & \textbf{Parameter} & \textbf{Name}  \\
     \hline
@@ -101,7 +101,7 @@ The datasets used for testing are listed in \Cref{tab:DatasetsTestedOn}, which s
 
 \begin{table}[h!]
     \centering
-    \caption{Hyperparameter grid choices the test of the neural copula fitting procedure.}
+    \caption{Hyperparameter grid choices the test of the \gls{NC} fitting procedure.}
     \begin{tabular}{ll}
     \textbf{Hyperparameter} & \textbf{Options} \\
     \hline
@@ -116,11 +116,11 @@ The datasets used for testing are listed in \Cref{tab:DatasetsTestedOn}, which s
     \label{tab:se_hyperparams}
 \end{table}
 
-Each hyperparameter combination is evaluated using an ensemble of 10 runs to mitigate variability due to random initialization. The best run from each ensemble is selected for evaluation.
+% Each hyperparameter combination is evaluated using an ensemble of 10 runs to mitigate variability due to random initialization. The best run from each ensemble is selected for evaluation.
 
 After testing all combinations, the best-performing setup across all datasets—measured by average loss—will be selected. If constraint-related loss terms are close to zero, the copula is considered valid. This best model is then used in the final experiment described in \Cref{sec:PortfolioTesting}.
 
-Additionally, the effect of varying the weights of different loss function terms will be examined. While the first term is fixed to one, the other terms are scaled by 0.5, 1, and 2, respectively. The goal is to determine if emphasizing certain terms improves performance. This test uses the previously selected best hyperparameters, and evaluation is based on the equally weighted loss for fair comparison. Each copula from the hyperparameter test is included in this analysis to assess the effect of loss term weighting.
+Additionally, the effect of varying the weights of different loss function terms, defined in \Cref{sec:NeuralCopulaLoss}, will be examined. While the first term is fixed to one, linear combination weights of 0.5, 1, and 2, are tested for each of the other loss terms. The goal is to determine if emphasizing certain terms improves performance. This test uses the previously selected best hyperparameters, and evaluation is based on the equally weighted loss for fair comparison. Each copula from the hyperparameter test is included in this analysis to assess the effect of loss term weighting.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -218,7 +218,7 @@ The resulting datasets are visualized in \Cref{fig:DatasetsUsed}, which shows bo
 \end{figure}
 
 \subsubsection{Model Fitting}
-The log returns from the fitting portion of each dataset are first standardized to zero mean and unit variance. These normalized returns are then used to estimate the copula parameters. Fitting procedures follow the methods outlined in \Cref{sec:GaussianCopula} for the Gaussian copula, \Cref{sec:StudentsCopula} for the Student's $t$ copula, \Cref{sec:ClaytonCopula} for the Clayton copula, and \Cref{sec:NeuralCopulaFittingAndSampling} for the neural copula.
+The log returns from the fitting portion of each dataset are first standardized to zero mean and unit variance. These normalized returns are then used to estimate the copula parameters. Fitting procedures follow the methods outlined in \Cref{sec:GaussianCopula} for the Gaussian copula, \Cref{sec:StudentsCopula} for the Student's $t$ copula, \Cref{sec:ClaytonCopula} for the Clayton copula, and \Cref{sec:NeuralCopulaFittingAndSampling} for the \gls{NC}.
 
 
 \subsubsection{Model Sampling}
@@ -229,23 +229,23 @@ The neural copula, unlike the others, incorporates inverse marginal models direc
 \subsubsection{Model Evaluation}
 To evaluate performance, the sampled data from each fitted copula is compared to the corresponding testing data using the distance measure described in \Cref{sec:GoodnessOfFit}. For each copula, this distance is averaged across all datasets to yield an overall performance score. This facilitates a robust comparison of model quality across varying dependence structures.
 
-\begin{generalinstructions}
-    \begin{compactenum}
-        \item Data Generation
-        \begin{compactenum}
-            \item Sample from copulas in probability space.
-            \item Transform samples to standard normals.
-            \item Use as random shocks in GBM simulations.
-            \item Compute log returns and split into training/testing sets.
-        \end{compactenum}
-        \item Model Fitting (for each copula).
-        \item Model Evaluation
-        \begin{compactenum}
-            \item Generate samples from each fitted copula.
-            \item Compare to test data using distribution-based distance measures.
-        \end{compactenum}
-    \end{compactenum}
-\end{generalinstructions}
+% \begin{generalinstructions}
+%     \begin{compactenum}
+%         \item Data Generation
+%         \begin{compactenum}
+%             \item Sample from copulas in probability space.
+%             \item Transform samples to standard normals.
+%             \item Use as random shocks in GBM simulations.
+%             \item Compute log returns and split into training/testing sets.
+%         \end{compactenum}
+%         \item Model Fitting (for each copula).
+%         \item Model Evaluation
+%         \begin{compactenum}
+%             \item Generate samples from each fitted copula.
+%             \item Compare to test data using distribution-based distance measures.
+%         \end{compactenum}
+%     \end{compactenum}
+% \end{generalinstructions}
 
 
 

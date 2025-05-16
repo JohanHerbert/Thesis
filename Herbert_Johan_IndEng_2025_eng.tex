@@ -278,18 +278,19 @@ abstracton=true
 %% Abstracts
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{abstract}
-    This is the english abstract.
+    % This is the english abstract.
+    % This thesis investigates the use of copulas for modeling dependency structures between financial asset returns, with a specific focus on a recently introduced method known as the \gls{NC}. The work is carried out in collaboration with Vermiculus Financial Technology and aims to enhance risk modeling in clearing systems. Traditional copulas are compared to the \gls{NC} in terms of performance, adaptability, and applicability to different dependency structures. The study involves the development of an alternative method for fitting marginal distributions and a practical sampling approach for the \gls{NC}. Simulated data is used to evaluate the methods under controlled conditions. The results show that the \gls{NC} cannot provide competitive performance compared to other copulas in capturing complex dependencies. This work contributes to the understanding of when and how to use neural copulas in financial risk modeling.
 
-    This thesis investigates the use of copulas for modeling dependency structures between financial asset returns, with a specific focus on a recently introduced method known as the \gls{NC}. The work is carried out in collaboration with Vermiculus Financial Technology and aims to enhance risk modeling in clearing systems. Traditional copulas are compared to the \gls{NC} in terms of performance, adaptability, and applicability to different dependency structures. The study involves the development of an alternative method for fitting marginal distributions and a practical sampling approach for the \gls{NC}. Simulated data is used to evaluate the methods under controlled conditions. The results show that the \gls{NC} cannot provide competitive performance compared to other copulas in capturing complex dependencies. This work contributes to the understanding of when and how to use neural copulas in financial risk modeling.
-
+    This thesis explores the use of neural networks for estimating copula functions, with the goal of modeling the joint distribution of financial time series. Specifically, it evaluates a recently proposed neural copula (NC) approach that incorporates copula properties directly into the neural network's loss function. Three experiments were conducted to assess the model’s performance. The first confirmed the adequacy of the NC's marginal distribution modeling. The second identified optimal hyperparameters for stable training of the NC. The third compared the NC to traditional copula methods using synthetic data, showing that the NC did not outperform classical methods in the tested scenarios. Contributions of this work include a practical sampling method for the NC, an investigation of alternative marginal fitting techniques, and a critical comparison across copula models. The thesis concludes with reflections on the limitations and learning outcomes, and proposes several directions for future research, such as improving numerical stability, extending the NC to high-dimensional settings, and integrating copulas into dynamic volatility models.
 \end{abstract}
 
 \newpage
 \renewcommand{\abstractname}{Sammanfattning}
 \begin{abstract}
-    Det är svenska sammanfattning.
+    % Det är svenska sammanfattning.
+    % Denna masteruppsats undersöker användningen av copulor för att modellera beroendestrukturer mellan finansiella tillgångars avkastningar, med särskilt fokus på en nyligen introducerad metod kallad \gls{NC}. Arbetet har genomförts i samarbete med Vermiculus Financial Technology och syftar till att förbättra riskmodellering i clearingsystem. Traditionella copulor jämförs med \gls{NC} avseende prestanda, anpassningsförmåga och tillämplighet på olika typer av beroenden. Studien omfattar utvecklingen av en alternativ metod för att anpassa marginalfördelningar samt ett praktiskt tillvägagångssätt för slumptalsgenerering från \gls{NC}. Simulerad data används för att utvärdera metoderna under kontrollerade förhållanden. Resultaten visar att \gls{NC} inte producerar bättre resultat än övriga traditionella metoder vid modellering av komplexa beroenden, även om dess effektivitet är beroende av datakaraktäristik och korrekt träning. Uppsatsen bidrar till en ökad förståelse för när och hur neural copula kan användas inom finansiell riskmodellering.
 
-    Denna masteruppsats undersöker användningen av copulor för att modellera beroendestrukturer mellan finansiella tillgångars avkastningar, med särskilt fokus på en nyligen introducerad metod kallad \gls{NC}. Arbetet har genomförts i samarbete med Vermiculus Financial Technology och syftar till att förbättra riskmodellering i clearingsystem. Traditionella copulor jämförs med \gls{NC} avseende prestanda, anpassningsförmåga och tillämplighet på olika typer av beroenden. Studien omfattar utvecklingen av en alternativ metod för att anpassa marginalfördelningar samt ett praktiskt tillvägagångssätt för slumptalsgenerering från \gls{NC}. Simulerad data används för att utvärdera metoderna under kontrollerade förhållanden. Resultaten visar att \gls{NC} inte producerar bättre resultat än övriga traditionella metoder vid modellering av komplexa beroenden, även om dess effektivitet är beroende av datakaraktäristik och korrekt träning. Uppsatsen bidrar till en ökad förståelse för när och hur neural copula kan användas inom finansiell riskmodellering.
+    Denna avhandling undersöker användningen av neurala nätverk för att uppskatta kopulafunktioner, med målet att modellera den gemensamma fördelningen av finansiella tidsserier. Särskilt utvärderas en nyligen föreslagen metod med neurala kopulor (NC) som integrerar kopulaegenskaper direkt i det neurala nätverkets förlustfunktion. Tre experiment genomfördes för att bedöma modellens prestanda. Det första bekräftade att NC:n på ett tillfredsställande sätt modellerar de marginala fördelningarna. Det andra identifierade optimala hyperparametrar för stabil träning av NC:n. Det tredje jämförde NC:n med traditionella kopulametoder med syntetiska data och visade att NC:n inte överträffade klassiska metoder i de testade scenarierna. Avhandlingens bidrag inkluderar en praktisk samplingsmetod för NC:n, en undersökning av alternativa tekniker för anpassning av marginalfördelningar samt en kritisk jämförelse mellan olika kopulamodeller. Avslutningsvis diskuteras begränsningar och lärdomar från arbetet, samt föreslås flera riktningar för framtida forskning, såsom att förbättra numerisk stabilitet, utöka NC:n till högdimensionella tillämpningar och integrera kopulor i dynamiska volatilitetmodeller.
 
 \end{abstract}
 \newpage
@@ -297,7 +298,11 @@ abstracton=true
 %% Acknowledgements
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section*{Acknowledgements}
-I would like to express my gratitude to my supervisor Kevin Kamm, from Umeå University, who has been a great support and mentor during this thesis. His guidance, expertise, and excitement for the subject has been invaluable in challenging me during this thesis. I would also like to thank Victor Jonsson and Vermiculus Financial Technology for the opportunity to work on this project in addition to their warm welcome and support. Finally, I would like to thank my family and friends for their support during this thesis. 
+I would like to express my sincere gratitude to my supervisor, Kevin Kamm at Umeå University, for his unwavering support, insightful guidance, and enthusiasm throughout this thesis. His expertise and mentorship have been instrumental in shaping this work and continually challenging me to think critically and push boundaries.
+
+I am also deeply thankful to Victor Jonsson and Vermiculus Financial Technology for the opportunity to collaborate on this project. Their warm welcome, encouragement, and practical support created a truly rewarding and engaging experience.
+
+Lastly, I would like to thank my family and friends for their continued support, patience, and encouragement throughout this journey. Your belief in me has made all the difference.
 
 Johan Herbert\\
 Stockholm, Sweden\\
@@ -324,16 +329,6 @@ Stockholm, Sweden\\
 
 \section{Introduction}\label{sec:Introduction}
 \input{1Introduction/Introduction}
-
-
-
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% %% Background
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \section{Background}\label{sec:Background}
-% \input{2Background/Background}
-
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
