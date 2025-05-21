@@ -32,47 +32,47 @@ LogNormal & -2.257325 & -2.2578392 & 0.0 & 0.0002965927 & 0.000218 \\
 \begin{figure}[h]
 \centering
 
-\begin{minipage}{0.45\textwidth}
+\begin{minipage}{0.49\textwidth}
 \centering
-\includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/NormalHistogram.png}
+\includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/Gaussian.png}
 \subcaption*{(a) Normal}
 \end{minipage}
 \hfill
-\begin{minipage}{0.45\textwidth}
+\begin{minipage}{0.49\textwidth}
 \centering
-\includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/StudentsHistogram.png}
+\includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/Students.png}
 \subcaption*{(b) Student's t}
 \end{minipage}
 
 \vspace{1em}
 
-\begin{minipage}{0.45\textwidth}
+\begin{minipage}{0.49\textwidth}
 \centering
-\includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/UniformHistogram.png}
+\includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/Uniform.png}
 \subcaption*{(c) Uniform}
 \end{minipage}
 \hfill
-\begin{minipage}{0.45\textwidth}
+\begin{minipage}{0.49\textwidth}
 \centering
-\includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/ExponentialHistogram.png}
+\includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/Exponential.png}
 \subcaption*{(d) Exponential}
 \end{minipage}
 
 \vspace{1em}
 
-\begin{minipage}{0.45\textwidth}
+\begin{minipage}{0.49\textwidth}
 \centering
-\includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/LaplaceHistogram.png}
+\includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/Laplace.png}
 \subcaption*{(e) Laplace}
 \end{minipage}
 \hfill
-\begin{minipage}{0.45\textwidth}
+\begin{minipage}{0.49\textwidth}
 \centering
-\includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/LognormalHistogram.png}
+\includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/MarginalTest/Lognormal.png}
 \subcaption*{(f) Lognormal}
 \end{minipage}
 
-\caption{Marginal distribution visualizations. Each subfigure (a--f) shows a histogram of the observed data with the trained model overlay.}
+\caption{Marginal distribution visualizations. Each subfigure (a--f) shows a histogram of the observed data with the trained model overlay. To not take up excessive space the figures are small. The reader is encouraged to zoom in on the figures to see the details.}
 \label{fig:MarginalResults}
 \end{figure}
 
@@ -83,7 +83,7 @@ LogNormal & -2.257325 & -2.2578392 & 0.0 & 0.0002965927 & 0.000218 \\
 \subsection{Neural Copula Test}
 The results of the grid search for the hyperparameters and weights are shown in \Cref{tab:Best_hyperparams} and \Cref{tab:Best_weights} respectively. Additionally, the losses for the different datasets using the best hyperparameters and weights are shown in \Cref{tab:LossesBestParameters}. These hyperparameter options answer the second research question \RQtwo{} about how to train the \gls{NC} to obtain the best results. 
 
-The observations from these results are that the best performing hyperparameters are a network with three layers and ten neurons in each layer. The learning rate is 0.1 and the solver is Adam. The best performing scheduler is exponential and the number of epochs is 10000. Note that the batch size listed in the table below is not valid for this dataset as the dataset size was smaller and this parameter should be removed or adjusted.
+The observations from these results are that the best performing hyperparameters are a network with three layers and ten neurons in each layer. The learning rate is 0.1 and the solver is Adam. The best performing scheduler is exponential and the number of epochs is 10000. 
 
 \begin{table}[h!]
     \centering
@@ -97,7 +97,7 @@ The observations from these results are that the best performing hyperparameters
     Scheduler & exponential \\
     Solver & Adam \\
     Epochs & 10000 \\
-    Batch size & 2048 (Invalid, dataset was smaller) \\
+    %Batch size & 2048 (Invalid, dataset was smaller) \\
     \end{tabular}
     \label{tab:Best_hyperparams}
 \end{table}
@@ -145,7 +145,7 @@ These results are limited to the datasets used in this test and the hyperparamet
 \subsection{Portfolio Test}
 The results of the portfolio test are shown in \Cref{tab:DistributionDistances}. In the table, the distance between the data generated using the fitted copula and the true distribution is shown. The distance is calculated as described in \Cref{sec:GoodnessOfFit}. The last row in the table shows the total distance over all datasets for each copula used for fitting. This shows that the Gaussian copula was the best performing copula overall for the tested datasets. The order of the remaining copulas is as follows: Clayton, Neural, and Student's $t$. 
 
-Of particular interest is the performance of the \gls{NC}. It seems like the \gls{NC} is not able to fit the data better than the other copulas, which \RQthree{} was asking. The fact that the Gaussian copula performed the best in this test should not be seen as a justification for using the Gaussian copula in practice. It is the result of this experiment but does not mean that the Gaussian copula is the best generally speaking. As an example, an article in the Financial Times\footnote{See \url{https://www.ft.com/content/912d85e8-2d75-11de-9eba-00144feabdc0}. Sam Jones. The formula that felled Wall St. *Financial Times*. 24-04-2009. Last Accessed 2025-05-15.} explains how the Gaussian copula was used to model the dependence between mortgage-backed securities, which is said to have been a contributing factor to the financial crisis of 2008.
+Of particular interest is the performance of the \gls{NC}. It seems like the \gls{NC} is not able to fit the data better than the other copulas, which \RQthree{} was asking. The fact that the Gaussian copula performed the best in this test should not be seen as a justification for using the Gaussian copula in practice. It is the result of this experiment but does not mean that the Gaussian copula is the best generally speaking. As an example, an article in the Financial Times\footnote{See Sam Jones, "The formula that felled Wall St", \textit{Financial Times}, Published: 2009-04-24, \url{https://www.ft.com/content/912d85e8-2d75-11de-9eba-00144feabdc0}, Last Accessed: 2025-05-15.} explains how the Gaussian copula was used to model the dependence between mortgage-backed securities, which is said to have been a contributing factor to the financial crisis of 2008.
 
 \begin{table}[h!]
     \centering
@@ -166,30 +166,30 @@ To better understand the results of the portfolio test, we investigate the data 
 
 \begin{figure}
     \centering
-    \begin{minipage}{0.4\textwidth}
+    \begin{minipage}{0.49\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/ResultPortfolio4Gauss.png}
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/Port4Gauss.png}
         \subcaption*{Gaussian copula}
     \end{minipage}
     \hfill
-    \begin{minipage}{0.4\textwidth}
+    \begin{minipage}{0.49\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/ResultPortfolio4Students.png}
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/Port4Students.png}
         \subcaption*{Student's $t$ copula}
     \end{minipage}
     \vfill
-    \begin{minipage}{0.4\textwidth}
+    \begin{minipage}{0.49\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/ResultPortfolio4Clayton.png}
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/Port4Clayton.png}
         \subcaption*{Clayton copula}
     \end{minipage}
     \hfill
-    \begin{minipage}{0.4\textwidth}
+    \begin{minipage}{0.49\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/ResultPortfolio4Neural.png}
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/Port4NC.png}
         \subcaption*{Neural copula}
     \end{minipage}
-    \caption{Fitted copula samples for Clayton $\alpha=4$ portfolio.}
+    \caption{Fitted copula samples for Clayton $\alpha=4$ portfolio. To not take up excessive space the figures are small. The reader is encouraged to zoom in on the figures to see the details.}
     \label{fig:GeneratedDataClayton}
 \end{figure}
 

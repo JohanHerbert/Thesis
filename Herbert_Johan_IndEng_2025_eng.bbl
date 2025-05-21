@@ -70,39 +70,6 @@
     \field{year}{2019}
   \endentry
 
-  \entry{BrigoMercurio2006}{book}{}{}
-    \name{author}{2}{}{%
-      {{hash=BD}{%
-         family={Brigo},
-         familyi={B\bibinitperiod},
-         given={Damiano},
-         giveni={D\bibinitperiod},
-      }}%
-      {{hash=MF}{%
-         family={Mercurio},
-         familyi={M\bibinitperiod},
-         given={Fabio},
-         giveni={F\bibinitperiod},
-      }}%
-    }
-    \list{publisher}{1}{%
-      {Springer}%
-    }
-    \strng{namehash}{BDMF1}
-    \strng{fullhash}{BDMF1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelyear}{2006}
-    \field{labeldatesource}{}
-    \field{sortinit}{B}
-    \field{sortinithash}{B}
-    \field{edition}{2. Ed.}
-    \field{isbn}{978-3-540-22149-4}
-    \field{series}{Springer Finance}
-    \field{title}{Interest Rate Models - Theory and Practice}
-    \field{year}{2006}
-  \endentry
-
   \entry{Umberto2004copulaMethods}{book}{}{}
     \name{author}{3}{}{%
       {{hash=CU}{%

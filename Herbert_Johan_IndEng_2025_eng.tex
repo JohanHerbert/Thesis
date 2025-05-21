@@ -302,7 +302,7 @@ I would like to express my sincere gratitude to my supervisor, Kevin Kamm at Ume
 
 I am also deeply thankful to Victor Jonsson and Vermiculus Financial Technology for the opportunity to collaborate on this project. Their warm welcome, encouragement, and practical support created a truly rewarding and engaging experience.
 
-Lastly, I would like to thank my family and friends for their continued support, patience, and encouragement throughout this journey. Your belief in me has made all the difference.
+Lastly, I would like to thank my family and friends for their continued support, patience, and encouragement throughout this journey.  
 
 Johan Herbert\\
 Stockholm, Sweden\\
@@ -372,170 +372,122 @@ Stockholm, Sweden\\
 \printbibliography
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Other Copulas
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Other copulas}\label{sec:OtherCopulas}
+This section introduces some of the most commonly used copulas. Some copulas are defined through known statistical distributions such as the Gaussian copula and the Student's t copula. Another type of copulas is the family of Archimedean copulas, of which the Clayton copula is an example.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Gaussian Copula
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Gaussian Copula}\label{sec:GaussianCopula}
+A commonly used copula is the Gaussian copula which is derived from the centered multivariate normal distribution. 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Additional portfolio plots
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage
-\section{Additional plots of generated data}\label{sec:CopulaResultsData}
-\begin{figure}[H]
-    \centering
-    \begin{minipage}{0.4\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/ResultPortfolio1Gauss.png}
-        \subcaption*{Gaussian copula}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.4\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/ResultPortfolio1Students.png}
-        \subcaption*{Students $t$ copula}
-    \end{minipage}
-    \vfill
-    \begin{minipage}{0.4\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/ResultPortfolio1Clayton.png}
-        \subcaption*{Clayton copula}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.4\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/ResultPortfolio1Neural.png}
-        \subcaption*{Neural copula}
-    \end{minipage}
-    \caption{Fitted neural copula surfaces for Gaussian $\rho=0$ portfolio.}
-    \label{fig:GeneratedDataGaussian0}
-\end{figure}
-\begin{figure}[H]
-    \centering
-    \begin{minipage}{0.4\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/ResultPortfolio2Gauss.png}
-        \subcaption*{Gaussian copula}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.4\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/ResultPortfolio2Students.png}
-        \subcaption*{Students $t$ copula}
-    \end{minipage}
-    \vfill
-    \begin{minipage}{0.4\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/ResultPortfolio2Clayton.png}
-        \subcaption*{Clayton copula}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.4\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/ResultPortfolio2Neural.png}
-        \subcaption*{Neural copula}
-    \end{minipage}
-    \caption{Fitted neural copula surfaces for Gaussian $\rho=0.7$ portfolio.}
-    \label{fig:GeneratedDataGaussian07}
-\end{figure}
-\begin{figure}[H]
-    \centering
-    \begin{minipage}{0.4\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/ResultPortfolio3Gauss.png}
-        \subcaption*{Gaussian copula}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.4\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/ResultPortfolio3Students.png}
-        \subcaption*{Students $t$ copula}
-    \end{minipage}
-    \vfill
-    \begin{minipage}{0.4\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/ResultPortfolio3Clayton.png}
-        \subcaption*{Clayton copula}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.4\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/ResultPortfolio3Neural.png}
-        \subcaption*{Neural copula}
-    \end{minipage}
-    \caption{Fitted neural copula surfaces for Students $\rho=-0.8$ , $\nu = 3$ portfolio.}
-    \label{fig:GeneratedDataStudents}
-\end{figure}
+Let $\boldsymbol{\Phi}_\Sigma(x_1,x_2)$ be the bivariate normal distribution \gls{CDF} with correlation matrix $\Sigma$. Let $\Phi(x)$ be the univariate normal \gls{CDF}. Then the Gaussian copula is defined, as in \citet[p.~112]{Umberto2004copulaMethods}  by 
+\begin{align*}
+    C_\Sigma(u_1,u_2) = \boldsymbol{\Phi}_\Sigma(\Phi^{-1}(u_1),\Phi^{-1}(u_2)).
+\end{align*}
+
+In the above expression $\Sigma$ is the correlation matrix in two dimensions 
+\begin{align*}
+    \Sigma = 
+    \begin{bmatrix}
+            1 & \rho_{1,2} \\
+            \rho_{1,2} & 1
+    \end{bmatrix},
+\end{align*}
+so in the sequel when $\rho$ is used it refers to $\rho_{1,2}$ in the correlation matrix.
+
+The copula function, which is a \gls{CDF} can be expressed on integral form as done by \citet[p.~112]{Umberto2004copulaMethods}
+\begin{align*}
+     C_{\Sigma} (u_1,u_2)
+    = \int_{-\infty}^{\Phi^{-1}(u_1)}\int_{-\infty}^{\Phi^{-1}(u_2)}
+    \frac{1}{2\pi\sqrt{1-\rho^2}} \mathrm{exp}\left\{ - \frac{s^2-2\rho st+t^2}{2(1-\rho^2)}   \right\} dsdt.
+\end{align*} 
+
+The \gls{PDF} of the Gaussian copula function can be shown to be 
+\begin{align*}
+     c_{\Sigma} (u_1,u_2)
+    = \frac{1}{\sqrt{1-\rho^2}} \mathrm{exp}\left\{  \frac{-2\rho^2\Phi^{-1}(u_1)^2  +2\rho \Phi^{-1}(u_1)\Phi^{-1}(u_2) -2\rho^2\Phi^{-1}(u_2)^2}{2(1-\rho^2)}   \right\},
+\end{align*}
+as stated in \citet[p.267]{Alexander2008}.
 
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Copula surfaces
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage
-\section{Copula surface plots}\label{sec:CopulaSurfacesPlots}
-\begin{figure}[H]
-    \centering
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/CopulaSurface1.png}
-        \subcaption*{Gaussian $\rho=0$}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/CopulaSurface2.png}
-        \subcaption*{Gaussian $\rho=0.7$}
-    \end{minipage}
-    \vfill
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/CopulaSurface3.png}
-        \subcaption*{Students $\rho=-0.8$ , $\nu = 3$}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/CopulaSurface4.png}
-        \subcaption*{Clayton $\alpha=4$}
-    \end{minipage}
+%\textbf{Fitting}(alternative source: \Citet[pp.~281-283]{Alexander2008})
+To fit the Gaussian copula to data we need to compute the correlation matrix $\Sigma$. This is done by first estimating the sample covariance matrix and then normalizing it to obtain the correlation matrix\footnote{See "SAS/ETS\textsuperscript{\textregistered} 13.2 User's Guide" p.523, \textit{SAS Institute Inc}, Published: 2014, \url{https://support.sas.com/documentation/onlinedoc/ets/132/copula.pdf}, Last Accessed: 2025-04-24.}.%\Citet[p.~523]{SAS2014}. 
 
-    \caption{Copula surfaces for the different datasets.}
-    \label{fig:NeuralCopulaSurface}
-\end{figure}
+%\textbf{Sampling}(alternative source: \Citet[p.~19]{Schmidt2006})
+To sample from a Gaussian copula we can first generate a sample from the multivariate normal distribution with the desired correlation matrix $\Sigma$. This is done by multiplying a standard normal random vector with the Cholesky decomposition of the correlation matrix. The Cholesky decomposition can be thought of as a matrix square root of the correlation matrix. The resulting sample of correlated random numbers is then transformed to uniform random numbers using the \gls{PIT}. This is done by applying the univariate normal \gls{CDF} to each of the elements in the sample. The resulting sample is then a sample from the Gaussian copula\footnotemark[\value{footnote}]. %\footnote{\value{\footnote}} %\footnote{See \url{https://support.sas.com/documentation/onlinedoc/ets/132/copula.pdf}. \textit{SAS/ETS\textsuperscript{\textregistered} 13.2 User's Guide}, p.523, SAS Institute Inc., Cary, NC, 2014. Last Accessed: 2025-04-24.}.%\Citet[p.~523]{SAS2014}.
 
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Copula gradients
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage
-\section{Copula gradient plots}\label{sec:CopulaGradientsPlots}
-\begin{figure}[H]
-    \centering
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/CopulaGradient1.png}
-        \subcaption*{Gaussian $\rho=0.7$}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/CopulaGradient2.png}
-        \subcaption*{Gaussian $\rho=0.7$}
-    \end{minipage}
-    \vfill
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/CopulaGradient3.png}
-        \subcaption*{Students $\rho=-0.8$ , $\nu = 3$}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/CopulaGradient4.png}
-        \subcaption*{Clayton $\alpha=4$}
-    \end{minipage}
-    \caption{Copula density surfaces for the different datasets.}
-    \label{fig:NeuralCopulaGradient}
-\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Students Copula
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Students t Copula}\label{sec:StudentsCopula} 
+The Student's $t$ copula can be defined similarly to the Gaussian copula above. We denote the Student's $t$ copula by 
+\begin{align*}
+    C_{\nu,\Sigma}(u_1,u_2) = \boldsymbol{t}(t_\nu^{-1}(u_1),t_\nu^{-1}(u_1)),
+\end{align*}
+as done by \Citet[p.~268]{Alexander2008}, where $\nu >0$ is the degrees of freedom, $\boldsymbol{t}$ is the multivariate Student's $t$ distribution, $t$ is the univariate Student's $t$ distribution, and $\Sigma$ is the correlation matrix matrix.
+
+The Student's $t$ copula \gls{CDF} is 
+\begin{align*}
+     C_{\nu,\Sigma}^t (u_1,u_2)
+    = \int_{-\infty}^{t_\nu^{-1(u_1)}}\int_{-\infty}^{t_\nu^{-1(u_2)}}
+    \frac{1}{2\pi\sqrt{1-\rho^2}} \left\{  1+ \frac{s^2-2\rho st+t^2}{\nu(1-\rho^2)}   \right\} dsdt,
+\end{align*}
+as defined by \citet[p.~116]{Umberto2004copulaMethods}. The corresponding copula \gls{CDF} is, by the same logic as for the Gaussian case, the integrand in the expression above times the two partial derivatives of the marginal distributions. The resulting expression for the copula \gls{PDF} $c_{\nu,\rho}$ is therefore 
+\begin{align*}
+    c_{\nu,\Sigma}(u_1,u_2) = \frac{\Gamma(\frac{\nu+2}{2})\Gamma(\frac{\nu}{2})\prod_{j=1}^2\left( 1+ \frac{t_\nu^{-1}(u_j)^2}{\nu}\right)^{\frac{\nu+2}{2}} } {\sqrt{\rho} \;\Gamma(\frac{\nu+1}{2})^{2}\left( 1+ \frac{t_\nu^{-1}(u_1)^2 + t_\nu^{-1}(u_2)^2 -2\rho t_\nu^{-1}(u_1) t_\nu^{-1}(u_2) }{\nu(1-\rho^2)}\right)},
+\end{align*}
+as stated by \Citet[p.~117]{Umberto2004copulaMethods}. In the above expression $\Gamma$ is the Euler gamma function.
+
+%\textbf{Fitting} 
+To fit the Student's $t$ copula to data we need to compute the correlation matrix $\Sigma$ and the degrees of freedom $\nu$. It is common to first estimate the correlation matrix and then estimate the degrees of freedom using \gls{MLE} \Citet[p.~283]{Alexander2008}. In this thesis we will use the Pearson correlation to estimate the correlation matrix. 
+
+%\textbf{Sampling} %(alternative source: \Citet[p.~19]{Schmidt2006})
+Sampling from a Student's $t$ copula is similar to sampling from a Gaussian copula. First, we generate a sample from the multivariate Student's $t$ distribution with the desired correlation matrix $\Sigma$ and degrees of freedom $\nu$. This can be done by generating a sample $Z$ from a normal distribution with correlation matrix $\Sigma$ as described for the Gaussian copula. These normal random numbers can then be transformed into Student's $t$ distributed sample $X$ by the calculation $X = Z\sqrt{\frac{\nu}{s}} $, where s is a sample from a $\chi^2$ distribution with $\nu$ degrees of freedom. The resulting sample of correlated Student's $t$ random numbers is then transformed to uniform random numbers using the \gls{PIT}. This is done by applying the univariate Student's $t$ \gls{CDF} with $\nu$ degrees of freedom to each of the elements in the sample. The resulting sample is then a sample from the Student's $t$ copula\footnote{See "SAS/ETS\textsuperscript{\textregistered} 13.2 User's Guide" p.524, \textit{SAS Institute Inc}, Published: 2014, \url{https://support.sas.com/documentation/onlinedoc/ets/132/copula.pdf}, Last Accessed: 2025-04-24.}.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Clayton Copula
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Clayton Copula}\label{sec:ClaytonCopula}
+Archimedian copulas have the general expression  
+\begin{align*}
+    C(u_1,u_2) = \Psi^{-1}(\Psi(u_1),\Psi(u_2)),
+\end{align*}
+for some generator function $\Psi$, as defined by \Citet[p.~150]{Umberto2004copulaMethods}.
+
+The Clayton copula, which is one instance of an Archimedean copula, uses the generator function
+\begin{align*}
+    \Psi(u) &=u^{-\alpha}-1, 
+\end{align*}
+and its inverse
+\begin{align*}
+    \Psi^{-1}(x) &= (x+1)^{\frac{-1}{\alpha}},
+\end{align*}
+where $\alpha > 0$. 
+
+This gives the bivariate Clayton copula \gls{CDF}
+\begin{align*}
+    C(u_1,u_2) = (u_1^{-\alpha} + u_2^{-\alpha}-1)^{\frac{-1}{\alpha}}.
+\end{align*}
+The Clayton copula \gls{PDF} is given by the expression
+\begin{align*}
+    c(u_1,u_2) = (\alpha+1)(u_1^{-\alpha}+u_2^{-\alpha}-1)^{-2- \frac{1}{\alpha}}u_1^{-\alpha -1} u_2^{-\alpha -1},
+\end{align*}
+as stated by \Citet[p.~272]{Alexander2008}. 
+
+%\textbf{Fitting}
+Fitting the Clayton copula to data is done by estimating the parameter $\alpha$. This is done by using \gls{MLE} with the copula \gls{PDF} as the terms in the sum of the log likelihood function. \gls{MLE} applied to copula fitting is described in \Citet[p.~2]{Choros2010}. 
+
+%\textbf{Sampling}
+To sample from a Clayton copula we can use conditional sampling as described in \Cref{sec:ConditionalSampling}. It is convenient to sample from because there is an analytical expression for the Copula from which the conditional copula can be derived. 
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Example of Correlation not working
@@ -593,10 +545,90 @@ Stockholm, Sweden\\
     % \end{generalinstructions}
 \end{example}
 
+
+\section{Conditional sampling from copulas}\label{sec:ConditionalSampling} 
+For some copulas samples can be generated using conditional sampling which works as follows \Citet[p.~41]{Nelsen2006}. First, we generate two independent uniform random numbers $z_1,z_2 \sim \mathrm{Unif}(0,1)$. 
+The first random number is calculated without respect for the second random number hence we set $u_2 =1$. We want to solve
+\begin{align*}
+    C(u_1,u_2) =z_1,
+\end{align*}
+for $u_1$ independently of $u_2$. 
+
+By using that the copula is a \gls{CDF} and can be written as a probability we can see that 
+\begin{align*}
+    C(u_1,u_2) = P(U_1\leq u_1, U_2\leq u_2) = P(U_1\leq u_1,U_2 \leq 1) = P(U_1\leq u_1).
+\end{align*} 
+Since $u_2 = 1$ no constraint is enforced on $U_2$. By the definition of a copula we have that 
+\begin{align*}
+    C(u_1,1) = u_1 = z_1.
+\end{align*}
+So we set the first random number as $u_1 = z_1$.
+
+The second random number is obtained by computing the conditional copula \gls{CDF} given the first random number. This is done by using the conditional copula \gls{CDF} defined as
+\begin{align*}
+    C_{2|1}(u_2|u_1) = \frac{\partial C(u_1,u_2)}{\partial u_1}.
+\end{align*}
+To compute the second random number we need to solve the equation
+\begin{align*}
+    C_{2|1}(u_2|u_1) = z_2,
+\end{align*}
+for $u_2$. That is
+\begin{align*}
+    u_2 = C^{-1}_{2|1}(z_2|z_1).
+\end{align*}
+The pair $(u_1,u_2)$ is now a sample from the copula. The method can be repeated to generate more samples from the copula. The requirement for the copula to be able to use this method is that the copula has a strictly increasing conditional copula. If not, the solution to the equation might not be unique which will cause problems in the solving step. 
+
+\todo{$C^{-1}$ is the quasi inverse since copula can be flat} 
+
+\section{Acceptance rejection sampling}\label{sec:AcceptanceRejection} 
+Acceptance rejection sampling is a method of sampling from any distribution as long as the density function is known \Citet[p.~47]{RobertCasella2004}. The method works by generating a sample from a proposal distribution and then accepting or rejecting the sample based on a threshold. The sampling method is defined below as done by \Citet[p.~50]{RobertCasella2004}.
+
+\begin{definition}
+    \textbf{Acceptance rejection sampling}\\
+    Let $X \sim f(x)$ and let $g(x)$ be a density function such that $M g(x) \geq f(x)$ for some constant $M \geq 1$. To sample $X \sim f$, we can generate   
+    \begin{align*}
+        Y \sim g \; \mathrm{and} \; U|Y = y \sim \mathrm{Unif}(0,Mg(y)),      
+    \end{align*}
+    until $0 \leq u \leq f(y)$.
+\end{definition}
+$M$ is a constant that scales $g$ so that it is always larger than $f$. In general, the standard uniform distribution can always be used as $g$ but it is often more efficient to use a distribution that is similar to the target distribution. If the proposal distribution is the uniform distribution $M$ is the maximum value of $f$.  
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% MLE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Maximum Likelihood Estimation}\label{sec:MLE}
+Another important concept which will be used when fitting the different copulas is the \gls{MLE}. To illustrate what it is, we first need to define the likelihood function as done by \Citet[p.~122]{wasserman2010statistics}
+\begin{definition}
+    \textbf{Likelihood function}
+    The likelihood function for a sample of observations $X_1,\dots,X_n$ being $\mathrm{IID}$ with \gls{PDF} $f(x;\theta)$ is defined by 
+    \begin{align*}
+        \mathcal{L}_n(\theta) = \prod_{i=1}^n f(X_i;\theta).
+    \end{align*}
+\end{definition}
+
+Usually, the likelihood function becomes very small when the sample size increases. This is because the likelihood is often a value smaller than one, and a product of such values often goes to zero. Therefore, it is common to instead of using the likelihood function use the log likelihood function defined by 
+\begin{align*}
+    l_n(\theta) = \log(\mathcal{L}_n(\theta)).
+\end{align*}
+We can see that the logarithm makes the product sum into a regular sum such that 
+\begin{align*}
+    l_n(\theta) = \log \left( \prod_{i=1}^n f(X_i;\theta) \right)= \sum_{i = 1}^n \log( f(X_i;\theta)).
+\end{align*}
+
+We can now define the \gls{MLE} as done by \Citet[p.~122]{wasserman2010statistics}
+\begin{definition}
+    The \emph{maximum likelihood estimator}, denoted by $\hat\theta_n$, is the value of $\theta$ that maximizes $\mathcal{L}_n(\theta)$.
+\end{definition}
+Maximizing the likelihood function is equivalent to maximizing the log likelihood function, meaning that the parameter estimate is the same \Citet[p.~123]{wasserman2010statistics}. 
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Distance measure derivation
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage
 \section{Distance Measure Derivation}\label{sec:DistanceDerivation}
 The Wasserstein distance is defined as in \Citet[p.~1032]{hallin2021}. Let $\mu$ and $\nu$ be two probability measures on $\mathbb{R}^2$ and let $d$ be some distance measure. The Wasserstein distance is defined as the infimum of the cost of moving the dirt from one distribution to another. The cost is defined as the average distance moved times the amount of dirt moved. The Wasserstein distance is then given by
 \begin{align*}
@@ -613,7 +645,7 @@ It can be calculated between two equally sized sets of data points by
 where $d$ is replaced by the euclidean distance\footnote{See \url{https://www.stat.cmu.edu/~larry/=sml/Opt.pdf}. \textit{Optimal Transport and Wasserstein Distance} p.12. Larry Wasserman. Last Accessed 2025-05-15.}. This is the linear assignment of points between the two sets having the smallest distance between them. $\pi$ can be viewed as an operator that chooses the best assignment of points between the two sets. The distance is then the average distance between the points in the two sets. This problem has high cubic complexity and is therefore really inefficient when the number of points is large. This distance is illustrated in \Cref{fig:WassersteinDistance} where two datasets are displayed. The Wasserstein distance is the minimum distance of points moved that makes the two distributions identical. The transportation that results in the smallest distance is shown in the figure as the lines between the points. 
 \begin{figure}
     \centering
-    \includegraphics[width=0.5\linewidth]{3Theory/pictures/WassersteinIllustrated.png}
+    \includegraphics[width=0.8\linewidth]{3Theory/pictures/WassersteinIllustrated.png}
     \caption{Illustration of the Wasserstein distance between two distributions. The distance is the average distance between the points in the two distributions.}
     \label{fig:WassersteinDistance}
 \end{figure}
@@ -643,36 +675,36 @@ where $\Delta x_i$ and $\Delta y_j$ are the step sizes in the $x$ and $y$ dimens
 
 \begin{figure}
     \centering
-    \begin{subfigure}{0.45\textwidth}
+    \begin{subfigure}{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{3Theory/pictures/densityDist2.png}
         \caption{Density estimation of the first distribution.}
         \label{fig:density1}
     \end{subfigure}
     \hfill
-    \begin{subfigure}{0.45\textwidth}
+    \begin{subfigure}{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{3Theory/pictures/densityDist1.png}
         \caption{Density estimation of the second distribution.}
         \label{fig:density2}
     \end{subfigure}
     \vfill
-    \begin{subfigure}{0.45\textwidth}
+    \begin{subfigure}{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{3Theory/pictures/CDFDist2.png}
         \caption{Distribution function estimate of the first distribution.}
         \label{fig:dist1}
     \end{subfigure}
     \hfill
-    \begin{subfigure}{0.45\textwidth}
+    \begin{subfigure}{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{3Theory/pictures/CDFDist1.png}
         \caption{Distribution function estimate of the second distribution.}
         \label{fig:dist2}
     \end{subfigure}
-    
+     
     \vfill
-    \begin{subfigure}{0.45\textwidth}
+    \begin{subfigure}{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{3Theory/pictures/diffDist1and2.png}
         \caption{Difference between the two distributions.}
@@ -680,6 +712,170 @@ where $\Delta x_i$ and $\Delta y_j$ are the step sizes in the $x$ and $y$ dimens
     \end{subfigure}
     \caption{Density and CDF plots used in the distance calculation.}
     \label{fig:ApproxWasserstein}
+\end{figure}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Additional portfolio plots
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Additional plots of generated data}\label{sec:CopulaResultsData}
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/Port1Gauss.png}
+        \subcaption*{Gaussian copula}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/Port1Student.png}
+        \subcaption*{Students $t$ copula}
+    \end{minipage}
+    \vfill
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/Port1Clayton.png}
+        \subcaption*{Clayton copula}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/Port1NC.png}
+        \subcaption*{Neural copula}
+    \end{minipage}
+    \caption{Fitted neural copula surfaces for Gaussian $\rho=0$ portfolio.}
+    \label{fig:GeneratedDataGaussian0}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/Port2Gauss.png}
+        \subcaption*{Gaussian copula}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/Port2Students.png}
+        \subcaption*{Students $t$ copula}
+    \end{minipage}
+    \vfill
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/Port2Clayton.png}
+        \subcaption*{Clayton copula}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/Port2NC.png}
+        \subcaption*{Neural copula}
+    \end{minipage}
+    \caption{Fitted neural copula surfaces for Gaussian $\rho=0.7$ portfolio.}
+    \label{fig:GeneratedDataGaussian07}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/Port3Gauss.png}
+        \subcaption*{Gaussian copula}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/Port3Students.png}
+        \subcaption*{Students $t$ copula}
+    \end{minipage}
+    \vfill
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/Port3Clayton.png}
+        \subcaption*{Clayton copula}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/Port3NC.png}
+        \subcaption*{Neural copula}
+    \end{minipage}
+    \caption{Fitted neural copula surfaces for Students $\rho=-0.8$ , $\nu = 3$ portfolio. To not take up excessive space the figures are small. The reader is encouraged to zoom in on the figures to see the details.}
+    \label{fig:GeneratedDataStudents}
+\end{figure}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Copula surfaces
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Copula surface plots}\label{sec:CopulaSurfacesPlots}
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/NCPort1.png}
+        \subcaption*{Gaussian $\rho=0$}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/NCPort2.png}
+        \subcaption*{Gaussian $\rho=0.7$}
+    \end{minipage}
+    \vfill
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/NCPort3.png}
+        \subcaption*{Students $\rho=-0.8$ , $\nu = 3$}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/NCPort4.png}
+        \subcaption*{Clayton $\alpha=4$}
+    \end{minipage}
+
+    \caption{Copula surfaces for the different datasets. To not take up excessive space the figures are small. The reader is encouraged to zoom in on the figures to see the details.}
+    \label{fig:NeuralCopulaSurface}
+\end{figure}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Copula gradients
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Copula gradient plots}\label{sec:CopulaGradientsPlots}
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/GradPort1.png}
+        \subcaption*{Gaussian $\rho=0.7$}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/GradPort2.png}
+        \subcaption*{Gaussian $\rho=0.7$}
+    \end{minipage}
+    \vfill
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/GradPort3.png}
+        \subcaption*{Students $\rho=-0.8$ , $\nu = 3$}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{5ResultsDiscussion/pictures/PortfolioTest/GradPort4.png}
+        \subcaption*{Clayton $\alpha=4$}
+    \end{minipage}
+    \caption{Copula density surfaces for the different datasets. To not take up excessive space the figures are small. The reader is encouraged to zoom in on the figures to see the details.}
+    \label{fig:NeuralCopulaGradient}
 \end{figure}
 
 
@@ -691,7 +887,7 @@ where $\Delta x_i$ and $\Delta y_j$ are the step sizes in the $x$ and $y$ dimens
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 \section{Code}\label{sec:Code}
-In this section, the code used in this thesis is provided. Given the amount of code, we have chosen to provide the Github link to the code repository. The code is available at \url{https://github.com/JohanHerbert/ThesisWork}. The main tests are \todo{Fill in this when code is cleaned up. Make Repo public}. 
+In this section, the code used in this thesis is provided. Given the amount of code, we have chosen to provide the Github link to the code repository. The code is available at \url{https://github.com/JohanHerbert/ThesisWork}. The code for the marginal model test is located in the \emph{MarginalExperiment.ipynb} file. The code for the hyperparameter test is located in the \emph{BigTestKebnekaise.py} file. Finally, the code for the copula test is located in the \emph{MainTestAllCopulas.ipynb} file.  
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -27,7 +27,7 @@ These simulated price series are divided into two segments: historical and futur
 
 \begin{figure}
 \centering
-\includegraphics[width=0.8\textwidth]{4Method/pictures/DataDivision.png}
+\includegraphics[width=1\textwidth]{4Method/pictures/DataDivision.png}
 \caption{Illustration of how the data is divided into fitting and testing parts.}
 \label{fig:DataDivision}
 \end{figure}
@@ -36,7 +36,7 @@ An example comparison between the test data and data generated from a fitted cop
 
 \begin{figure}
 \centering
-\includegraphics[width=0.5\textwidth]{4Method/pictures/TestSampleComparison.png}
+\includegraphics[width=0.8\textwidth]{4Method/pictures/TestSampleComparison.png}
 \caption{Comparison between test data and data sampled from a fitted copula.}
 \label{fig:TestSampleComparison}
 \end{figure}
@@ -80,9 +80,9 @@ The tested distributions, along with their parameter values and descriptions, ar
 \subsection{Neural Copula training scheme test}
 This section outlines the procedure for identifying the best hyperparameters that produce a valid copula function. A copula is considered valid if it satisfies the conditions defined in \Cref{def:copula}. For the \gls{NC}, this means that all loss terms—except the first—defined in \Cref{sec:NeuralCopulaLoss}, should approach zero after training.
 
-To ensure robustness across datasets, the model will be tested on several datasets. For each dataset, a grid of hyperparameter values will be evaluated. These include solver type, learning rate, number of epochs, batch size, network architecture, and learning rate scheduler. This results in a large number of parameter combinations designed to identify a universally effective training setup. To keep runtime feasible, the grid is limited to 288\todo{Change} combinations, tested across five datasets using a computing cluster.
+To ensure robustness across datasets, the model will be tested on several datasets. For each dataset, a grid of hyperparameter values will be evaluated. These include solver type, learning rate, number of epochs, network architecture, and learning rate scheduler. This results in a large number of parameter combinations designed to identify a universally effective training setup. To keep runtime feasible, the grid is limited to 144 combinations, tested across five datasets using a computing cluster.
 
-The datasets used for testing are listed in \Cref{tab:DatasetsTestedOn}, which specifies the copula, its parameters, and a dataset name for reference. The hyperparameter grid is summarized in \Cref{tab:se_hyperparams}. Parameters like "Network layers" and "Network neurons" define the \gls{NN} architecture, while "Learning rate", "Scheduler", and "Solver" relate to the optimization process. "Epochs" and "Batch size" govern training duration and granularity.
+The datasets used for testing are listed in \Cref{tab:DatasetsTestedOn}, which specifies the copula, its parameters, and a dataset name for reference. The hyperparameter grid is summarized in \Cref{tab:se_hyperparams}. Parameters like "Network layers" and "Network neurons" define the \gls{NN} architecture, while "Learning rate", "Scheduler", and "Solver" relate to the optimization process. "Epochs" govern training duration and granularity.
 
 \begin{table}[h!]
     \centering
@@ -90,9 +90,9 @@ The datasets used for testing are listed in \Cref{tab:DatasetsTestedOn}, which s
     \begin{tabular}{lll}
     \textbf{Copula} & \textbf{Parameter} & \textbf{Name}  \\
     \hline
-    Gaussian & $\rho:0$ & Independece \\
-    Gaussian & $\rho:0.7$ & Positive Dependece \\
-    Gaussian & $\rho:-0.7$ & Negative Dependece  \\
+    Gaussian & $\rho:0$ & Independence \\
+    Gaussian & $\rho:0.7$ & Positive Dependence \\
+    Gaussian & $\rho:-0.7$ & Negative Dependence \\
     Gaussian & $\rho:0.999$ & Frechet Upper \\
     Gaussian & $\rho:-0.999$ & Frechet Lower \\
     \end{tabular}
@@ -111,7 +111,7 @@ The datasets used for testing are listed in \Cref{tab:DatasetsTestedOn}, which s
     Scheduler & step, exponential, None \\
     Solver & ADAM, SGD \\
     Epochs & 10000, 5000 \\
-    Batch size & 1024, 2048 (Remove batch size) \\
+    %Batch size & 1024, 2048 (Remove batch size) \\
     \end{tabular}
     \label{tab:se_hyperparams}
 \end{table}
@@ -159,12 +159,12 @@ The resulting datasets are visualized in \Cref{fig:DatasetsUsed}, which shows bo
         \centering
         \begin{minipage}{0.54\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{4Method/pictures/PricesGaussian_0.png}
+            \includegraphics[width=\textwidth]{4Method/pictures/PricePort1.png}
         \end{minipage}
         \hfill
         \begin{minipage}{0.34\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{4Method/pictures/ReturnsGaussian_0.png}
+            \includegraphics[width=\textwidth]{4Method/pictures/ReturnPort1.png}
         \end{minipage}
         \subcaption*{(a) Gaussian (independent)}
     \end{minipage}
@@ -174,14 +174,14 @@ The resulting datasets are visualized in \Cref{fig:DatasetsUsed}, which shows bo
         \centering
         \begin{minipage}{0.54\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{4Method/pictures/PricesStudents_-08_3.png}
+            \includegraphics[width=\textwidth]{4Method/pictures/PricePort2.png}
         \end{minipage}
         \hfill
         \begin{minipage}{0.34\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{4Method/pictures/ReturnsStudents_-08_3.png}
+            \includegraphics[width=\textwidth]{4Method/pictures/ReturnPort2.png}
         \end{minipage}
-        \subcaption*{(b) Student's $t$ ($\rho = -0.8$, $\nu = 3$)}
+        \subcaption*{(b) Gaussian ($\rho = 0.7$)}
     \end{minipage}
     \vfill
     % --- (c) Gaussian 0.7 ---
@@ -189,14 +189,14 @@ The resulting datasets are visualized in \Cref{fig:DatasetsUsed}, which shows bo
         \centering
         \begin{minipage}{0.54\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{4Method/pictures/PricesGaussian_07.png}
+            \includegraphics[width=\textwidth]{4Method/pictures/PricePort3.png}
         \end{minipage}
         \hfill
         \begin{minipage}{0.34\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{4Method/pictures/ReturnsGaussian_07.png}
+            \includegraphics[width=\textwidth]{4Method/pictures/ReturnPort3.png}
         \end{minipage}
-        \subcaption*{(c) Gaussian ($\rho = 0.7$)}
+        \subcaption*{(c) Student's $t$ ($\rho = -0.8$, $\nu = 3$)}
     \end{minipage}
     \hfill
     % --- (d) Clayton ---
@@ -204,16 +204,16 @@ The resulting datasets are visualized in \Cref{fig:DatasetsUsed}, which shows bo
         \centering
         \begin{minipage}{0.54\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{4Method/pictures/PricesClayton_4.png}
+            \includegraphics[width=\textwidth]{4Method/pictures/PricePort4.png}
         \end{minipage}
         \hfill
         \begin{minipage}{0.34\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{4Method/pictures/ReturnsClayton_4.png}
+            \includegraphics[width=\textwidth]{4Method/pictures/ReturnPort4.png}
         \end{minipage}
         \subcaption*{(d) Clayton ($\alpha = 4$)}
     \end{minipage}
-    \caption{Simulated test portfolios: Price trajectories (left) and corresponding log returns (right). Blue = fitting data, Red = testing data.}
+    \caption{Simulated test portfolios: Price trajectories (left) and corresponding log returns (right). Blue = fitting data, Red = testing data. To not take up excessive space the figures are small. The reader is encouraged to zoom in on the figures to see the details.}
     \label{fig:DatasetsUsed}
 \end{figure}
 
