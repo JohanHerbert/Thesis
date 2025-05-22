@@ -302,7 +302,11 @@ I would like to express my sincere gratitude to my supervisor, Kevin Kamm at Ume
 
 I am also deeply thankful to Victor Jonsson and Vermiculus Financial Technology for the opportunity to collaborate on this project. Their warm welcome, encouragement, and practical support created a truly rewarding and engaging experience.
 
-Lastly, I would like to thank my family and friends for their continued support, patience, and encouragement throughout this journey.  
+This thesis has been both an academically enriching and personally enjoyable experience. It offered the opportunity to engage deeply with several areas of mathematical statistics, integrating concepts that were previously encountered only in isolation. Particularly rewarding was the exploration of multivariate distribution theory and the construction of these distributions using copulas. Delving into random number generation, especially for copula-based sampling, was intellectually challenging and greatly deepened my understanding of the topic. Working through traditional copula fitting techniques also clarified many aspects of maximum likelihood estimation.
+
+The theoretical result that \gls{NN}s can approximate almost any function was eye-opening and highlighted their potential in flexible statistical modeling. Additionally, developing a method for comparing empirical distributions sparked new ideas for estimating or evaluating copulas in practical contexts.
+
+Lastly, I would like to thank my family and friends for their continued support, patience, and encouragement throughout this journey.
 
 Johan Herbert\\
 Stockholm, Sweden\\
@@ -426,7 +430,7 @@ To sample from a Gaussian copula we can first generate a sample from the multiva
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% Students Copula
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Students t Copula}\label{sec:StudentsCopula} 
+\subsection{Student's $t$ Copula}\label{sec:StudentsCopula} 
 The Student's $t$ copula can be defined similarly to the Gaussian copula above. We denote the Student's $t$ copula by 
 \begin{align*}
     C_{\nu,\Sigma}(u_1,u_2) = \boldsymbol{t}(t_\nu^{-1}(u_1),t_\nu^{-1}(u_1)),
@@ -493,7 +497,7 @@ To sample from a Clayton copula we can use conditional sampling as described in 
 %% Example of Correlation not working
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
-\section{Correlation Underestimating Dependence }\label{sec:CorrelationUnderestimates}
+\section{Correlation Underestimating Dependence }\label{sec:CorrelationUnderestimatesAppendix}
 \begin{example} 
     \textbf{Correlation underestimates the true dependence} 
     Let $X$ be a random variable such that, $X \sim N(0,1)$. Obviously, $X$ and $e^X$ are dependent. The covariance, $\mathrm{Cov}(X,e^X)$ is
@@ -527,13 +531,13 @@ To sample from a Clayton copula we can use conditional sampling as described in 
     \begin{align*}
         F_{e^X}(e^X) &= P(e^X \leq e^x)\\
         &= P(\ln(e^X) \leq \ln (e^x))\\
-        &=P(X\leq x) = U2 = U1.
+        &=P(X\leq x) = U_2 = U_1.
     \end{align*}
     Since $U_1 = U_2$ we have 
     \begin{align*}
-        P(U_1\leq u1, U_2\leq u2) = P(U_1\leq u1, U_1\leq u2) = \min(u_1,u_2).
+        P(U_1\leq u_1, U_2\leq u_2) = P(U_1\leq u_1, U_1\leq u_2) = \min(u_1,u_2).
     \end{align*}
-    This is the upper copula given by the upper Fréchet-Hoeffding bound, which is the copula corresponding to maximum dependence. Hence, correlation underestimates the true dependence between the random variables given that maximum dependence under the correlation framework is one. This underestimation of the correlation is because of the assumption of a normal or students $t$ distribution which is violated with the lognormal variable in the example. This shows how copulas can capture dependence when correlation fails. 
+    This is the upper copula given by the upper Fréchet-Hoeffding bound, which is the copula corresponding to maximum dependence. Hence, correlation underestimates the true dependence between the random variables given that maximum dependence under the correlation framework is one. This underestimation of the correlation is because of the assumption of a normal or students $t$ distribution which is violated with the lognormal variable in the example. This shows how copulas can capture dependence when correlation fails.
 
     In \Cref{fig:ExamplePlots} some illustrations of the example are shown. The the true copula \gls{CDF} is shown in \Cref{fig:TrueCopulaExponential} this can be compared to the estimated copula using correlation in \Cref{fig:CorrelationEstimationExponential}. %\Cref{fig:exponentialDependenceScatterProb} shows the scatter plot of the data in the probability space illustating what maximum dependence looks like in probability space. 
     \Cref{fig:exponentialDependenceScatterRet} shows the scatter plot of the data in the return space. This illustrates why correlation is insufficient as a dependency measure when the underlying dependence is non-linear. 
@@ -546,7 +550,7 @@ To sample from a Clayton copula we can use conditional sampling as described in 
 \end{example}
 
 
-\section{Conditional sampling from copulas}\label{sec:ConditionalSampling} 
+\section{Conditional Sampling From Copulas}\label{sec:ConditionalSampling} 
 For some copulas samples can be generated using conditional sampling which works as follows \Citet[p.~41]{Nelsen2006}. First, we generate two independent uniform random numbers $z_1,z_2 \sim \mathrm{Unif}(0,1)$. 
 The first random number is calculated without respect for the second random number hence we set $u_2 =1$. We want to solve
 \begin{align*}
@@ -576,16 +580,14 @@ for $u_2$. That is
 \begin{align*}
     u_2 = C^{-1}_{2|1}(z_2|z_1).
 \end{align*}
-The pair $(u_1,u_2)$ is now a sample from the copula. The method can be repeated to generate more samples from the copula. The requirement for the copula to be able to use this method is that the copula has a strictly increasing conditional copula. If not, the solution to the equation might not be unique which will cause problems in the solving step. 
+The pair $(u_1,u_2)$ is now a sample from the copula. We note that $C^{-1}$ is the quasi inverse since copula can be flat. The method can be repeated to generate more samples from the copula. The requirement for the copula to be able to use this method is that the copula has a strictly increasing conditional copula. If not, the solution to the equation might not be unique which will cause problems in the solving step. 
 
-\todo{$C^{-1}$ is the quasi inverse since copula can be flat} 
-
-\section{Acceptance rejection sampling}\label{sec:AcceptanceRejection} 
+\section{Acceptance Rejection Sampling}\label{sec:AcceptanceRejection}
 Acceptance rejection sampling is a method of sampling from any distribution as long as the density function is known \Citet[p.~47]{RobertCasella2004}. The method works by generating a sample from a proposal distribution and then accepting or rejecting the sample based on a threshold. The sampling method is defined below as done by \Citet[p.~50]{RobertCasella2004}.
 
 \begin{definition}
-    \textbf{Acceptance rejection sampling}\\
-    Let $X \sim f(x)$ and let $g(x)$ be a density function such that $M g(x) \geq f(x)$ for some constant $M \geq 1$. To sample $X \sim f$, we can generate   
+    \textbf{Acceptance Rejection Sampling}\\
+    Let $X \sim f(x)$ and let $g(x)$ be a density function such that $M g(x) \geq f(x)$ for some constant $M \geq 1$. To sample $X \sim f$, we can generate
     \begin{align*}
         Y \sim g \; \mathrm{and} \; U|Y = y \sim \mathrm{Unif}(0,Mg(y)),      
     \end{align*}
@@ -719,7 +721,7 @@ where $\Delta x_i$ and $\Delta y_j$ are the step sizes in the $x$ and $y$ dimens
 %% Additional portfolio plots
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
-\section{Additional plots of generated data}\label{sec:CopulaResultsData}
+\section{Additional Plots of Generated Data}\label{sec:CopulaResultsData}
 \begin{figure}[H]
     \centering
     \begin{minipage}{0.49\textwidth}
@@ -811,7 +813,7 @@ where $\Delta x_i$ and $\Delta y_j$ are the step sizes in the $x$ and $y$ dimens
 %% Copula surfaces
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
-\section{Copula surface plots}\label{sec:CopulaSurfacesPlots}
+\section{Copula Surface Plots}\label{sec:CopulaSurfacesPlots}
 \begin{figure}[H]
     \centering
     \begin{minipage}{0.49\textwidth}
@@ -848,7 +850,7 @@ where $\Delta x_i$ and $\Delta y_j$ are the step sizes in the $x$ and $y$ dimens
 %% Copula gradients
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
-\section{Copula gradient plots}\label{sec:CopulaGradientsPlots}
+\section{Copula Gradient Plots}\label{sec:CopulaGradientsPlots}
 \begin{figure}[H]
     \centering
     \begin{minipage}{0.49\textwidth}

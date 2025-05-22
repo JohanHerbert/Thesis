@@ -53,24 +53,25 @@
 %     \end{compactitem}
 % \end{generalinstructions}
 
+In this section, we will introduce the mathematical background needed to understand the methods used in this thesis will be presented. \Cref{sec:MathematicalFinance} will introduce the mathematical finance. \Cref{sec:ProbabilityTheory} will introduce the probability theory, connecting financial returns to statistical distributions. \Cref{sec:CopulaTheory} will introduce copulas and explain their role in modeling dependencies of statistical distributions. \Cref{sec:NeuralNetworks} will introduce \gls{NN}s and how to use them to solve differential equations. \Cref{sec:NeuralCopula} will introduce how to use \gls{NN}s to approximate copulas. Finally, \Cref{sec:GoodnessOfFit} will introduce how to evaluate the goodness of fit of a copula model.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%% Mathematical finance
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Mathematical finance}\label{sec:MathematicalFinance}
-In mathematical finance, one is typically interested in the returns of financial assets over discrete time steps, rather than their prices \Citet[p.~2]{Danielsson2011}. Let $P_{t_i}$ denote the price at time increment $t_i$, where $t_i$ is usually in daily time increments but can represent any unit of time. 
+\subsection{Mathematical Finance}\label{sec:MathematicalFinance}
+In mathematical finance, one is typically interested in the returns of financial assets over time, rather than their prices, as stated by \Citet[p.~2]{Danielsson2011}. Let $P_{t_i}$ denote the price at time increment $t_i$, where $t_i$ is usually in daily time increments but can represent any unit of time. 
 
 \subsubsection{Returns}
 This section introduces different types of returns—simple and log—and their respective properties. These properties include return aggregation over time, portfolio return calculations, the generation of new prices, and bounds for returns. The reason for introducing different types of returns is to show the connections between financial returns and statistical distributions, which in turn connect to the theory of copulas. 
 
-First, we introduce what financial returns on assets are. The return of a financial asset is the relative price change over a given time interval, often expressed as a percentage \Citet[p.~2]{Danielsson2011}. One type of return is the simple return, defined in \Cref{def:simpleReturns} as done by \Citet[p.~3]{Danielsson2011}.
+First, we introduce what financial returns on assets are. The return of a financial asset is the relative price change over a given time interval, often expressed as a percentage as \Citet[p.~2]{Danielsson2011} says. One type of return is the simple return, defined in \Cref{def:simpleReturns} as done by \Citet[p.~3]{Danielsson2011}.
 
 \begin{definition}\label{def:simpleReturns}
     \textbf{Simple Returns} \\
     A \emph{simple return} is the percentage change in price over time period $t_i$, indicated by $R_{t_i}$:
     \begin{align*}
-        R_{t_i} = \frac{P_{t_i}-P_{t_{i-1}}}{P_{t_{i-1}}}.
+        R_{t_i} := \frac{P_{t_i}-P_{t_{i-1}}}{P_{t_{i-1}}}.
     \end{align*}
 \end{definition}
 
@@ -106,20 +107,24 @@ Continuously compounded returns, or so-called logarithmic returns, are often use
     \textbf{Log Returns} \\
     The logarithm of the gross return, or \emph{log return}, indicated by $Y_{t_i}$:
     \begin{align*}
-        Y_{t_i} = \mathrm{log}(1+R_{t_i}) = \mathrm{log} \left(\frac{P_{t_i}}{P_{t_{i-1}}}\right) = \mathrm{log}(P_{t_i}) - \mathrm{log}(P_{t_{i-1}})
+        Y_{t_i} := \mathrm{log}(1+R_{t_i}) = \mathrm{log} \left(\frac{P_{t_i}}{P_{t_{i-1}}}\right) = \mathrm{log}(P_{t_i}) - \mathrm{log}(P_{t_{i-1}}).
     \end{align*}
 \end{definition}
 
-Log returns have the advantage that multi-period (e.g., $n$-period) returns are simply the sum of the one-period returns \citet[p.~3]{Danielsson2011}, that is, 
+Log returns have the advantage that multi-period (e.g., $n$-period) returns are simply the sum of the one-period returns as shown by \Citet[p.~3]{Danielsson2011}, that is, 
 \begin{align*}
     Y_{t_i}(n) = Y_{t_i} + Y_{t_{i-1}} + \dots + Y_{t_{i-n+1}}.
 \end{align*}
 
 As illustrated by \citet[p.~4]{Danielsson2011}, the portfolio return is more complicated to compute for log returns because the relationship is not simply a weighted sum:
 \begin{align*}
-        Y_{t_i,\mathrm{port}} &= \mathrm{log}\left(\frac{P_{t_i,\mathrm{port}}}{P_{t_{i-1},\mathrm{port}}}\right) \neq  \sum_{k=1}^K w_k \mathrm{log}\left(\frac{P_{t_i,k}}{P_{t_{i-1},k}}\right), \quad \text{where} \\
-        P_{t_i,\mathrm{port}} &= \sum_{k=1}^K w_k P_{t_i,k}.
+        Y_{t_i,\mathrm{port}} &= \mathrm{log}\left(\frac{P_{t_i,\mathrm{port}}}{P_{t_{i-1},\mathrm{port}}}\right) \neq  \sum_{k=1}^K w_k \mathrm{log}\left(\frac{P_{t_i,k}}{P_{t_{i-1},k}}\right),        
 \end{align*}
+where 
+\begin{align*}
+    P_{t_i,\mathrm{port}} &= \sum_{k=1}^K w_k P_{t_i,k}.
+\end{align*}
+
 
 A weighted average only approximately describes the portfolio log returns in terms of the individual returns, as described by \Citet[p.~4]{Danielsson2011},
 \begin{align*}
@@ -149,9 +154,9 @@ Unlike simple returns, the range in which log returns can be observed is unbound
     Hence, we conclude that $Y_{t_i} \in (-\infty,\infty)$. 
 \end{example}
 
-To better understand how different types of returns work, \Cref{ex:returnSymmetry} shows that simple returns are not symmetric, whereas log returns are. 
+To better understand how different types of returns work, \Cref{ex:returnSymmetry}, inspired by \Citet[p.~4]{Danielsson2011}, shows that simple returns are not symmetric, whereas log returns are. 
 \begin{example}\label{ex:returnSymmetry}
-    \textbf{Symmetry of Returns} (Own example, in the same vein as \citet[p.~4]{Danielsson2011}) \\
+    \textbf{Symmetry of Returns}\\
     Consider a stock with an initial price $P_0 = 100$, a price after one day $P_1 = 200$, and a price on day two $P_2 = 100$. Let's examine the impact of these price changes on simple and log returns.
 
     \textbf{Simple Returns}\\
@@ -181,20 +186,20 @@ To better understand how different types of returns work, \Cref{ex:returnSymmetr
 %%%% GBM
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Geometric Brownian Motion}
-The symmetry property of log returns is desirable because it means that the log returns can be modeled using a normal distribution. This is convenient because the normal distribution has many useful properties and is easy to work with. Log returns are often used in financial modeling—perhaps most notably in the Black-Scholes model for option pricing—where stock prices are assumed to follow a \gls{GBM}, whose price is lognormally distributed. This results from the log returns being normally distributed.
+The symmetry property of log returns is desirable because it means that the log returns can be modeled using a normal distribution. This is convenient because the normal distribution has many useful properties and is easy to work with. Log returns are often used in financial modeling—perhaps most notably in the Black-Scholes model for option pricing—where stock prices are assumed to follow a \gls{GBM}, whose price is lognormally distributed. 
 
 The \gls{GBM} is a stochastic process used to model the evolution of stock prices. It is defined by the stochastic differential equation (SDE)
 \begin{align*}
     dS_t &= \mu S_t \,dt + \sigma S_t \,dW_t, \\
-    S_0 &= s_0,
+    S_0 &= s_0 \in \mathbb{R},
 \end{align*}
-where $S_t$ is the stock price at time $t$, $\mu$ is the drift, $\sigma$ is the volatility, and $W_t$ is a Wiener process \citep[p.~67]{Bjork2019Edition4}.\todo{Find page where GBM is defined}
+where $S_t$ is the stock price at time $t$, $\mu \in \mathbb{R}$ is the drift, $\sigma \in \mathbb{R}_+$ is the volatility, and $W_t$ is a Wiener process \citet[p.~67]{Bjork2019Edition4}.\todo{Find page where GBM is defined}
 
-The \gls{GBM} can be solved using Itô's formula, which yields the solution
+The \gls{GBM} has an explicit solution
 \begin{align*}
     S_t = s_0 \; \exp\left( \left( \mu - \frac{\sigma^2}{2} \right)t + \sigma W_t \right),
 \end{align*}
-\citep[p.~70]{Bjork2019Edition4}.
+as stated by \Citet[p.~70]{Bjork2019Edition4}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% Euler-Maruyama
@@ -224,7 +229,7 @@ To simulate a pair of dependent stock trajectories, we can use a system of \gls{
 \end{align*}
 where $W_t^1$ and $W_t^2$ are standard one-dimensional Wiener processes with correlation $\rho$ \citep[p.~104]{glasserman2004monte}.
 
-More generally, dependency structures beyond simple correlation can be introduced by using a copula to generate dependent Wiener processes.
+More generally, dependency structures beyond simple correlation can be introduced by using a copula (see \Cref{sec:CopulaTheory}) to generate dependent Wiener processes.
 
 In financial applications, one is often interested in how changes in asset prices affect the value of financial instruments and associated risk metrics. A widely used method is to simulate future asset prices and compute how the instrument's value or risk metric responds. This enables the calculation of risk measures such as \gls{VaR} and \gls{ES}, as well as pricing financial instruments such as options. This approach is commonly referred to as Monte Carlo simulation.
 
@@ -599,11 +604,11 @@ In many scientific fields, relationships between variables can be described by d
 %% From before reviewing the language
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Probability theory}
+\subsection{Probability Theory}\label{sec:ProbabilityTheory}
 As mentioned above, stock returns are often modeled using some statistical distribution. Statistical distributions are fundamental to the theory of copulas and therefore we need to define the terminology around distributions more formally. Throughout the upcoming sections, illustrations will be made to explain the ideas visually. Unless otherwise stated the Gaussian distribution, with mean 0 and standard deviation 1, will be used for these illustrations.
 
 First, we need to define what statistical distributions are, beginning with \gls{CDF} in one dimension defined in \Cref{def:CDF1d} as done by \Citet[p.~17]{Nelsen2006}.
-\begin{definition}\label{def:CDF1d} \textbf{CDF one dimension }\\
+\begin{definition}\label{def:CDF1d} \textbf{CDF in one dimension }\\
     A \emph{distribution function} or \gls{CDF} is a function $F$ with domain $\bar{R} = [-\infty, \infty]$ such that 
     \begin{compactenum}
         \item $F$ is nondecreasing; 
@@ -613,14 +618,14 @@ First, we need to define what statistical distributions are, beginning with \gls
 
 One can think of the \gls{CDF} at each point on its domain $\bar{R}$ as the probability of a realization being below that point. Tied to the \gls{CDF} is the \gls{PDF}, which is defined in \Cref{def:PDF1d} as done by \Citet[pp.~160-161]{DevoreBerk2012}.
 
-\begin{definition}\label{def:PDF1d} \textbf{PDF one dimension} \\
+\begin{definition}\label{def:PDF1d} \textbf{PDF in one dimension} \\
     Let $X$ be a continuous random variable. Then a \emph{probability distribution} or \gls{PDF} of $X$ is a function $f(x)$ such that for any two numbers $a$ and $b$ with $a \leq  b$,
         \begin{align*}
             P(a \leq X \leq b) = \int_a^bf(x)dx.\\
         \end{align*}
 \end{definition}
 \begin{remark}\label{rem:pdfProperties}
-    Note that for a function to be a valid \gls{PDF}, the following conditions must be satisfied. 
+    Note that for a function to be a valid \gls{PDF}, the following conditions must be satisfied: 
     \begin{align*}
         f(x) \geq 0 \; \mathrm{ for\; all \;} x;\\
         \int_{-\infty}^{\infty}f(x)dx = 1. 
@@ -629,7 +634,7 @@ One can think of the \gls{CDF} at each point on its domain $\bar{R}$ as the prob
 \end{remark}
 
 
-\Cref{fig:PDFandCDF1D} illustrates both a \gls{PDF} (left) and \gls{CDF} (right) for a random variable $X$, being standard normally distributed. In the left figure, we can see a histogram of simulated data generated from the standard normal distribution as well as the theoretical normal distribution. The \gls{PDF} shows the likelihood of a realization of the $X$ to end up at each point in the domain of $X$. The right picture shows the \gls{CDF} corresponding to the \gls{PDF}, its function value in each point is defined as the probability of ending up below that point on the domain of $X$.
+\Cref{fig:PDFandCDF1D} illustrates both a \gls{PDF} (left) and \gls{CDF} (right) for a random variable $X$, being standard normally distributed. In the left figure, we can see a histogram in blue of simulated data generated from the standard normal distribution as well as the theoretical normal distribution illustrated by the black line. The \gls{PDF} shows the likelihood of a realization of the $X$ to end up at each point in the domain of $X$. The right picture shows the \gls{CDF} in red corresponding to the \gls{PDF}, its function value in each point is defined as the probability of ending up below that point on the domain of $X$.
 
 \begin{figure}[h]
     \centering
@@ -654,18 +659,18 @@ One can think of the \gls{CDF} at each point on its domain $\bar{R}$ as the prob
 When dealing with multiple assets the notion of a \gls{CDF} generalizes to a multivariate \gls{CDF}. To define a multivariate \gls{CDF} formally in two dimensions we will need to define the $H$-volume of a function in two dimensions and what the meaning of a function being 2-increasing is. This is done in the same manner as in \Citet[p.~8]{Nelsen2006} in \Cref{def:H-volume} and \Cref{def:2-Increasing}.
 
 \begin{definition}\label{def:H-volume} \textbf{H-Volume} \\
-    Let $u$ and $v$ be nonempty subsets of $\bar{R} = [-\infty, \infty]$, and let $H$ be a two-place real function such that $\D H = u\times v$. Let $B = [u_1,u_2]\times[v_1,v_2]$  be a rectangle all of whose vertices are in $\D H$. Then
+    Let $u$ and $v$ be nonempty subsets of $\bar{R} = [-\infty, \infty]$, and let $H$ be a two-place real function such that c, and $\D H = u\times v$. Let $B = [u_1,u_2]\times[v_1,v_2]$  be a rectangle all of whose vertices are in $\D H$. Then
     the \emph{H-volume} of $B$ is given by
-    \begin{align*}
+    \begin{align}\label{eq:H-volume}
         V_H(B) = H(u_2,v_2) - H(u_2,v_1) - H(u_1,v_2) + H(u_1,v_1).
-    \end{align*}
+    \end{align}
 \end{definition}
 
 \begin{definition}\label{def:2-Increasing} \textbf{2-increasing} \\
-     A 2-place real function $H$ is \emph{2-increasing} if its $H$-volume $V_H(B)\geq0$, for all rectangles B whose vertices lie in $\D H$.
+     A two-place real function $H:\mathbb{R}\times\mathbb{R}\to \mathbb{R}$ is \emph{2-increasing} if its $H$-volume $V_H(B)\geq0$, for all rectangles $B$ whose vertices lie in $\D H$.
 \end{definition}
 
-The notion of a 2-increasing function is illustrated in \Cref{fig:2-Increasing}. In the figure, the left picture shows a function that is 2-increasing meaning that it is increasing in both directions. The right picture illustrates when a function is not 2-increasing and how this will be captured by the $H$-volume of the function. This property is needed to define a \gls{CDF} in several dimensions, as done by \Citet[p.~17]{Nelsen2006}, in \Cref{def:JointCDF}. 
+The notion of a 2-increasing function is illustrated in \Cref{fig:2-Increasing} where the surface is a function of two variables, the red dots represent the vertices of the rectangle $B$ in \Cref{def:H-volume}. In the figure, the left picture shows a function that is 2-increasing meaning that it is increasing in both directions. This can be imagined by evaluating \Cref{eq:H-volume} as being larger than zero using the points as vertices of $B$. The right picture illustrates when a function is not 2-increasing as the function is decreasing from $(u_2,v_1)$ to $(u_2,v_2)$. Also, if evaluating \Cref{eq:H-volume} we would find that the $H$-volume is negative, showing that the function is not 2-increasing. This property is needed to define a \gls{CDF} in several dimensions, as done by \Citet[p.~17]{Nelsen2006}, in \Cref{def:JointCDF}. 
 
 \begin{figure}[h]
     \centering
@@ -698,7 +703,7 @@ As in the univariate case the function value of the joint \gls{CDF} at any point
 We can also define a \gls{PDF} in two dimensions as done by \Citet[p.~235]{DevoreBerk2012} in \Cref{def:JointPDF}.
 
 \begin{definition}\label{def:JointPDF} \textbf{Joint PDF}\\
-    Let $X$ and $Y$ be continuous random variables. Then $f(x, y)$ is the \emph{joint} \gls{PDF} for $X$ and $Y$ if for any two-dimensional set $A$ 
+    Let $X$ and $Y$ be continuous random variables. Then $f(x,y)$ where $f:\mathbb{R}\times\mathbb{R}\to \mathbb{R}_+$ is the \emph{joint} \gls{PDF} for $X$ and $Y$ if for any two-dimensional set $A$ 
     \begin{align*}
         P[(X,Y) \in A] =  \iint_A f(x,y)dxdy.
     \end{align*}
@@ -755,7 +760,7 @@ This maps the domain of a continuous one-dimensional random variable through its
     Let $X$ be a continuous random variable with distribution function $F$. Define a new random variable $U = F(X)$, then $U \sim \mathrm{unif}(0,1)$. 
 \end{theorem}
 
-The probability integral transform is illustrated in \Cref{fig:PIT}. We can think of the \gls{PIT} as a method of mapping all observed data points on $\D X$  to probability space. In the figure, this can be seen as the dotted lines representing data points being mapped. 
+The probability integral transform is illustrated in \Cref{fig:PIT} where the red line is a \gls{CDF}, the dotted lines show the path by which three exemplifying data points are being mapped from the real line to probability space. The arrows in the figure illustrate the direction of how the data points are being mapped. We can think of the \gls{PIT} as a method of mapping all observed data points on $\D X$ to probability space.
 
 Deeply connected to the \gls{PIT} is the \gls{ITM}, which is a method of generating random numbers from a given distribution. The method is based on the \gls{PIT} and works as defined by \Citet[p.~54]{glasserman2004monte}.
 \begin{definition}\label{def:InverseTransformMethod}
@@ -763,7 +768,7 @@ Deeply connected to the \gls{PIT} is the \gls{ITM}, which is a method of generat
     The \emph{inverse transform method} is a method of generating random numbers from a given distribution.
     \begin{compactenum}
         \item Generate random numbers $U \sim \mathrm{Unif}(0,1)$;
-        \item Insert the random numbers in the inverse \gls{CDF} of the desired distribution such that $X = F^{-1}(U)$.
+        \item Insert the random numbers in the inverse \gls{CDF} of the desired distribution $F$ such that $X = F^{-1}(U)$.
     \end{compactenum}
     The random variable $X$ will then be distributed according to the desired distribution. That is $P(X\leq x) = F(x)$ for all $x$.
 \end{definition}
@@ -833,7 +838,7 @@ In \Cref{fig:MarginalCDF} the notion of a marginal distribution is visualized. I
     \label{fig:MarginalCDF}
 \end{figure}
 
-To conclude this subsection, we will show how the \gls{PIT} is utilized to transform data to the probability space and explain how it sets the stage for copulas. \Cref{fig:PITonData} illustrates how the \gls{PIT} is used to transform two-dimensional data into the two-dimensional probability space, by transforming through each of the marginal distributions separately. This is done for standard normally distributed data with and without correlation in \Cref{fig:CorrelatedScatter} and \Cref{fig:UncorrelatedScatter} respectively, to highlight the differences in the distribution of points in the probability space when dependence is present and not in \Cref{fig:CorrelatedUniformScatter}, and \Cref{fig:UncorrelatedUniformScatter} respectively.
+To conclude this subsection, we will show how the \gls{PIT} is utilized to transform data to the probability space and explain how it sets the stage for copulas. \Cref{fig:PITonData} illustrates how the \gls{PIT} is used to transform two-dimensional data into the two-dimensional probability space, by transforming the data through each of the marginal distributions separately. This is done for standard normally distributed data with and without correlation in \Cref{fig:CorrelatedScatter} and \Cref{fig:UncorrelatedScatter} respectively, to highlight the differences in the distribution of points in the probability space when dependence is present and not in \Cref{fig:CorrelatedUniformScatter}, and \Cref{fig:UncorrelatedUniformScatter} respectively. In the upper two figures we see the scatter plot of the data in the original space, along with histograms showing the marginal distributions of the data. The lower two figures show the scatter plot of the data in the probability space after applying the \gls{PIT} to each dimension separately. The histograms in the lower figures show that the data is uniformly distributed in the $[0,1]$-domain, as expected from the \gls{PIT}.
 
 \begin{figure}
     \centering
@@ -846,7 +851,7 @@ To conclude this subsection, we will show how the \gls{PIT} is utilized to trans
     \hfill
     \begin{minipage}{0.4\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{3Theory/pictures/GaussianProbScatter.png}
+        \includegraphics[width=\textwidth]{3Theory/pictures/GaussianRetScatter.png}
         \subcaption{Correlated data from a bivariate standard normal distribution.}
         \label{fig:CorrelatedScatter}
     \end{minipage}
@@ -860,7 +865,7 @@ To conclude this subsection, we will show how the \gls{PIT} is utilized to trans
     \hfill
     \begin{minipage}{0.4\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{3Theory/pictures/GaussianRetScatter.png}
+        \includegraphics[width=\textwidth]{3Theory/pictures/GaussianProbScatter.png}
         \subcaption{Data in the probability space after applying the \gls{PIT} to correlated normally distributed data.}
         \label{fig:CorrelatedUniformScatter}
     \end{minipage}
@@ -879,8 +884,8 @@ Some copulas are fitted using \gls{MLE} which is a method of estimating the para
 \subsection{Copula Theory}\label{sec:CopulaTheory}
 Now that we have a fundamental understanding of some probability theory we can introduce copulas. \Cref{sec:DefiningCopulas} will provide the necessary definitions and theorems to understand what a copula is. \Cref{sec:NeedForCopulas} will explain why we need copulas and how they can be used to model the dependence structure of random variables. \Cref{sec:CopulaUseCase} will provide a brief overview of how copulas can be used in practice.
 
-\subsubsection{Defining copulas}\label{sec:DefiningCopulas}
-To explain copulas we will need to define what it means for a function to be grounded, in \Cref{def:grounded}, and what it means to have margins, in \Cref{def:margins}, \Citet[p.~9]{Nelsen2006}.
+\subsubsection{Defining Copulas}\label{sec:DefiningCopulas}
+To explain copulas we will need to define what it means for a function to be grounded, in \Cref{def:grounded}, and what it means to have margins, in \Cref{def:margins}, defined as in \Citet[p.~9]{Nelsen2006}.
 
 \begin{definition}\label{def:grounded}\textbf{Grounded} \\
     Consider a function on the domain $S_1\times S_2$ where $S_1$ and $S_2$ have the smallest elements $a_1$ and $a_2$ respectively. A function $H$ from $S_1\times S_2$ into $\mathbf{R}$ is \emph{grounded} if $H(x,a_2)= H(a_1,y) = 0 \;\mathrm{for \;all\;} (x,y) \in S_1\times S_2.$
@@ -895,9 +900,9 @@ To explain copulas we will need to define what it means for a function to be gro
     \end{align*}
 \end{definition}
 
-\Cref{fig:GroundedAndMargins} illustrates what \Cref{def:grounded} and \Cref{def:margins} means when $S_1$ and $S_2$ are both the probability space. The blue points show what it means to be grounded and the red points show what it means to have margins. 
+\Cref{fig:GroundedAndMargins} illustrates what \Cref{def:grounded} and \Cref{def:margins} means when $S_1$ and $S_2$ are both the $[0,1]$-interval. The blue points show what it means to be grounded as described in \Cref{def:grounded} and the red points show what it means to have margins as defined in \Cref{def:margins}. What this means is that a function over $S_1\times S_2$ being grounded and having margins must have function values equal to the shown points. 
 
-%\todo{change the axes}
+\todo{change the axes}
 \begin{figure}
     \centering
     \includegraphics[width=0.5\linewidth]{3Theory/pictures/CopulaBoundaries.png}
@@ -907,7 +912,7 @@ To explain copulas we will need to define what it means for a function to be gro
 
 Now we can formally define what a copula is. This is done as in \Citet[p.~10]{Nelsen2006} in \Cref{def:copula}.
 \begin{definition}\label{def:copula}
-            \textbf{Copula in 2 dimensions}\\
+            \textbf{Copula in two dimensions}\\
             Equivalently, a copula is a function $C$ from $\mathrm{I}^2=[0,1]^2$ to $\mathrm{I} = [0,1]$ with the following properties:
             \begin{enumerate}
                 \item For every $u, v \in \mathrm{I}$,
@@ -926,7 +931,7 @@ So, to describe what a copula is in simpler terms, it is a \gls{CDF} capturing t
 
 A fundamental theorem connected to copulas is described in \Cref{the:Sklars}, as formulated by \Citet[p.~18]{Nelsen2006}. 
 \begin{theorem}\label{the:Sklars}
-        \textbf{Theorem: Sklar's theorem} \\
+        \textbf{Sklar's theorem} \\
         Let $H$ be a joint distribution function with margins $F$ and $G$ then there exists a copula $C$ such that for all $x,y \in \bar{\mathbf{R}} = \left[-\infty, \infty \right]$, 
         \begin{align}
             H(x,y) = C(F(x), G(y)). \label{eq:Sklar}
@@ -934,7 +939,7 @@ A fundamental theorem connected to copulas is described in \Cref{the:Sklars}, as
         If $F$ and $G$ are continuous, then $C$ is unique; otherwise, $C$ is uniquely determined on $\mathrm{Ran}(F)\times\mathrm{Ran}(G)$. Conversely, if $C$ is a copula and $F$ and $G$ are distribution functions, then the function $H$ is a joint distribution function with margins $F$ and $G$.
 \end{theorem}
 
-\Cref{fig:CDFtoCopula} illustrates the correspondence, given in \Cref{eq:Sklar}, between a bivariate normal \gls{CDF} and its corresponding copula function. The copula has the same function value as the \gls{CDF} in each point where the mapping of points in $X_1\times X_2$ to $[0,1]\times[0,1]$ is done by the \gls{PIT}. The left picture shows the joint \gls{CDF} on the $\bar{R}^2$ domain. The right picture shows the corresponding copula function which lives in probability space. Hence, the difference between the joint \gls{CDF} and the copula is that the copula only exists on the unit square. 
+\Cref{fig:CDFtoCopula} illustrates the correspondence, given in \Cref{eq:Sklar}, between a bivariate normal \gls{CDF} and its corresponding copula function. The copula has the same function value as the \gls{CDF} in each point where the mapping of points in $X_1\times X_2$ to $[0,1]\times[0,1]$ is done by the \gls{PIT}. The left picture shows the joint \gls{CDF} on the $\bar{R}^2$ domain. The right picture shows the corresponding copula function defined on the unit square. Hence, the difference between the joint \gls{CDF} and the copula is that the copula only exists on the unit square. 
 
 \begin{figure}
     \centering
@@ -954,7 +959,7 @@ A fundamental theorem connected to copulas is described in \Cref{the:Sklars}, as
 \end{figure}
 
 
-Sometimes it can be more convenient to write the \Cref{eq:Sklar} theorem in terms of the marginal probabilities $u_i$ rather than the marginal distributions $x_i$. It can be done by utilizing that $F_i(x_i) = u_i$ and $F_i^{-1}(u_i)= x_i$ so that 
+Sometimes it is more convenient to write the \Cref{eq:Sklar} in terms of the marginal probabilities $u_i$ rather than the marginal distributions $x_i$. It can be done by utilizing that $F_i(x_i) = u_i$ and $F_i^{-1}(u_i)= x_i$ so that 
 \begin{align*}
     H(F_1^{-1}(u_1),F_2^{-1}(u_2))=H(x_1,x_2) = C(F_1(x_1), F_2(x_2))= C(u_1, u_2).
 \end{align*}
@@ -962,15 +967,15 @@ Sometimes it can be more convenient to write the \Cref{eq:Sklar} theorem in term
 Another important result for copulas is that they are translation invariant, the meaning of this is presented in \Cref{the:TranslationInvariance}, as done by \citet[p.~25]{Nelsen2006}.
 
 \begin{theorem}\label{the:TranslationInvariance}
-        \textbf{Theorem: Translation Invariance}\\
+        \textbf{Translation Invariance}\\
         Let $X$ and $Y$ be continuous random variables with copula $C_{X, Y}$. If $\alpha$ and $\beta$ are strictly increasing on $Ran(X)$ and $Ran(Y)$, respectively, then $C_{\alpha(X),\beta(Y)}  = C_{X,Y}$. Thus $C_{X, Y}$ is invariant under strictly increasing transformations of $X$ and $Y$.
 \end{theorem}
 
-From the requirements for a function to be a copula given in the definition of a copula in \Cref{def:copula} one can obtain bounds for how a copula might look. These bounds are defined as by \Citet[p.~11]{Nelsen2006} in \Cref{thm:FrechetBounds}.
+From the requirements specified in \Cref{def:copula} one can obtain bounds for how copulas can look. These bounds are defined as by \Citet[p.~11]{Nelsen2006} in \Cref{thm:FrechetBounds}.
     
 \begin{theorem}\label{thm:FrechetBounds}
     \textbf{Fréchet-Hoeffding bounds} \\
-    Consider a copula $C(\mathbf{u}) = C(u_1,u_2)$. Then the $C$ is bounded by
+    Consider a copula $C(\mathbf{u}) = C(u_1,u_2)$. Then $C$ is bounded by
     \begin{align*}
         L(u_1,u_2) &\leq C(u_1,u_2) \leq U(u_1,u_2),\; \mathrm{ where}\\
         L(u_1,u_2) &= (u_1+u_2-1)^+\\
@@ -999,11 +1004,11 @@ We have now discussed what copula functions are and arrived at that copulas are 
     \frac{\partial^2F(F_1^{-1}(u_1),F_2^{-1}(u_2))}{\partial u_1\partial u_2}\\
     =&  f(F_1^{-1}(u_1),F_2^{-1}(u_2)) \frac{d}{du_1} F_1^{-1}(u_1)  \frac{d}{du_2} F_2^{-1}(u_2),
 \end{align*}
-where it can be shown that 
+where, as per the inverse function rule, the derivative of the inverse function is given by
 \begin{align*}
     \frac{d}{du_i} F_i^{-1}(u_i) = \frac{1}{f_i(F_i^{-1}(u_i))}.
 \end{align*}
-In the above equations, $F_i$ is the i:th marginal distribution function, \gls{CDF}, and $f_i$ is the marginal density function \gls{PDF}, $F$ is the joint distribution function.   
+In the above equations, $F_i$ is the $i$-th marginal distribution function, \gls{CDF}, and $f_i$ is the marginal density function \gls{PDF}, $F$ is the joint distribution function.   
 
 Hence the copula \gls{PDF} can be written as 
 \begin{align*}
@@ -1021,9 +1026,9 @@ Hence the copula \gls{PDF} can be written as
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% The need for copulas
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Usefulness of copulas}\label{sec:NeedForCopulas}
+\subsubsection{Usefulness of Copulas}\label{sec:NeedForCopulas}
 
-The following examples are to illustrate how correlation can fail to capture the true dependence between random variables. The first example shows how correlation fails to capture the dependence between two random variables that are dependent but uncorrelated and is inspired by \Citet[p.~21]{Danielsson2011}. The second example shows how correlation underestimates the true dependence between two random variables that are dependent but not both normally distributed. This is to illustrate how correlation falls short as a measure of dependence, and that copulas can be a better alternative when estimating dependence between random variables. \Cref{ex:CorrelationUnderestimates} is provided with full derivations in the appendix, \Cref{sec:CorrelationUnderestimates}.
+The following examples are to illustrate how correlation can fail to capture the true dependence between random variables. The first example shows how correlation fails to capture the dependence between two random variables that are dependent but uncorrelated and is inspired by \Citet[p.~21]{Danielsson2011}. The second example shows how correlation underestimates the true dependence between two random variables that are dependent but not both normally distributed. This is to illustrate how correlation falls short as a measure of dependence, and that copulas can be a better alternative when estimating dependence between random variables. \Cref{ex:CorrelationUnderestimates} is provided with full derivations in \Cref{sec:CorrelationUnderestimatesAppendix} in the appendix, \Cref{sec:CorrelationUnderestimates}.
 
 \begin{example}\label{ex:CorrelationFail}
     \textbf{Dependence is not always captured by correlation}\\
@@ -1071,7 +1076,7 @@ The following examples are to illustrate how correlation can fail to capture the
         %  &= \frac{e^\frac{1}{2}}{\sqrt{2\pi}}\sqrt{2\pi}   \\
          &= e^{\frac{1}{2}}.\\
     \end{align*}
-    If dividing with the standard deviations of $X$ and $e^X$ we get the correlation. To do this we need to calculate the variances of $X$ and $e^X$. We know that $\mathrm{Var}(X) = 1$ but need to calculate the variance of $e^X$. The variance of $e^X$ is calculated as
+    If dividing with the standard deviations of $X$ and $e^X$ we get the correlation. To do this we need to calculate the variances of $X$ and $e^X$. We know that $\mathrm{Var}(X) = 1$ but need to calculate the variance of $e^X$. The variance of $e^X$ is calculated using the moment generating function as
     \begin{align*}
         \mathrm{Var}(e^X) &= E[e^{2X}] - E[e^X]^2\\
         &= e^2 - e.
@@ -1086,16 +1091,17 @@ The following examples are to illustrate how correlation can fail to capture the
     \begin{align*}
         F_{e^X}(e^X) &= P(e^X \leq e^x)\\
         &= P(\ln(e^X) \leq \ln (e^x))\\
-        &=P(X\leq x) = U2 = U1.
+        &=P(X\leq x) = U_2 = U_1.
     \end{align*}
     Since $U_1 = U_2$ we have 
     \begin{align*}
-        P(U_1\leq u1, U_2\leq u2) = P(U_1\leq u1, U_1\leq u2) = \min(u_1,u_2).
+        P(U_1\leq u_1, U_2\leq u_2) = P(U_1\leq u_1, U_1\leq u_2) = \min(u_1,u_2).
     \end{align*}
     This is the upper copula given by the upper Fréchet-Hoeffding bound, which is the copula corresponding to maximum dependence. Hence, correlation underestimates the true dependence between the random variables given that maximum dependence under the correlation framework is one. This underestimation of the correlation is because of the assumption of a normal or students $t$ distribution which is violated with the lognormal variable in the example. This shows how copulas can capture dependence when correlation fails. 
 
-    In \Cref{fig:ExamplePlots} some illustrations of \Cref{ex:CorrelationUnderestimates} are shown. The true copula \gls{CDF} is shown in \Cref{fig:TrueCopulaExponential} this can be compared to the estimated copula using correlation in \Cref{fig:CorrelationEstimationExponential}. %\Cref{fig:exponentialDependenceScatterProb} shows the scatter plot of the data in the probability space illustrating what maximum dependence looks like in probability space. 
-    \Cref{fig:exponentialDependenceScatterRet} shows the scatter plot of the data in return space. This illustrates why correlation is insufficient as a dependency measure when the underlying dependence is non-linear. 
+    In \Cref{fig:ExamplePlots} some illustrations of \Cref{ex:CorrelationUnderestimates} are shown. The true copula \gls{CDF} surface is shown in \Cref{fig:TrueCopulaExponential} this can be compared to the copula function surface estimated using correlation in \Cref{fig:CorrelationEstimationExponential}. These two pictures show how the estimated copula is not capturing the true copula reflecting maximum dependence. 
+    %\Cref{fig:exponentialDependenceScatterProb} shows the scatter plot of the data in the probability space illustrating what maximum dependence looks like in probability space. 
+    \Cref{fig:exponentialDependenceScatterRet} shows the scatter plot of $X$ against $e^X$ in return space. This illustrates that the correlation estimate is insufficient as a dependency measure. This is because correlation fits a straight line to a nonlinear curve in this case. 
     
     % \begin{generalinstructions}
     %     Would be nice to tie this to something in finance. Such as the relationship between stocks returns and derivative prices.
@@ -1137,7 +1143,7 @@ Up to now we have not yet provided an example of the usefulness of copulas. The 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% Use for copula
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Usecase for copulas in practice}\label{sec:CopulaUseCase}
+\subsubsection{Use Case for Copulas in Practice}\label{sec:CopulaUseCase}
 If there are several sources of randomness present in a system where \gls{MC} methods are used, potential dependence between the sources of randomness has to be taken into account. Copulas are a powerful tool for modeling the dependence structure between random variables. They allow for separation of the dependence and the marginal distributions. By using copulas, we can generate samples from multivariate distributions with specified marginals and a desired dependence structure by generating dependent marginally distributed uniform random numbers. These are then transformed to the desired marginal distributions using the inverse of the marginal \gls{CDF}s by the inverse transform method \Cref{def:InverseTransformMethod}.
 
 Let $U = (U_1,U_2)$ be a point specified by two marginally uniformly distributed random variables $U_1$ and $U_2$ sampled from a copula giving them some dependence. Then random numbers $X = (X_1,X_2)$ with the dependence specified by the copula and desired marginal distributions can be generated by transforming the uniform random numbers using the \gls{ITM}. This is done by using the inverse of the marginal \gls{CDF}s as follows
@@ -1146,7 +1152,7 @@ Let $U = (U_1,U_2)$ be a point specified by two marginally uniformly distributed
     X_2 = F_2^{-1}(U_2).
 \end{align*}
 
-The usefulness of copulas in sampling is visualized in \Cref{fig:CopulaSampling}. The left figure shows a sample from a Clayton copula with $\alpha = 2$, which will be defined in \Cref{sec:ClaytonCopula}. The right figure shows the same sample after applying the \gls{ITM} using a standard normal distribution for each marginal. Note that the \gls{ITM} can be applied to each of the dimensions of the copula data thanks to the fact that copulas by definition have uniform marginals. 
+The usefulness of copulas in sampling is visualized in \Cref{fig:CopulaSampling}. The left figure shows a sample from a Clayton copula with $\alpha = 2$, which will be defined in \Cref{sec:ClaytonCopula}. In the figure the blue points are the data points, in probability space, sampled from the copulas. Along with the the data points the figure shows the distribution of the data points using a histogram per dimension. The right figure shows the same sample as blue points after applying the \gls{ITM} using a standard normal distribution for each marginal. Additionally, the marginal distributions are shown using histograms for each dimension. Note that the \gls{ITM} can be applied to each of the dimensions of the copula data thanks to the fact that copulas by definition have uniform marginals. 
 
 \begin{figure}[h]
     \centering
@@ -1174,8 +1180,8 @@ For the interested reader \Cref{sec:OtherCopulas} introduces some other widely u
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% neural networks
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Neural Networks}
-A full introduction of \gls{NN}s is beyond the scope of this thesis and the interested reader is referred to \Citet[]{Jentzen2023}. Some suggested topics are artificial neural networks, gradient descent, and back propagation. Despite other simpler topics being thoroughly explained, in those cases that has been to explain what something else is or to motivate some method. This section will only give a brief introduction to \gls{NN}s and how they can be used for learning functions by just penalizing unwanted behavior. In particular a short description of how to solve differential equations using \gls{NN}s as this will be used to train the neural copula.
+\subsection{Neural Networks}\label{sec:NeuralNetworks}
+A full introduction of \gls{NN}s is beyond the scope of this thesis and the interested reader is referred to \Citet[]{Jentzen2023}. Some suggested topics are artificial neural networks, gradient descent, and back propagation. This section will only give a brief introduction to \gls{NN}s and how they can be used for learning functions by just penalizing unwanted behavior. In particular a short description of how to solve differential equations using \gls{NN}s as this will be used to train the neural copula.
 
 A theoretical introduction to solving differential equations using \gls{NN}s can be found in \Citet[pp.~81-84]{KarlssonFaronius1746454} or \Citet[pp.~509-516]{Jentzen2023}. What is however more illustrative of the method of solving differential equations using \gls{NN}s is to show how the method works in practice. This is done in \Cref{ex:NeuralNetworkDifferentialEquation}, showing how to solve a simple differential equation using \gls{NN}s. The example is taken from a video seminar on how to solve Partial Differential Equations using \gls{NN}s by Leah Bar\footnote{See Leah Bar, "Deep Learning Approach to Partial Differential Equations | Leah Bar, OriginAI (PyData TLV June22)", \textit{PyData}, Published: 2022-07-18 \url{https://www.youtube.com/watch?v=f44sFOR296I}, Last Accessed: 2025-05-07.}. 
 
@@ -1183,7 +1189,7 @@ A theoretical introduction to solving differential equations using \gls{NN}s can
     \textbf{Solving differential equations with neural networks}\\
     Suppose we want to solve the following differential equation (Newtons law of cooling)
     \begin{align*}
-        \frac{dT}{dt} = k(M-T), \quad \; T(0) = T_0 = 100, M = -10, k = 0.25.
+        \frac{dT}{dt} = k(M-T), \quad \; T(0) = T_0 = 100,\; M = -10,\; k = 0.25.
     \end{align*}
     where $T$ is the temperature, $t$ is time, $M$ is the ambient temperature, and $k$ is a constant. This is a simple first order differential equation. The solution to the equation is given by
     \begin{align*}
@@ -1202,11 +1208,11 @@ The method described in the above example can be used to train a \gls{NN} to fol
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% Neural Copula
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Neural Copula}
+\subsection{Neural Copula}\label{sec:NeuralCopula}
 A \gls{NC} is a method proposed by \Citet[]{ZengWang2022} to use \gls{NN}s to approximate a copula function. 
 
 
-\subsubsection{Overall procedure}
+\subsubsection{Overall Procedure}
 The overall procedure when using a \gls{NC} is to fit one \gls{NN} to approximate the \gls{CDF} of each marginal distribution. These \gls{NN}s are then used to transform each dimension of the data to probability space using the \gls{PIT}. The obtained data points are then used for fitting another \gls{NN} approximating the copula function \Citet[p.~4]{ZengWang2022}. 
 
 \subsubsection{Data}
@@ -1217,17 +1223,17 @@ First, we define the observed data as $x^{\mathrm{obs}}\in \mathbb{R}^2 $. To fi
 The normalized data $x$ is then used to fit a marginal distribution $\hat{F}_j$ to each dimension $x_j, \; \mathrm{where} \; j=\{1,2\}$ if $x$ has two dimensions. 
 
 
-\subsubsection{Marginal model architecture}
+\subsubsection{Marginal Model Architecture}
 A marginal distribution is fitted for each dimension of the data using a \gls{NN} having the following architecture 
 \begin{align*}
     \mathrm{Input\;layer:} \; & \mathbf{h}_m^0 = x_j \in \Omega_j = \mathbb{I}; \\
     \mathrm{Hidden\;layer:} \; & \mathbf{h}_m^{k+1} = \mathrm{tanh}(\mathbf{w}_m^{k} \mathbf{h}_m^{k} + \mathbf{b}_m^{k}), \; k \in \{0,1, \dots, l_m -1 \};\\
     \mathrm{Output\;layer:} \; & \hat{F}_j = \mathrm{sigmoid}(\mathbf{w}_m^{l_m} \mathbf{h}_m^{l_m} + \mathbf{b}_m^{l_m}) \in \left[0,1 \right],
 \end{align*}
-where $\hat{F}_j$ is the estimated marginal \gls{CDF}, $\Omega$ is the entire domain where the data can be, $l_m$ is the number of layers in the network, $\mathbf{w}_m^{k}$ are the weights in the $k$th layer,  $\mathbf{h}_m^{k}$ is the input data in the $k$th layer, and $\mathbf{b}_m^{k}$ is the biases in the $k$th layer \Citet[pp.~5-6]{ZengWang2022}. Note that the weights, biases, and input data are different for each dimension in the data (maybe obvious, but for notations' sake). 
+where $\hat{F}_j$ is the estimated marginal \gls{CDF}, $\Omega$ is the entire domain where the data can be, $l_m$ is the number of layers in the network, $\mathbf{w}_m^{k}$ are the weights in the $k$th layer,  $\mathbf{h}_m^{k}$ is the input data in the $k$th layer, and $\mathbf{b}_m^{k}$ is the biases in the $k$th layer \Citet[pp.~5-6]{ZengWang2022}. Note that the weights, biases, and input data are different for each dimension in the data. 
 
-\subsubsection{Marginal loss function}\label{sec:NeuralMarginalLoss}
-This section defines the loss function for a marginal model $\hat{F}_j$ as described in \Citet[pp.~7-8]{ZengWang2022}. First, we define the datasets that will be used for calculating the loss function. Let $D_{obs}$ be the set of observed and scaled data points $x_j$ for the $j$th dimension of the data \todo{dimension, how to write}. Also, let $D_u$ be a set of uniformly distributed data points on the domain $\Omega$ \todo{omega = I = [0,1]} of the data. Let $\hat{f}_j$ denote the \gls{PDF} corresponding to $\hat{F}_j$.
+\subsubsection{Marginal Loss Function}\label{sec:NeuralMarginalLoss}
+This section defines the loss function for a marginal model $\hat{F}_j$ as described in \Citet[pp.~7-8]{ZengWang2022}. First, we define the datasets that will be used for calculating the loss function. Let $D_{obs}$ be the set of observed and scaled data points $x_j$ for the $j$-th dimension of the data \todo{dimension, how to write}. Also, let $D_u$ be a set of uniformly distributed data points on the domain $\Omega$ \todo{omega = I = [0,1]} of the data. Let $\hat{f}_j$ denote the \gls{PDF} corresponding to $\hat{F}_j$.
 
 The loss function consists of four parts that are designed to ensure that the network fits the data as well as possible whilst following the requirements of a \gls{CDF}. The first part of the loss function maximizes the log likelihood of the fitted \gls{CDF} to the observed data. Since the network minimizes the loss during training, we need the negative log likelihood as the loss. The first part of the loss is defined as 
 \begin{align*}
@@ -1238,7 +1244,7 @@ The second part of the loss function ensures that the \gls{PDF} is not negative.
 \begin{align*}
     L_2^m = \int_{x_{i\in\Omega}} (-\hat{f}(x))^+dx \approx \frac{-1}{|D_{u}|} \sum_{i \in D_{u}} (-\hat{f}_j(x_i))^+.
 \end{align*}
-The third part of the loss function ensures that the integral of $\hat{f}$ over $\Omega$ is one as stated in \cref{rem:pdfProperties}. The loss can be formulated as 
+The third part of the loss function ensures that the integral of $\hat{f}$ over $\Omega$ is one as stated in \Cref{rem:pdfProperties}. The loss can be formulated as 
 \begin{align*}
     L_3^m = \left | 1- \int_{x\in \Omega} \hat{f}(x) dx    \right | \approx \left | 1- \frac{1}{|D_{u}|} \sum_{i \in D_{u}} \hat{f}_j(x_i)  \right |.
 \end{align*}
@@ -1253,7 +1259,7 @@ The total loss can be formulated as a linear combination of the loss components.
 \end{align*}
 where $\lambda_i$ is the weigh put on the $i$:th loss component. 
 
-\subsubsection{Copula model architecture} 
+\subsubsection{Copula Model Architecture} 
 When having transformed the data to probability space using the fitted marginal \gls{CDF}s a new dataset $u = (u_1,u_2) = (F_1(x_1), F_2(x_2))$ is obtained. 
 
 The copula model $\hat{C}$ is defined as 
@@ -1262,14 +1268,14 @@ The copula model $\hat{C}$ is defined as
     \mathrm{Hidden\;layer:} \; & \mathbf{h}_c^{k+1} = \mathrm{tanh}(\mathbf{w}_c^{k} \mathbf{h}_c^{k} + \mathbf{b}_c^{k}), \; k \in \{0,1, \dots, l_c -1 \};\\
     \mathrm{Output\;layer:} \; & \hat{C} = \mathrm{sigmoid}(\mathbf{w}_c^{l_c} \mathbf{h}_c^{l_c} + \mathbf{b}_c^{l_c}) \in \left[0,1 \right],
 \end{align*}
-as in\Citet[pp.~6-7]{ZengWang2022}.
+as in \Citet[pp.~6-7]{ZengWang2022}.
 
 \todo{Should i change $u$ and $x$ to bold since vectors? }
 
-\subsubsection{Copula loss function}\label{sec:NeuralCopulaLoss}
+\subsubsection{Copula Loss Function}\label{sec:NeuralCopulaLoss}
 Before defining the copula loss function, we need to define the different data sets used to compute the loss. Additionally, we need to define the copula \gls{CDF} and its corresponding copula \gls{PDF}. 
 
-First, we define the datasets. Let $D_{\mathrm{obs}}$ be the observed data points $x \in \Omega_1\Omega_2  = \mathbb{I}^2$. Let $D_{u}$ be uniformly distributed data on $\mathbb{I}^2$. Let $D_{\bar{u}}$ be uniformly distributed points on the upper boundary of the unit square $\mathbb{I}^2$. Let $D_{\underline{u}}$ be a set of points uniformly distributed on the lower boundary of the unit square $\mathbb{I}$. In \Cref{fig:datasetsNC} the datasets used to train the \gls{NC} are visualized. The blue data points are uniformly distributed over the upper boundaries of the region where one variable is one. The grey points are uniformly distributed on the lower boundaries of the region where one of the variables is zero. The red data points are the observed data in probability space. The black data points are uniformly distributed over the interval. 
+First, we define the datasets. Let $D_{\mathrm{obs}}$ be the observed data points $x \in \Omega_1 \times \Omega_2  = \mathbb{I}^2$. Let $D_{u}$ be uniformly distributed data on $\mathbb{I}^2$. Let $D_{\bar{u}}$ be uniformly distributed points on the upper boundary of the unit square $\mathbb{I}^2$. Let $D_{\underline{u}}$ be a set of points uniformly distributed on the lower boundary of the unit square $\mathbb{I}$. In \Cref{fig:datasetsNC} the datasets used to train the \gls{NC} are visualized. The blue data points are uniformly distributed over the upper boundaries of the region where one variable is one. The grey points are uniformly distributed on the lower boundaries of the region where one of the variables is zero. The red data points are the observed data in probability space. The black data points are uniformly distributed over the interval. 
 
 \begin{figure}
     \centering
@@ -1328,8 +1334,8 @@ As for the marginal model, the total loss is given by a linear combination of th
 where $\lambda_i$ is the weight assigned to each part loss term. 
 
 
-\subsubsection{Fittig and sampling procedure}\label{sec:NeuralCopulaFittingAndSampling}
-\textbf{Fitting}
+\subsubsection{Fittig and Sampling Procedure}\label{sec:NeuralCopulaFittingAndSampling}
+\textbf{Fitting}\\
 In the neural copula article the fitting procedure is as follows: by \Citet[p.~4]{ZengWang2022}
 First the data is normalized to lie in the interval between zero and one using min-max normalization. The normalized data is then used to fit the \gls{NC} to data by first fitting marginal distributions to each dimension of the data. This is done by training \gls{NN}s that minimize the marginal loss function defined in \Cref{sec:NeuralMarginalLoss} for each dimension. The copula is fitted by training another \gls{NN} that minimizes the copula loss function defined in \Cref{sec:NeuralCopulaLoss}. 
 
@@ -1337,24 +1343,24 @@ First the data is normalized to lie in the interval between zero and one using m
     This method has a flaw when using it for risk applications. Firstly, in the article they use pure price data for training the model. This could be a problem since one is generally more interested in generating returns than prices in mathematical finance as described in \Cref{sec:MathematicalFinance}. I can acknowledge that one could argue that the copula should be invariant to strictly increasing transformations (this would require pluging copula random numbers into some other distributions that have not been fitted). However, this will cause problems when sampling from the copula. The reason for this is that the sampled data is bounded by the largest and smallest observed values in the training data. This means that the sampled price data will be confined to the interval in the training data, which does not reflect the usual development of price data. As an example, think about a stock at all time high where one wants to generate potential future observations. The simulated prices can only be lower than the current price yielding an unreasonable result. 
     
     To circumvent these problems the copula will be fitted to the log returns of the data rather than the prices. However, it is still not possible to generate more extreme scenarios than those in the training data which is a problem when generating scenarios for risk applications where the true bounds are generally not known. To mitigate this problem the bounds can be set to have a lower and upper bound for the generated data as a scalar multiple of the most extreme observed data in either direction. In this way we can generate new data as we would from any regular distribution. 
-\end{generalinstructions}\todo{Where to place this?}
+\end{generalinstructions}
 
 
-\textbf{Sampling}
+\textbf{Sampling}\\
 To sample from the \gls{NC} we first sample the copula model using acceptance rejection sampling as described in \Cref{sec:AcceptanceRejection}. This can be done since the copula is essentially a distribution which we can find the density function of. Sampling the copula yields data points in probability space. 
 
 To get a sample from the joint distribution, in the space where the data was observed, we need to transform the sampled data points to the marginal distributions. Here there are different alternatives of how to sample. Either one can sample from the fitted marginal models or one can sample from any other probability distribution. In either case the sampled data in probability space is transformed using the inverse of the fitted marginal \gls{CDF}, using the \gls{ITM} described in \Cref{def:InverseTransformMethod}. The resulting data points should be a sample from the joint distribution if the copula and the marginals are fitted sufficiently well. 
 
-\begin{generalinstructions}
+\begin{remark}
      To make the sampling from the marginal \gls{CDF} more efficient, polynomial fitting was tried. This did not work well as Runges phenomenon made the interpolating line very squiggly which is not desired. An alternative that has not been tested in this thesis is to interpolate a set of solved points using spline functions. This would be a good alternative since it would not suffer from the same problems as polynomial fitting, now the bisection algorithm is used to solve for points on the inverse \gls{CDF}.   
-\end{generalinstructions}\todo{Should i have this?}
+\end{remark}
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% Goodness of fit measures
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Goodness of fit measure}\label{sec:GoodnessOfFit}
+\subsection{Goodness of Fit Measure}\label{sec:GoodnessOfFit}
 This section describes how to measure how similar two datasets are. This is done using the Wasserstein distance. This can be thought of as the distance we would need to move one distribution to match another. It is often described as moving a pile of dirt from one place to another where the pile represents the \gls{PDF}. The distance is the minimum cost of moving the dirt. The cost is defined as the distance moved times the amount of dirt moved. If thinking about the dirt in terms of individual grains of sand we can think of the cost as the average distance a grain of sand has to be moved for one pile to become identical to another pile. To solve this problem one needs to have the same amount of grains in each pile and therefore the two distributions need to be of the same size. The task of finding the combination of grains that minimizes the average distance of the dirt moved is highly complex and unfeasible for large datasets. Therefore a method of approximating this is needed. 
 
 The distance approximation used is defined as 

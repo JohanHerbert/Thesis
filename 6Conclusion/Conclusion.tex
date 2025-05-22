@@ -1,4 +1,6 @@
-\subsection{Summary}
+This section summarizes the thesis in \Cref{sec:summary} and suggests future research directions in \Cref{sec:future}.
+
+\subsection{Summary}\label{sec:summary}
 This thesis has investigated the performance of different copula models for modeling the joint distribution of financial time series. The primary focus was on evaluating a recently proposed method by \citet[postnote]{ZengWang2022} that estimates copula functions using \gls{NN}s. This method involves formulating the \gls{NN}s loss function to both maximize the log-likelihood of the copula given the observed data and penalize violations of copula properties, thereby enforcing valid copula behavior.
 
 Three experiments were conducted. The first experiment assessed the \gls{NN}-based approach to estimating univariate marginal distributions by comparing them to known theoretical distributions. The second experiment involved a form of cross-validation to tune the hyperparameters of \gls{NC} model, identifying those that minimized the loss function across several datasets. The third experiment compared the performance of the \gls{NC} model with that of traditional copula models by generating data from known copulas and evaluating how well each method could replicate the data-generating process. 
@@ -13,16 +15,10 @@ These experiments were designed to answer the following research questions:
 
 The results showed that the \gls{NC}s marginal models closely matched the theoretical distributions, suggesting their adequacy (\textbf{RQ1}). A set of optimal hyperparameters was found that minimized the loss across datasets, providing guidance for stable training (\textbf{RQ2}). However, the \gls{NC} model did not outperform traditional copula methods in modeling dependence structures under the conditions tested (\textbf{RQ3}).
 
-This thesis aimed to enhance the understanding of practical methods for modeling dependence between financial asset returns. Specifically, it explored the use of neural copulas for this task. An alternative method for estimating marginal distributions in the \gls{NC} model was proposed and tested. A practical sampling procedure was developed, and the performance of the \gls{NC} was systematically compared to traditional methods to assess its strengths and limitations. All intended contribution areas were addressed through carefully designed experiments.
+This focused on enhancing the understanding of practical methods for modeling dependence between financial asset returns. Specifically, it explored the use of neural copulas for this task. An alternative method for estimating marginal distributions in the \gls{NC} model was proposed and tested. A practical sampling procedure was developed, and the performance of the \gls{NC} was systematically compared to traditional methods to assess its strengths and limitations. All intended contribution areas were addressed through carefully designed experiments.
 
-\subsection{Personal Reflections}
-This thesis has been both an academically enriching and personally enjoyable experience. It offered the opportunity to engage deeply with several areas of mathematical statistics, integrating concepts that were previously encountered only in isolation.
 
-Particularly rewarding was the exploration of multivariate distribution theory and the construction of these distributions using copulas. Delving into random number generation, especially for copula-based sampling, was intellectually challenging and greatly deepened my understanding of the topic. Working through traditional copula fitting techniques also clarified many aspects of maximum likelihood estimation.
-
-The theoretical result that \gls{NN}s can approximate almost any function was eye-opening and highlighted their potential in flexible statistical modeling. Additionally, developing a method for comparing empirical distributions sparked new ideas for estimating or evaluating copulas in practical contexts.
-
-\subsection{Future Research}
+\subsection{Future Research}\label{sec:future}
 Several avenues for future research became apparent over the course of this thesis. First, regarding the \gls{NC} model specifically, further study of the proposed scaling procedure for the marginal models could support its use in stress testing, particularly when modeling extreme scenarios. Addressing the numerical instability of the \gls{NC} would also be valuable, as would continued refinement of the sampling procedure. One potential improvement is to extend the loss function to penalize undesired behavior in the learned copula density.
 
 Beyond neural copulas, future research could investigate the use of copulas in modeling dynamic volatility structures. This might involve studying dependence between returns and volatility or assessing whether devolatizing returns before modeling changes the performance of copula-based models. Such research could clarify the applicability of copulas in more complex, realistic financial environments.
