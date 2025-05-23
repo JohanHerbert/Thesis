@@ -193,7 +193,7 @@ The \gls{GBM} is a stochastic process used to model the evolution of stock price
     dS_t &= \mu S_t \,dt + \sigma S_t \,dW_t, \\
     S_0 &= s_0 \in \mathbb{R},
 \end{align*}
-where $S_t$ is the stock price at time $t$, $\mu \in \mathbb{R}$ is the drift, $\sigma \in \mathbb{R}_+$ is the volatility, and $W_t$ is a Wiener process \citet[p.~67]{Bjork2019Edition4}.\todo{Find page where GBM is defined}
+where $S_t$ is the stock price at time $t$, $\mu \in \mathbb{R}$ is the drift, $\sigma \in \mathbb{R}_+$ is the volatility, and $W_t$ is a Wiener process, as defined by \citet[p.~68]{Bjork2019Edition4}.
 
 The \gls{GBM} has an explicit solution
 \begin{align*}
@@ -215,7 +215,7 @@ the Euler-Maruyama scheme is defined as follows. Let $\hat{S}$ denote the approx
 \begin{align*}
     \hat{S}(t_{i+1}) = \hat{S}(t_i) + a(\hat{S}(t_i)) \Delta t + b(\hat{S}(t_i)) \sqrt{\Delta t} Z_{i+1},
 \end{align*}
-where $\Delta t = t_{i+1} - t_i$ and $Z_{i+1}$ is a standard normal random variable. The functions $a$ and $b$ represent the drift and diffusion terms, respectively \citep[pp.~339--340]{glasserman2004monte}.
+where $\Delta t = t_{i+1} - t_i$ and $Z_{i+1}$ is a standard normal random variable. The functions $a$ and $b$ represent the drift and diffusion terms, respectively, as stated by \citet[pp.~339--340]{glasserman2004monte}.
 
 To simulate a stock trajectory governed by a \gls{GBM}, we set $a(S_t) = \mu S_t$ and $b(S_t) = \sigma S_t$. The resulting scheme becomes
 \begin{align*}
@@ -227,7 +227,7 @@ To simulate a pair of dependent stock trajectories, we can use a system of \gls{
 \begin{align*}
     dS_t^d = \mu S_t^d \,dt + \sigma S_t^d \,dW_t^d, \quad d = 1, 2,
 \end{align*}
-where $W_t^1$ and $W_t^2$ are standard one-dimensional Wiener processes with correlation $\rho$ \citep[p.~104]{glasserman2004monte}.
+where $W_t^1$ and $W_t^2$ are standard one-dimensional Wiener processes with correlation $\rho$, as described by \citet[p.~104]{glasserman2004monte}.
 
 More generally, dependency structures beyond simple correlation can be introduced by using a copula (see \Cref{sec:CopulaTheory}) to generate dependent Wiener processes.
 
@@ -239,9 +239,9 @@ In financial applications, one is often interested in how changes in asset price
 \subsubsection{Monte Carlo Methods} \label{sec:MonteCarlo}
 In many scientific fields, relationships between variables can be described by deterministic functions linking input and output variables. However, in some cases, the input parameters themselves are random. In such situations, \gls{MC} methods can be particularly useful.
 
-\gls{MC} simulation is a technique for modeling events that involve some source of uncertainty. In \gls{MC} methods, a probability distribution is specified for each random input. Random samples are then drawn from these distributions and used as inputs to a deterministic model. This process is repeated many times to produce a range of possible outcomes. The final step involves performing statistical analysis on the simulated outputs—for example, computing the mean, standard deviation, or percentiles \citep[pp.~91--92]{Raychaudhuri2008}.
+\gls{MC} simulation is a technique for modeling events that involve some source of uncertainty. In \gls{MC} methods, a probability distribution is specified for each random input. Random samples are then drawn from these distributions and used as inputs to a deterministic model. This process is repeated many times to produce a range of possible outcomes. The final step involves performing statistical analysis on the simulated outputs—for example, computing the mean, standard deviation, or percentiles, as stated by \citet[pp.~91--92]{Raychaudhuri2008}.
 
-\gls{MC} methods are widely used in finance. One common application is option pricing, where they are used to simulate the future price of an asset under a given model. By running a large number of simulations, a distribution of possible future prices is obtained, from which the expected price or other statistics can be estimated \citep[p.~105]{KellyConall2024CaSf}.
+\gls{MC} methods are widely used in finance. One common application is option pricing, where they are used to simulate the future price of an asset under a given model. By running a large number of simulations, a distribution of possible future prices is obtained, from which the expected price or other statistics can be estimated as described by \citet[p.~105]{KellyConall2024CaSf}.
 
 
 
@@ -619,7 +619,7 @@ First, we need to define what statistical distributions are, beginning with \gls
 One can think of the \gls{CDF} at each point on its domain $\bar{R}$ as the probability of a realization being below that point. Tied to the \gls{CDF} is the \gls{PDF}, which is defined in \Cref{def:PDF1d} as done by \Citet[pp.~160-161]{DevoreBerk2012}.
 
 \begin{definition}\label{def:PDF1d} \textbf{PDF in one dimension} \\
-    Let $X$ be a continuous random variable. Then a \emph{probability distribution} or \gls{PDF} of $X$ is a function $f(x)$ such that for any two numbers $a$ and $b$ with $a \leq  b$,
+    Let $X$ be a random variable. Then a \emph{probability distribution} or \gls{PDF} of $X$ is a function $f(x)$ where $x \in \mathbb{R}$ such that for any two numbers $a$ and $b$ with $a \leq b$,
         \begin{align*}
             P(a \leq X \leq b) = \int_a^bf(x)dx.\\
         \end{align*}
@@ -627,7 +627,7 @@ One can think of the \gls{CDF} at each point on its domain $\bar{R}$ as the prob
 \begin{remark}\label{rem:pdfProperties}
     Note that for a function to be a valid \gls{PDF}, the following conditions must be satisfied: 
     \begin{align*}
-        f(x) \geq 0 \; \mathrm{ for\; all \;} x;\\
+        f(x) \geq 0 \; \mathrm{ for\; all \;} x \in \mathbb{R};\\
         \int_{-\infty}^{\infty}f(x)dx = 1. 
     \end{align*}
     These are implied by \Cref{def:PDF1d} but are explicitly stated here for clarity. 
@@ -659,7 +659,7 @@ One can think of the \gls{CDF} at each point on its domain $\bar{R}$ as the prob
 When dealing with multiple assets the notion of a \gls{CDF} generalizes to a multivariate \gls{CDF}. To define a multivariate \gls{CDF} formally in two dimensions we will need to define the $H$-volume of a function in two dimensions and what the meaning of a function being 2-increasing is. This is done in the same manner as in \Citet[p.~8]{Nelsen2006} in \Cref{def:H-volume} and \Cref{def:2-Increasing}.
 
 \begin{definition}\label{def:H-volume} \textbf{H-Volume} \\
-    Let $u$ and $v$ be nonempty subsets of $\bar{R} = [-\infty, \infty]$, and let $H$ be a two-place real function such that c, and $\D H = u\times v$. Let $B = [u_1,u_2]\times[v_1,v_2]$  be a rectangle all of whose vertices are in $\D H$. Then
+    Let $u$ and $v$ be nonempty subsets of $\bar{R} = [-\infty, \infty]$, let $H$ be a function such that $H:\mathbb{R}\times\mathbb{R}\to \mathbb{R}$, and let $\D H = u\times v$. Let $B = [u_1,u_2]\times[v_1,v_2]$  be a rectangle all of whose vertices are in $\D H$. Then
     the \emph{H-volume} of $B$ is given by
     \begin{align}\label{eq:H-volume}
         V_H(B) = H(u_2,v_2) - H(u_2,v_1) - H(u_1,v_2) + H(u_1,v_1).
@@ -667,7 +667,7 @@ When dealing with multiple assets the notion of a \gls{CDF} generalizes to a mul
 \end{definition}
 
 \begin{definition}\label{def:2-Increasing} \textbf{2-increasing} \\
-     A two-place real function $H:\mathbb{R}\times\mathbb{R}\to \mathbb{R}$ is \emph{2-increasing} if its $H$-volume $V_H(B)\geq0$, for all rectangles $B$ whose vertices lie in $\D H$.
+     A function $H:\mathbb{R}\times\mathbb{R}\to \mathbb{R}$ is \emph{2-increasing} if its $H$-volume $V_H(B)\geq0$, for all rectangles $B$ whose vertices lie in $\D H$.
 \end{definition}
 
 The notion of a 2-increasing function is illustrated in \Cref{fig:2-Increasing} where the surface is a function of two variables, the red dots represent the vertices of the rectangle $B$ in \Cref{def:H-volume}. In the figure, the left picture shows a function that is 2-increasing meaning that it is increasing in both directions. This can be imagined by evaluating \Cref{eq:H-volume} as being larger than zero using the points as vertices of $B$. The right picture illustrates when a function is not 2-increasing as the function is decreasing from $(u_2,v_1)$ to $(u_2,v_2)$. Also, if evaluating \Cref{eq:H-volume} we would find that the $H$-volume is negative, showing that the function is not 2-increasing. This property is needed to define a \gls{CDF} in several dimensions, as done by \Citet[p.~17]{Nelsen2006}, in \Cref{def:JointCDF}. 
@@ -703,7 +703,7 @@ As in the univariate case the function value of the joint \gls{CDF} at any point
 We can also define a \gls{PDF} in two dimensions as done by \Citet[p.~235]{DevoreBerk2012} in \Cref{def:JointPDF}.
 
 \begin{definition}\label{def:JointPDF} \textbf{Joint PDF}\\
-    Let $X$ and $Y$ be continuous random variables. Then $f(x,y)$ where $f:\mathbb{R}\times\mathbb{R}\to \mathbb{R}_+$ is the \emph{joint} \gls{PDF} for $X$ and $Y$ if for any two-dimensional set $A$ 
+    Let $X$ and $Y$ be random variables. Then $f(x,y)$ where $f:\mathbb{R}\times\mathbb{R}\to \mathbb{R}_+$ is the \emph{joint} \gls{PDF} for $X$ and $Y$ if for any two-dimensional set $A$ 
     \begin{align*}
         P[(X,Y) \in A] =  \iint_A f(x,y)dxdy.
     \end{align*}
@@ -719,7 +719,8 @@ We can also define a \gls{PDF} in two dimensions as done by \Citet[p.~235]{Devor
     \begin{align*}
         &f(x,y) \geq 0, \;\mathrm{and} \\
         &\int_{-\infty}^{\infty}\!\int_{-\infty}^{\infty}f(x,y)dxdy=1.
-    \end{align*}    
+    \end{align*}
+    For the purposes of this work, we will be focus on continuous random variables.
 \end{remark}
 
 
@@ -762,7 +763,7 @@ This maps the domain of a continuous one-dimensional random variable through its
 
 The probability integral transform is illustrated in \Cref{fig:PIT} where the red line is a \gls{CDF}, the dotted lines show the path by which three exemplifying data points are being mapped from the real line to probability space. The arrows in the figure illustrate the direction of how the data points are being mapped. We can think of the \gls{PIT} as a method of mapping all observed data points on $\D X$ to probability space.
 
-Deeply connected to the \gls{PIT} is the \gls{ITM}, which is a method of generating random numbers from a given distribution. The method is based on the \gls{PIT} and works as defined by \Citet[p.~54]{glasserman2004monte}.
+Deeply connected to the \gls{PIT} is the \gls{ITM}, which is a method of generating random numbers from a given distribution. The method is based on the \gls{PIT} and works as defined in \Cref{def:InverseTransformMethod}, as done by \Citet[p.~54]{glasserman2004monte}.
 \begin{definition}\label{def:InverseTransformMethod}
     \textbf{Inverse transform method} \\
     The \emph{inverse transform method} is a method of generating random numbers from a given distribution.
@@ -770,8 +771,16 @@ Deeply connected to the \gls{PIT} is the \gls{ITM}, which is a method of generat
         \item Generate random numbers $U \sim \mathrm{Unif}(0,1)$;
         \item Insert the random numbers in the inverse \gls{CDF} of the desired distribution $F$ such that $X = F^{-1}(U)$.
     \end{compactenum}
-    The random variable $X$ will then be distributed according to the desired distribution. That is $P(X\leq x) = F(x)$ for all $x$.
+    The random variable $X$ will then be distributed according to the desired distribution. That is $P(X\leq x) = F(x)$ for all $x$. 
 \end{definition}
+
+\begin{remark}
+    Note that $F^{-1}$ in \Cref{def:InverseTransformMethod} is the inverse of the \gls{CDF} $F$ if $F$ is strictly increasing. If it is not, $F^{-1}$ denotes the quasi inverse of $F$. The quasi inverse is defined as
+    \begin{align*}
+        F^{-1}(u) = \inf\{x : F(x) \geq u\}.
+    \end{align*}
+    In simple terms, this means that if the \gls{CDF} is flat over an interval, the inverse will return the leftmost point of that interval. This is important to note as it can lead to multiple values of $X$ being generated from the same value of $U$.
+\end{remark}
 
 The inverse transform method is illustrated in \Cref{fig:ITM} and can be seen as performing the \gls{PIT} in reverse. In the figure the red line is the inverse \gls{CDF} from which the sample is desired to be. The dotted lines represent the random numbers generated from the uniform distribution. The random numbers are then inserted into the inverse \gls{CDF} to obtain the desired sample.
 
@@ -902,7 +911,6 @@ To explain copulas we will need to define what it means for a function to be gro
 
 \Cref{fig:GroundedAndMargins} illustrates what \Cref{def:grounded} and \Cref{def:margins} means when $S_1$ and $S_2$ are both the $[0,1]$-interval. The blue points show what it means to be grounded as described in \Cref{def:grounded} and the red points show what it means to have margins as defined in \Cref{def:margins}. What this means is that a function over $S_1\times S_2$ being grounded and having margins must have function values equal to the shown points. 
 
-\todo{change the axes}
 \begin{figure}
     \centering
     \includegraphics[width=0.5\linewidth]{3Theory/pictures/CopulaBoundaries.png}
@@ -964,10 +972,10 @@ Sometimes it is more convenient to write the \Cref{eq:Sklar} in terms of the mar
     H(F_1^{-1}(u_1),F_2^{-1}(u_2))=H(x_1,x_2) = C(F_1(x_1), F_2(x_2))= C(u_1, u_2).
 \end{align*}
 
-Another important result for copulas is that they are translation invariant, the meaning of this is presented in \Cref{the:TranslationInvariance}, as done by \citet[p.~25]{Nelsen2006}.
+Another important result for copulas is that they are invariant under strictly increasing transformations, the meaning of this is presented in \Cref{the:TranslationInvariance}, as done by \citet[p.~25]{Nelsen2006}.
 
 \begin{theorem}\label{the:TranslationInvariance}
-        \textbf{Translation Invariance}\\
+        \textbf{Invariance under strictly increasing transformations}\\
         Let $X$ and $Y$ be continuous random variables with copula $C_{X, Y}$. If $\alpha$ and $\beta$ are strictly increasing on $Ran(X)$ and $Ran(Y)$, respectively, then $C_{\alpha(X),\beta(Y)}  = C_{X,Y}$. Thus $C_{X, Y}$ is invariant under strictly increasing transformations of $X$ and $Y$.
 \end{theorem}
 
@@ -998,7 +1006,7 @@ Another important copula is the \emph{independence copula} or product copula cor
     \label{fig:FrechetBounds}
 \end{figure}
 
-We have now discussed what copula functions are and arrived at that copulas are \gls{CDF}s on the unit square. When fitting copulas to data using \gls{MLE} it is often useful to have the copula \gls{PDF}. Deriving the copula \gls{PDF} is not as straightforward as one might initially think. Therefore we will derive the copula \gls{PDF} in the general case. Let $C(u_1,u_2)$ be the cpula \gls{CDF} you want to derive the \gls{PDF} for. The copula \gls{PDF} is defined as the second derivative of the copula \gls{CDF} with respect to $u_1$ and $u_2$.
+We have now discussed what copula functions are and arrived at that copulas are \gls{CDF}s on the unit square. When fitting copulas to data using \gls{MLE} it is often useful to have the copula \gls{PDF}. Deriving the copula \gls{PDF} is not as straightforward as one might initially think. Therefore we will derive the copula \gls{PDF} in the general case. Let $C(u_1,u_2)$ be the copula \gls{CDF} you want to derive the \gls{PDF} for. The copula \gls{PDF} is defined as the second derivative of the copula \gls{CDF} with respect to $u_1$ and $u_2$.
 \begin{align*}
     c(u_1,u_2) =& \frac{\partial^2C(u_1,u_2)}{\partial u_1\partial u_2} = 
     \frac{\partial^2F(F_1^{-1}(u_1),F_2^{-1}(u_2))}{\partial u_1\partial u_2}\\
@@ -1233,9 +1241,9 @@ A marginal distribution is fitted for each dimension of the data using a \gls{NN
 where $\hat{F}_j$ is the estimated marginal \gls{CDF}, $\Omega$ is the entire domain where the data can be, $l_m$ is the number of layers in the network, $\mathbf{w}_m^{k}$ are the weights in the $k$th layer,  $\mathbf{h}_m^{k}$ is the input data in the $k$th layer, and $\mathbf{b}_m^{k}$ is the biases in the $k$th layer \Citet[pp.~5-6]{ZengWang2022}. Note that the weights, biases, and input data are different for each dimension in the data. 
 
 \subsubsection{Marginal Loss Function}\label{sec:NeuralMarginalLoss}
-This section defines the loss function for a marginal model $\hat{F}_j$ as described in \Citet[pp.~7-8]{ZengWang2022}. First, we define the datasets that will be used for calculating the loss function. Let $D_{obs}$ be the set of observed and scaled data points $x_j$ for the $j$-th dimension of the data \todo{dimension, how to write}. Also, let $D_u$ be a set of uniformly distributed data points on the domain $\Omega$ \todo{omega = I = [0,1]} of the data. Let $\hat{f}_j$ denote the \gls{PDF} corresponding to $\hat{F}_j$.
+This section defines the loss function for a marginal model $\hat{F}_j$ as described in \Citet[pp.~7-8]{ZengWang2022}. First, we define the datasets that will be used for calculating the loss function. Let $D_{obs}$ be the set of observed and scaled data points $x_j$ for the $j$-th dimension of the data. Also, let $D_u$ be a set of uniformly distributed data points on the domain $\Omega$ of the data. Let $\hat{f}_j$ denote the \gls{PDF} corresponding to $\hat{F}_j$.
 
-The loss function consists of four parts that are designed to ensure that the network fits the data as well as possible whilst following the requirements of a \gls{CDF}. The first part of the loss function maximizes the log likelihood of the fitted \gls{CDF} to the observed data. Since the network minimizes the loss during training, we need the negative log likelihood as the loss. The first part of the loss is defined as 
+The loss function consists of four parts that are designed to ensure that the network fits the data as well as possible whilst following the requirements of a \gls{CDF}. The first part of the loss function maximizes the log likelihood of the fitted \gls{CDF} to the observed data. Since the network minimizes the loss during training, we need the negative log likelihood as the loss. The first part of the loss is defined as
 \begin{align*}
     L_1^m = \frac{-1}{|D_{obs}|} \sum_{i \in D_{obs}} \log(\hat{f}_j(x_i)).
 \end{align*}
@@ -1270,12 +1278,10 @@ The copula model $\hat{C}$ is defined as
 \end{align*}
 as in \Citet[pp.~6-7]{ZengWang2022}.
 
-\todo{Should i change $u$ and $x$ to bold since vectors? }
-
 \subsubsection{Copula Loss Function}\label{sec:NeuralCopulaLoss}
 Before defining the copula loss function, we need to define the different data sets used to compute the loss. Additionally, we need to define the copula \gls{CDF} and its corresponding copula \gls{PDF}. 
 
-First, we define the datasets. Let $D_{\mathrm{obs}}$ be the observed data points $x \in \Omega_1 \times \Omega_2  = \mathbb{I}^2$. Let $D_{u}$ be uniformly distributed data on $\mathbb{I}^2$. Let $D_{\bar{u}}$ be uniformly distributed points on the upper boundary of the unit square $\mathbb{I}^2$. Let $D_{\underline{u}}$ be a set of points uniformly distributed on the lower boundary of the unit square $\mathbb{I}$. In \Cref{fig:datasetsNC} the datasets used to train the \gls{NC} are visualized. The blue data points are uniformly distributed over the upper boundaries of the region where one variable is one. The grey points are uniformly distributed on the lower boundaries of the region where one of the variables is zero. The red data points are the observed data in probability space. The black data points are uniformly distributed over the interval. 
+First, we define the datasets. Let $D_{\mathrm{obs}}$ be the observed data points $u \in \Omega_1 \times \Omega_2  = \mathbb{I}^2$. Let $D_{u}$ be uniformly distributed data on $\mathbb{I}^2$. Let $D_{\bar{u}}$ be uniformly distributed points on the upper boundary of the unit square $\mathbb{I}^2$. Let $D_{\underline{u}}$ be a set of points uniformly distributed on the lower boundary of the unit square $\mathbb{I}$. In \Cref{fig:datasetsNC} the datasets used to train the \gls{NC} are visualized. The blue data points are uniformly distributed over the upper boundaries of the region where one variable is one. The grey points are uniformly distributed on the lower boundaries of the region where one of the variables is zero. The red data points are the observed data in probability space. The black data points are uniformly distributed over the interval. 
 
 \begin{figure}
     \centering
@@ -1338,13 +1344,6 @@ where $\lambda_i$ is the weight assigned to each part loss term.
 \textbf{Fitting}\\
 In the neural copula article the fitting procedure is as follows: by \Citet[p.~4]{ZengWang2022}
 First the data is normalized to lie in the interval between zero and one using min-max normalization. The normalized data is then used to fit the \gls{NC} to data by first fitting marginal distributions to each dimension of the data. This is done by training \gls{NN}s that minimize the marginal loss function defined in \Cref{sec:NeuralMarginalLoss} for each dimension. The copula is fitted by training another \gls{NN} that minimizes the copula loss function defined in \Cref{sec:NeuralCopulaLoss}. 
-
-\begin{generalinstructions}
-    This method has a flaw when using it for risk applications. Firstly, in the article they use pure price data for training the model. This could be a problem since one is generally more interested in generating returns than prices in mathematical finance as described in \Cref{sec:MathematicalFinance}. I can acknowledge that one could argue that the copula should be invariant to strictly increasing transformations (this would require pluging copula random numbers into some other distributions that have not been fitted). However, this will cause problems when sampling from the copula. The reason for this is that the sampled data is bounded by the largest and smallest observed values in the training data. This means that the sampled price data will be confined to the interval in the training data, which does not reflect the usual development of price data. As an example, think about a stock at all time high where one wants to generate potential future observations. The simulated prices can only be lower than the current price yielding an unreasonable result. 
-    
-    To circumvent these problems the copula will be fitted to the log returns of the data rather than the prices. However, it is still not possible to generate more extreme scenarios than those in the training data which is a problem when generating scenarios for risk applications where the true bounds are generally not known. To mitigate this problem the bounds can be set to have a lower and upper bound for the generated data as a scalar multiple of the most extreme observed data in either direction. In this way we can generate new data as we would from any regular distribution. 
-\end{generalinstructions}
-
 
 \textbf{Sampling}\\
 To sample from the \gls{NC} we first sample the copula model using acceptance rejection sampling as described in \Cref{sec:AcceptanceRejection}. This can be done since the copula is essentially a distribution which we can find the density function of. Sampling the copula yields data points in probability space. 

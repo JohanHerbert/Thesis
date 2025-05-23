@@ -225,9 +225,16 @@ The resulting datasets are visualized in \Cref{fig:DatasetsUsed}, which shows bo
 \subsubsection{Model Fitting}
 The log returns from the fitting portion of each dataset are first standardized to zero mean and unit variance. These normalized returns are then used to estimate the copula parameters. Fitting procedures follow the methods outlined in \Cref{sec:GaussianCopula} for the Gaussian copula, \Cref{sec:StudentsCopula} for the Student's $t$ copula, \Cref{sec:ClaytonCopula} for the Clayton copula, and \Cref{sec:NeuralCopulaFittingAndSampling} for the \gls{NC}.
 
+\begin{remark}
+    \textbf{Note on Copula Fitting Method}\\
+    The method in \Citet[postnote]{ZengWang2022} has flaws when using it for risk applications. Firstly, in the article they use pure price data for fitting the marginal models. This could be a problem since one is generally more interested in generating returns than prices in mathematical finance as described in \Cref{sec:MathematicalFinance}. I can acknowledge that one could argue that the copula should be invariant to strictly increasing transformations. However, this will cause problems when sampling from the copula. The reason for this is that the data sampled from the marginal distribution is bounded by the largest and smallest observed values in the training data. This means that the sampled price data will be confined to the interval in the training data, which does not reflect the usual development of price data. As an example, think about a stock at all time high where one wants to generate potential future observations. The simulated prices can only be lower than the current price yielding an unreasonable result. 
+    
+    To circumvent these problems, the \gls{NC} will be fitted to the log returns of the data rather than the prices. Just doing that is not enough however, it is still not possible to generate more extreme scenarios than those in the training data which is a problem when generating scenarios for risk applications where the true bounds are generally not known. To mitigate this problem the bounds can be set to have a lower and upper bound for the generated data as a scalar multiple of the most extreme observed data in either direction. In this way we can generate new data as we would from any regular distribution. Using this method we can control the possible interval of the generated data, allowing it to be more extreme than the training data. 
+\end{remark}
+
 
 \subsubsection{Model Sampling}
-A key use case for copulas is generating dependent samples for Monte Carlo simulations \citep[p.~40]{Nelsen2006}. Once fitted, each copula is used to sample new data in probability space. These samples are then mapped through the inverse normal CDF and scaled to match the empirical standard deviation of the original (fitting) data.
+A key use case for copulas is generating dependent samples for Monte Carlo simulations as described by \citet[p.~40]{Nelsen2006}. Once fitted, each copula is used to sample new data in probability space. These samples are then mapped through the inverse normal CDF and scaled to match the empirical standard deviation of the original (fitting) data.
 
 The neural copula, unlike the others, incorporates inverse marginal models directly and does not rely on the inverse normal transformation. If the copula accurately captures the dependence structure, the resulting synthetic data should closely resemble the testing dataset.
 

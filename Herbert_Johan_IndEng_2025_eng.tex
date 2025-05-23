@@ -225,7 +225,7 @@ abstracton=true
         \Huge
         \bfseries 
         \sffamily
-        Johans Thesis
+        Neural vs. Classical Copulas
     }\\[1em]
     {%
         \color{white}
@@ -233,7 +233,7 @@ abstracton=true
         \Large
         \bfseries 
         \sffamily
-        Subtitle of Thesis
+        Monte Carlo Simulation for Modeling Financial Dependence Structures
     }%
 \end{center}
 \renewcommand{\thefootnote}{\fnsymbol{footnote}}
@@ -256,7 +256,7 @@ abstracton=true
 \begin{center}
     \color{white}
     \large
-    Examination Date: \today
+    Examination Date: June 3, 2025 %\today
 \end{center}
 \vfill
 \begin{center}
@@ -282,6 +282,8 @@ abstracton=true
     % This thesis investigates the use of copulas for modeling dependency structures between financial asset returns, with a specific focus on a recently introduced method known as the \gls{NC}. The work is carried out in collaboration with Vermiculus Financial Technology and aims to enhance risk modeling in clearing systems. Traditional copulas are compared to the \gls{NC} in terms of performance, adaptability, and applicability to different dependency structures. The study involves the development of an alternative method for fitting marginal distributions and a practical sampling approach for the \gls{NC}. Simulated data is used to evaluate the methods under controlled conditions. The results show that the \gls{NC} cannot provide competitive performance compared to other copulas in capturing complex dependencies. This work contributes to the understanding of when and how to use neural copulas in financial risk modeling.
 
     This thesis explores the use of neural networks for estimating copula functions, with the goal of modeling the joint distribution of financial time series. Specifically, it evaluates a recently proposed neural copula (NC) approach that incorporates copula properties directly into the neural network's loss function. Three experiments were conducted to assess the model’s performance. The first confirmed the adequacy of the NC's marginal distribution modeling. The second identified optimal hyperparameters for stable training of the NC. The third compared the NC to traditional copula methods using synthetic data, showing that the NC did not outperform classical methods in the tested scenarios. Contributions of this work include a practical sampling method for the NC, an investigation of alternative marginal fitting techniques, and a critical comparison across copula models. The thesis concludes with reflections on the limitations and learning outcomes, and proposes several directions for future research, such as improving numerical stability, extending the NC to high-dimensional settings, and integrating copulas into dynamic volatility models.
+
+    \textbf{Keywords:} \textit{Copulas, Neural Networks, Financial Modeling, Financial Time Series, Dependence Modeling, Monte Carlo Simulation, Distribution Fitting, Random Number Generation.}
 \end{abstract}
 
 \newpage
@@ -316,7 +318,7 @@ Stockholm, Sweden\\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Glossaries & Table of Contents
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \printglossary
+\printglossary
 \clearpage
 \newpage
 {\hypersetup{linkcolor=black}
@@ -329,7 +331,6 @@ Stockholm, Sweden\\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Introduction
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 
 \section{Introduction}\label{sec:Introduction}
 \input{1Introduction/Introduction}
