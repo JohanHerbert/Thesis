@@ -229,7 +229,7 @@ To simulate a pair of dependent stock trajectories, we can use a system of \gls{
 \end{align*}
 where $W_t^1$ and $W_t^2$ are standard one-dimensional Wiener processes with correlation $\rho$, as described by \citet[p.~104]{glasserman2004monte}.
 
-More generally, dependency structures beyond simple correlation can be introduced by using a copula (see \Cref{sec:CopulaTheory}) to generate dependent Wiener processes.
+More generally, dependence structures beyond simple correlation can be introduced by using a copula (see \Cref{sec:CopulaTheory}) to generate dependent Wiener processes.
 
 In financial applications, one is often interested in how changes in asset prices affect the value of financial instruments and associated risk metrics. A widely used method is to simulate future asset prices and compute how the instrument's value or risk metric responds. This enables the calculation of risk measures such as \gls{VaR} and \gls{ES}, as well as pricing financial instruments such as options. This approach is commonly referred to as Monte Carlo simulation.
 
@@ -1109,7 +1109,7 @@ The following examples are to illustrate how correlation can fail to capture the
 
     In \Cref{fig:ExamplePlots} some illustrations of \Cref{ex:CorrelationUnderestimates} are shown. The true copula \gls{CDF} surface is shown in \Cref{fig:TrueCopulaExponential} this can be compared to the copula function surface estimated using correlation in \Cref{fig:CorrelationEstimationExponential}. These two pictures show how the estimated copula is not capturing the true copula reflecting maximum dependence. 
     %\Cref{fig:exponentialDependenceScatterProb} shows the scatter plot of the data in the probability space illustrating what maximum dependence looks like in probability space. 
-    \Cref{fig:exponentialDependenceScatterRet} shows the scatter plot of $X$ against $e^X$ in return space. This illustrates that the correlation estimate is insufficient as a dependency measure. This is because correlation fits a straight line to a nonlinear curve in this case. 
+    \Cref{fig:exponentialDependenceScatterRet} shows the scatter plot of $X$ against $e^X$ in return space. This illustrates that the correlation estimate is insufficient as a dependence measure. This is because correlation fits a straight line to a nonlinear curve in this case. 
     
     % \begin{generalinstructions}
     %     Would be nice to tie this to something in finance. Such as the relationship between stocks returns and derivative prices.

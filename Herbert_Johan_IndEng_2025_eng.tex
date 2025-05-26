@@ -233,7 +233,7 @@ abstracton=true
         \Large
         \bfseries 
         \sffamily
-        Monte Carlo Simulation for Modeling Financial Dependence Structures
+        Integrating Financial Dependence into Monte Carlo Simulation
     }%
 \end{center}
 \renewcommand{\thefootnote}{\fnsymbol{footnote}}
@@ -283,7 +283,7 @@ abstracton=true
 
     This thesis explores the use of neural networks for estimating copula functions, with the goal of modeling the joint distribution of financial time series. Specifically, it evaluates a recently proposed neural copula (NC) approach that incorporates copula properties directly into the neural network's loss function. Three experiments were conducted to assess the model’s performance. The first confirmed the adequacy of the NC's marginal distribution modeling. The second identified optimal hyperparameters for stable training of the NC. The third compared the NC to traditional copula methods using synthetic data, showing that the NC did not outperform classical methods in the tested scenarios. Contributions of this work include a practical sampling method for the NC, an investigation of alternative marginal fitting techniques, and a critical comparison across copula models. The thesis concludes with reflections on the limitations and learning outcomes, and proposes several directions for future research, such as improving numerical stability, extending the NC to high-dimensional settings, and integrating copulas into dynamic volatility models.
 
-    \textbf{Keywords:} \textit{Copulas, Neural Networks, Financial Modeling, Financial Time Series, Dependence Modeling, Monte Carlo Simulation, Distribution Fitting, Random Number Generation.}
+    \textbf{Keywords:} \textit{Copulas, Neural Networks, Financial Modeling, Financial Time Series,\\ Dependence Modeling, Monte Carlo Simulation, Distribution Fitting, Random Number Generation.}
 \end{abstract}
 
 \newpage
@@ -541,7 +541,7 @@ To sample from a Clayton copula we can use conditional sampling as described in 
     This is the upper copula given by the upper Fréchet-Hoeffding bound, which is the copula corresponding to maximum dependence. Hence, correlation underestimates the true dependence between the random variables given that maximum dependence under the correlation framework is one. This underestimation of the correlation is because of the assumption of a normal or students $t$ distribution which is violated with the lognormal variable in the example. This shows how copulas can capture dependence when correlation fails.
 
     In \Cref{fig:ExamplePlots} some illustrations of the example are shown. The the true copula \gls{CDF} is shown in \Cref{fig:TrueCopulaExponential} this can be compared to the estimated copula using correlation in \Cref{fig:CorrelationEstimationExponential}. %\Cref{fig:exponentialDependenceScatterProb} shows the scatter plot of the data in the probability space illustating what maximum dependence looks like in probability space. 
-    \Cref{fig:exponentialDependenceScatterRet} shows the scatter plot of the data in the return space. This illustrates why correlation is insufficient as a dependency measure when the underlying dependence is non-linear. 
+    \Cref{fig:exponentialDependenceScatterRet} shows the scatter plot of the data in the return space. This illustrates why correlation is insufficient as a dependence measure when the underlying dependence is non-linear. 
     
     % \begin{generalinstructions}
     %     Would be nice to tie this to something in finance. Such as the relationship between stocks returns and derivative prices.
